@@ -167,6 +167,8 @@ img { max-width: 100%; display: block; }
 }
 .btn.primary { background: var(--river); color: #fff; border-color: var(--river); }
 
+.map-export { width: 100%; justify-content: center; margin-top: 14px; padding: 14px; font-size: 14px; }
+
 /* ---------- Long-form (history / commute) ---------- */
 .prose { background: var(--card); border: 1px solid var(--line); border-radius: var(--r); box-shadow: var(--shadow); padding: 16px 16px; margin-bottom: 12px; }
 .prose h3 { font-family: var(--serif); font-size: 18px; margin: 0 0 6px; }

@@ -126,6 +126,12 @@
       grid.appendChild(t);
     });
     v.appendChild(grid);
+
+    const mapBtn = el('button', 'btn primary map-export', '🗺 Add all places to my Google Maps');
+    mapBtn.type = 'button';
+    mapBtn.addEventListener('click', openMapExport);
+    v.appendChild(mapBtn);
+
     if (DATA.meta && DATA.meta.about) {
       v.appendChild(el('div', 'callout', `<b>About this guide.</b> ${esc(DATA.meta.about)}`));
     }
@@ -298,6 +304,72 @@
       v.appendChild(wrap);
     }
     return v;
+  }
+
+  // ---- Google My Maps export (KML) ----------------------------
+  function placesWithCoords() {
+    const cats = [
+      ['eat', '🍽 Eat & drink'], ['arts', '🎨 Arts & culture'], ['kids', '🧒 For kids'],
+      ['shopping', '🛍 Shopping'], ['movies', '🎬 Movies'], ['spectrum', '🧩 Spectrum services'],
+      ['history', '🏛 History']
+    ];
+    return cats
+      .map(([k, label]) => ({ label, items: (DATA[k] || []).filter((p) => p.lat != null && p.lon != null) }))
+      .filter((f) => f.items.length);
+  }
+  function kmlSafe(s) { return String(s == null ? '' : s).replace(/]]>/g, ']] >'); }
+  function buildKml() {
+    const folders = placesWithCoords().map((f) => {
+      const marks = f.items.map((p) => {
+        const desc = [
+          p.blurb,
+          p.signature ? 'Don’t miss: ' + p.signature : '',
+          p.texture ? 'Local note: ' + p.texture : '',
+          p.address || '',
+          p.hours ? 'Hours: ' + p.hours : '',
+          p._mi != null ? fmtMi(p._mi) + ' from home' : '',
+          (p.tags || []).join(', ')
+        ].filter(Boolean).join('\n\n');
+        return '<Placemark><name>' + kmlSafe(p.name) + '</name>' +
+          '<description><![CDATA[' + kmlSafe(desc) + ']]></description>' +
+          '<Point><coordinates>' + p.lon + ',' + p.lat + ',0</coordinates></Point></Placemark>';
+      }).join('');
+      return '<Folder><name>' + kmlSafe(f.label) + '</name>' + marks + '</Folder>';
+    }).join('');
+    return '<?xml version="1.0" encoding="UTF-8"?>\n' +
+      '<kml xmlns="http://www.opengis.net/kml/2.2"><Document>' +
+      '<name>Highlands — Cornwall-on-Hudson guide</name>' + folders +
+      '</Document></kml>';
+  }
+  function downloadKml() {
+    // distances need to be attached for the description text
+    const blob = new Blob([buildKml()], { type: 'application/vnd.google-earth.kml+xml' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = 'highlands-places.kml';
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 3000);
+  }
+  function openMapExport() {
+    // make sure _mi is populated on every place for the export descriptions
+    ['eat', 'arts', 'kids', 'shopping', 'movies', 'spectrum', 'history'].forEach((k) =>
+      (DATA[k] || []).forEach((p) => { if (p._mi == null) p._mi = miles(p.lat, p.lon); }));
+    const n = placesWithCoords().reduce((s, f) => s + f.items.length, 0);
+    const sheet = $('#sheet');
+    sheet.innerHTML = `
+      <div class="grab"></div>
+      <h2>Add these places to Google Maps</h2>
+      <div class="s-meta">${n} spots across every category, grouped into folders, as one custom map.</div>
+      <div class="s-sec"><h4>How it works</h4><p>Google doesn’t let apps drop pins straight into your saved lists, so this exports a file you import once into Google My Maps. After that the map lives in your Google account and shows up under “Saved → Maps” in the Google Maps app.</p></div>
+      <div class="s-sec"><h4>Three steps</h4><p>1&nbsp;· Tap <b>Download the map file</b>.<br>2&nbsp;· Tap <b>Open Google My Maps</b>, sign in, and choose <b>Create a new map</b>.<br>3&nbsp;· Click <b>Import</b>, pick <b>highlands-places.kml</b> — the pins load in folders by category.</p></div>
+      <div class="s-sec"><p style="color:var(--ink-soft);font-size:12.5px">Tip: the import is easiest on a computer, but works on the phone too.</p></div>
+      <div class="s-actions">
+        <button class="btn primary" id="dlKml">⬇️ Download the map file</button>
+        <a class="btn" href="https://www.google.com/maps/d/" target="_blank" rel="noopener">🗺 Open Google My Maps</a>
+      </div>`;
+    $('#sheetBackdrop').classList.add('open');
+    sheet.classList.add('open');
+    $('#dlKml').addEventListener('click', downloadKml);
   }
 
   // ---- detail sheet -------------------------------------------
