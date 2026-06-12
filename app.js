@@ -27,9 +27,15 @@
     return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   }
   const fmtMi = (m) => m == null ? '' : (m < 1 ? (Math.round(m * 10) / 10) : Math.round(m)) + ' mi';
+  // Google Maps directions (turn-by-turn from the user's current location).
+  // Prefer the place name + address/coords as the destination label so Maps
+  // shows the name, not raw lat/lon.
   function mapsUrl(p) {
-    const q = p.address ? p.address : (p.name + ', ' + (p.town || '') + ', NY');
-    return 'https://maps.apple.com/?q=' + encodeURIComponent(q);
+    let dest;
+    if (p.address) dest = p.name + ', ' + p.address;
+    else if (p.lat != null && p.lon != null) dest = p.lat + ',' + p.lon;
+    else dest = p.name + ', ' + (p.town || '') + ', NY';
+    return 'https://www.google.com/maps/dir/?api=1&destination=' + encodeURIComponent(dest);
   }
 
   // Attach computed distance, sort helper
