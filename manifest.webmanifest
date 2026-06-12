@@ -1,0 +1,17 @@
+{
+  "name": "Highlands — A Cornwall-on-Hudson Guide",
+  "short_name": "Highlands",
+  "description": "A hyperlocal guide to the Hudson Highlands and lower Hudson Valley, centered on Cornwall-on-Hudson.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0f1f2e",
+  "theme_color": "#0f1f2e",
+  "categories": ["travel", "lifestyle", "navigation"],
+  "icons": [
+    { "src": "./icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "./icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "./icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

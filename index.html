@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1" />
+  <meta name="theme-color" content="#0f1f2e" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Highlands" />
+  <meta name="description" content="A hyperlocal guide to the Hudson Highlands and lower Hudson Valley, centered on Cornwall-on-Hudson." />
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="./icons/icon-192.png" />
+  <link rel="stylesheet" href="./styles.css" />
+  <title>Highlands — A Cornwall-on-Hudson Guide</title>
+</head>
+<body>
+  <div id="app">
+    <header class="appbar">
+      <div class="appbar-row">
+        <div class="mark" aria-hidden="true"></div>
+        <div>
+          <h1>Highlands</h1>
+          <div class="sub">Cornwall-on-Hudson &amp; the river</div>
+        </div>
+        <button class="home-btn" id="homeBtn" aria-label="Home">⌂</button>
+      </div>
+    </header>
+
+    <div class="searchwrap" id="searchwrap" hidden>
+      <div class="search">
+        <span class="ic">⌕</span>
+        <input id="search" type="search" placeholder="Search places, towns, dishes…" autocomplete="off" />
+      </div>
+    </div>
+
+    <!-- Views are injected by app.js -->
+    <main id="views"></main>
+  </div>
+
+  <nav class="tabbar" id="tabbar"></nav>
+
+  <div class="sheet-backdrop" id="sheetBackdrop"></div>
+  <div class="sheet" id="sheet" role="dialog" aria-modal="true"></div>
+
+  <script src="./data.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
