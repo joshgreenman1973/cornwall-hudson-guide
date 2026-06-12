@@ -126,6 +126,7 @@ img { max-width: 100%; display: block; }
 .t-evt  { background: linear-gradient(150deg,#2f5d4a,#4e8a6e); }
 .t-comm { background: linear-gradient(150deg,#26465c,#3f6f8f); }
 .t-spec { background: linear-gradient(150deg,#6a5536,#9a7c4a); }
+.t-cur  { background: linear-gradient(150deg,#155e63,#3a9aa0); }
 
 /* ---------- Filter chips ---------- */
 .chips { display: flex; gap: 8px; overflow-x: auto; padding: 10px 2px 12px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }

@@ -54,7 +54,8 @@
     movies: { label: 'Movies',         emoji: '🎬', cls: 't-mov',  key: 'movies' },
     events: { label: 'Events',         emoji: '📅', cls: 't-evt',  key: 'events' },
     commute:{ label: 'Commute to NYC', emoji: '🚆', cls: 't-comm', key: 'commute' },
-    spectrum:{label: 'Spectrum services', emoji: '🧩', cls: 't-spec', key: 'spectrum' }
+    spectrum:{label: 'Spectrum services', emoji: '🧩', cls: 't-spec', key: 'spectrum' },
+    curiosities:{ label: 'Curiosities', emoji: '🧭', cls: 't-cur', key: 'curiosities' }
   };
 
   // ---- state ---------------------------------------------------
@@ -110,7 +111,8 @@
     const grid = el('div', 'grid');
     const order = [
       ['eat', false], ['arts', false], ['kids', false], ['shopping', false],
-      ['history', false], ['movies', false], ['events', true], ['commute', true], ['spectrum', true]
+      ['history', false], ['movies', false], ['curiosities', false], ['events', false],
+      ['commute', true], ['spectrum', true]
     ];
     order.forEach(([k, span]) => {
       const c = CATS[k];
@@ -310,8 +312,8 @@
   function placesWithCoords() {
     const cats = [
       ['eat', '🍽 Eat & drink'], ['arts', '🎨 Arts & culture'], ['kids', '🧒 For kids'],
-      ['shopping', '🛍 Shopping'], ['movies', '🎬 Movies'], ['spectrum', '🧩 Spectrum services'],
-      ['history', '🏛 History']
+      ['shopping', '🛍 Shopping'], ['movies', '🎬 Movies'], ['curiosities', '🧭 Curiosities'],
+      ['spectrum', '🧩 Spectrum services'], ['history', '🏛 History']
     ];
     return cats
       .map(([k, label]) => ({ label, items: (DATA[k] || []).filter((p) => p.lat != null && p.lon != null) }))
@@ -352,7 +354,7 @@
   }
   function openMapExport() {
     // make sure _mi is populated on every place for the export descriptions
-    ['eat', 'arts', 'kids', 'shopping', 'movies', 'spectrum', 'history'].forEach((k) =>
+    ['eat', 'arts', 'kids', 'shopping', 'movies', 'curiosities', 'spectrum', 'history'].forEach((k) =>
       (DATA[k] || []).forEach((p) => { if (p._mi == null) p._mi = miles(p.lat, p.lon); }));
     const n = placesWithCoords().reduce((s, f) => s + f.items.length, 0);
     const sheet = $('#sheet');

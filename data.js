@@ -15,7 +15,8 @@ window.DATA = {
     kids: "Sorted by distance from home. The nature museum's village campus is practically walkable.",
     shopping: "Yarn, books and toys first — then where to actually buy groceries.",
     movies: "The art-house and the drive-ins. Note: Newburgh's Downing Film Center closed in 2023.",
-    spectrum: "Start with the OPWDD Front Door for eligibility, then services flow from there. Call ahead — programs and ABA availability change; confirm before relying on any listing."
+    spectrum: "Start with the OPWDD Front Door for eligibility, then services flow from there. Call ahead — programs and ABA availability change; confirm before relying on any listing.",
+    curiosities: "The Atlas Obscura layer — ruins in the woods, roadside oddities, hand-built castles and a few superlatives. Closest first; some need a hike or a seasonal tour."
   },
 
   /* ---------------- ARTS & CULTURE ---------------- */
@@ -519,6 +520,103 @@ window.DATA = {
       blurb: "The Committee on Special Education / Preschool Special Education is the statutory route to an IEP and in-school OT, speech and PT.",
       texture: "Contact the district's Pupil Personnel Services office directly for the current CSE chair and intake process, and ask about local adaptive-recreation options.",
       tags: ["School", "IEP"] }
+  ],
+
+  /* ---------------- CURIOSITIES (the Atlas Obscura layer) ---------------- */
+  curiosities: [
+    { name: "Edward Payson Roe’s ‘Near to Nature’s Heart’ boulder", town: "Cornwall-on-Hudson", kind: "Tiny landmark", lat: 41.4460, lon: -74.0220,
+      blurb: "The most hyper-local oddity you have, ~1 mile away: the boulder the 19th-century bestselling novelist and horticulturist Edward Payson Roe rested on after his hikes.",
+      texture: "On Memorial Day 1894 his fans bolted a bronze tablet to it — ‘Near to Nature’s Heart,’ engraved with chestnut branches — over a sweeping view of Newburgh Bay. A short, easy trail in a free public park.",
+      tags: ["Free", "Easy walk", "Kid-friendly"] },
+
+    { name: "Jed’s Godzilla shrine", town: "Cold Spring", kind: "Oddity", lat: 41.4200, lon: -73.9540,
+      address: "Main St & Rock St, Cold Spring", web: "https://www.atlasobscura.com/places/jeds-godzilla",
+      blurb: "From a distance it’s a typical roadside ‘bathtub Mary’ yard shrine — but the figure inside is Godzilla, ringed by plastic dinosaurs.",
+      texture: "It’s a lovingly tended memorial to Jed Dellarmi, a local teenage musician killed in 1996 — repainted, toys rearranged, Godzilla’s lost arm repaired. Free, roadside, a quick stop. The single weirdest small thing around.",
+      tags: ["Free", "Roadside", "Quick stop"] },
+
+    { name: "Ruins of the Cornish Estate (Northgate)", town: "Cold Spring", kind: "Ruins", lat: 41.4300, lon: -73.9690,
+      address: "Trailhead at Little Stony Point, Route 9D, Cold Spring", web: "https://www.atlasobscura.com/places/ruins-of-the-cornish-estate",
+      blurb: "A doomed-romance ruin in the woods: the Cornishes moved here in 1917, the mansion burned in the 1950s, and the forest reclaimed a roofless stone shell, a pool and a greenhouse.",
+      texture: "Interpretive signs added ~2020 show the old photos. Easy: under a mile each way, mostly along the old concrete driveway, ~300 ft of gain. Free, no permit — good for kids who can do a gentle mile.",
+      tags: ["Free", "Short hike", "Ruins"] },
+
+    { name: "The Chapel of Our Lady Restoration", town: "Cold Spring", kind: "Tiny landmark", lat: 41.4185, lon: -73.9555,
+      address: "45 Market St, Cold Spring, NY 10516", web: "https://chapelrestoration.org",
+      blurb: "A tiny 1833 Greek Revival chapel perched right on the river opposite the train station, columns framing a view to West Point and Bear Mountain.",
+      texture: "The first Catholic church north of Manhattan, built for the Irish workers of the West Point Foundry and designed by a 19-year-old; rescued from ruin by volunteers in 1971. Grounds free in daylight; Sunday music and sunset-reading series.",
+      tags: ["Free", "Riverside", "Historic"] },
+
+    { name: "Mount Beacon Incline Railway ruins & fire tower", town: "Beacon", kind: "Ruins", lat: 41.4940, lon: -73.9450,
+      address: "Trailhead off Howland Ave / Route 9D, Beacon",
+      web: "https://www.atlasobscura.com/places/mount-beacon-incline-railway",
+      blurb: "From 1902–1978 the world’s steepest passenger incline railway hauled visitors up Mount Beacon; a 1983 fire finished it off.",
+      texture: "You climb the old rail bed to the concrete powerhouse ruins, then can push on to the restored fire tower for huge valley views. Strenuous — the first mile gains ~1,000 ft steeply; full out-and-back ~4 mi. Better for fit/older kids; the lower ruins are reachable without the full climb.",
+      tags: ["Free", "Strenuous hike", "Views"] },
+
+    { name: "Dennings Point Brickworks ruins", town: "Beacon", kind: "Ruins", lat: 41.4940, lon: -73.9650,
+      address: "End of Dennings Ave, Beacon", web: "https://www.atlasobscura.com/places/dennings-point-ruins",
+      blurb: "Brick ruins on a wooded river point — the works fired a million bricks a week until the clay ran out in 1939.",
+      texture: "Dennings Point bricks are in the Empire State Building and Rockefeller Center. Flat ~1.2-mile trail, easy and kid-friendly. Note: the point closes Dec 15–Mar 15 for roosting bald eagles.",
+      tags: ["Free", "Easy walk", "Seasonal"] },
+
+    { name: "Motorcyclepedia Museum", town: "Newburgh", kind: "Quirky museum", lat: 41.5030, lon: -74.0100,
+      address: "250 Lake St, Newburgh, NY 12550", web: "https://www.motorcyclepediamuseum.org",
+      hours: "Thu 4–8, Fri–Sun 10–4. Adults $11, kids 3–12 $5.",
+      blurb: "A giant warehouse of 600+ mostly-American motorcycles, heavy on early-1900s Indians — plus two vintage ‘Wall of Death’ motordromes. ~10 miles.",
+      texture: "The motordromes alone are worth it: the near-vertical wooden barrels daredevils once rode around. Very kid-friendly.",
+      tags: ["Quirky museum", "Kid-friendly", "Indoor"] },
+
+    { name: "Brotherhood Winery — America’s oldest winery", town: "Washingtonville", kind: "Superlative", lat: 41.4280, lon: -74.1660,
+      address: "100 Brotherhood Plaza Dr, Washingtonville, NY 10992", web: "https://www.brotherhood-winery.com",
+      hours: "Tours Tue–Sun, first-come, no reservation.",
+      blurb: "Founded 1839, it survived Prohibition making sacramental wine and claims America’s first commercial winery, first champagne and first winery tours. ~12 miles.",
+      texture: "The draw is the hand-excavated underground cellars — 14 feet down through dim vaults of oak barrels and some of the oldest vintages in the country. The cellar tour is fine for kids; tastings, of course, are not.",
+      tags: ["Superlative", "Tours", "Drink with a story"] },
+
+    { name: "Harness Racing Museum & Hall of Fame", town: "Goshen", kind: "Quirky museum", lat: 41.4020, lon: -74.3250,
+      address: "240 Main St, Goshen, NY 10924", web: "https://www.harnessmuseum.com",
+      hours: "Tue–Sat 10–4. Adults $10, kids 4–12 $5.",
+      blurb: "An oddly specific Hall of Fame devoted to trotters and pacers, in a 1913 stable — with a 3D simulator that puts you in a racing sulky. ~18 miles.",
+      texture: "A few blocks from Goshen Historic Track, the oldest active harness track in the country. The simulator is the kid magnet.",
+      tags: ["Quirky museum", "Kid-friendly"] },
+
+    { name: "Museum Village", town: "Monroe", kind: "Quirky museum", lat: 41.3170, lon: -74.2130,
+      address: "1010 Route 17M, Monroe, NY 10950", web: "https://www.museumvillage.org",
+      hours: "Seasonal (~mid-Apr to mid-Nov), weekends. Confirm before going.",
+      blurb: "An open-air 19th-century living-history village — blacksmith, weaver, schoolhouse, candle shop — with a genuinely odd centerpiece. ~16 miles.",
+      texture: "That centerpiece: a complete mastodon skeleton, reportedly one of only three full ones in the world. Very kid-friendly.",
+      tags: ["Quirky museum", "Kid-friendly", "Seasonal"] },
+
+    { name: "Wing’s Castle", town: "Millbrook", kind: "Castle / folly", lat: 41.8250, lon: -73.6650,
+      address: "717 Bangall Rd, Millbrook, NY 12545", phone: "845-677-9085",
+      blurb: "A hand-built fantasy castle that Peter and Toni Wing spent ~22 years assembling from ~85% salvaged materials — a ship’s bow over the dining room, a moat, cigar-store Indians. ~32 miles.",
+      texture: "Turrets are topped with cups made from toilet parts; it was on HGTV’s ‘Extreme Homes.’ Seasonal guided tours with limited hours — call ahead. Fun for kids who like the whimsical-macabre.",
+      tags: ["Castle", "Seasonal", "Call ahead"] },
+
+    { name: "Gnome Chomsky, once the world’s largest garden gnome", town: "Kerhonkson", kind: "Oddity", lat: 41.7760, lon: -74.2990,
+      address: "Kelder’s Farm, 5755 Route 209, Kerhonkson, NY 12446", web: "https://www.atlasobscura.com/places/gnome-chomsky",
+      blurb: "A 13′6″ garden gnome, Guinness-certified world’s largest in 2007 (since demoted to third). ~40 miles, at the edge of the range.",
+      texture: "He anchors a mini-golf hole on a working farm with a petting zoo and pick-your-own — so it’s a half-day, not just a photo. Seasonal farm hours.",
+      tags: ["Oddity", "Kid-friendly", "Worth the drive"] },
+
+    { name: "Balanced Rock", town: "North Salem", kind: "Natural oddity", lat: 41.3300, lon: -73.5750,
+      address: "Titicus Rd (Route 116), North Salem, NY 10560",
+      blurb: "A ~60-ton granite glacial erratic perched on small pointed stones, locally mythologized and debated as a possible ancient dolmen. ~30 miles southeast.",
+      texture: "Free, roadside, a quick kid-friendly stop off I-84’s Pawling exit — equal parts geology and folklore.",
+      tags: ["Free", "Roadside", "Natural oddity"] },
+
+    { name: "Angry Orchard Cider House", town: "Walden", kind: "Drink with a story", lat: 41.5870, lon: -74.1550,
+      address: "2241 Albany Post Rd, Walden, NY 12586", web: "https://www.angryorchard.com/visit-us",
+      blurb: "The largest cider maker in the U.S., on a real apple orchard, with a treehouse tasting room built by Pete Nelson of ‘Treehouse Masters.’ ~14 miles.",
+      texture: "Barrel-room tours, a can-in-hand orchard walk, food and live music; the grounds are family-friendly even though tastings are for adults.",
+      tags: ["Drink with a story", "Orchard", "Family grounds"] },
+
+    { name: "Tuthilltown Spirits / Hudson Whiskey", town: "Gardiner", kind: "Drink with a story", lat: 41.6830, lon: -74.1800,
+      address: "14 Grist Mill Ln, Gardiner, NY 12525", web: "https://www.tuthilltown.com",
+      blurb: "New York’s first whiskey distillery since Prohibition (2003), in a historic gristmill at the foot of the Shawangunks. ~25 miles.",
+      texture: "The founders’ fight to allow tastings literally spawned NY’s 2007 Farm Distillery Act and the state’s craft-distilling boom. Tasting room, tours and cocktail classes. Adults.",
+      tags: ["Drink with a story", "Distillery", "Adults"] }
   ],
 
   /* ---------------- COMMUTE ---------------- */
