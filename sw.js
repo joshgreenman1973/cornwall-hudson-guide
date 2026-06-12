@@ -1,5 +1,5 @@
 // Highlands PWA service worker — offline-first cache
-const CACHE = 'highlands-v3';
+const CACHE = 'highlands-v4';
 const ASSETS = [
   './',
   './index.html',
