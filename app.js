@@ -63,15 +63,16 @@
     const dist = p._mi != null ? `<span class="dist">${fmtMi(p._mi)}</span>` : '';
     const meta = [];
     if (p.town) meta.push(`<span class="town">${esc(p.town)}</span>`);
-    if (p.kind) meta.push(esc(p.kind));
-    if (p.price) meta.push(esc(p.price));
-    if (p.hours) meta.push(esc(p.hours));
+    if (p.kind) meta.push(`<span>${esc(p.kind)}</span>`);
+    if (p.price) meta.push(`<span>${esc(p.price)}</span>`);
+    const metaHtml = meta.join('<span class="dot">·</span>');
     const tags = (p.tags || []).map((t) =>
       `<span class="tag${/spectrum|sensory/i.test(t) ? ' spectrum' : ''}">${esc(t)}</span>`).join('');
     card.innerHTML = `
       <div class="card-body">
         <div class="card-top"><h3>${esc(p.name)}</h3>${dist}</div>
-        <div class="meta">${meta.join('')}</div>
+        ${metaHtml ? `<div class="meta">${metaHtml}</div>` : ''}
+        ${p.hours ? `<div class="hours">${esc(p.hours)}</div>` : ''}
         ${p.blurb ? `<p class="blurb">${esc(p.blurb)}</p>` : ''}
         ${p.texture ? `<div class="texture"><b>Local note —</b> ${esc(p.texture)}</div>` : ''}
         ${tags ? `<div class="tags">${tags}</div>` : ''}
@@ -107,10 +108,13 @@
     ];
     order.forEach(([k, span]) => {
       const c = CATS[k];
-      const n = (DATA[k] && DATA[k].length) || (DATA.counts && DATA.counts[k]) || '';
       const t = el('button', `tile ${c.cls}${span ? ' span2' : ''}`);
       t.type = 'button';
-      const count = Array.isArray(DATA[k]) ? `${DATA[k].length} places` : '';
+      let count = '';
+      if (k === 'events') count = '15- & 30-mile radius';
+      else if (k === 'commute') count = `${DATA.commute.length} ways into the city`;
+      else if (k === 'spectrum') count = `${DATA.spectrum.length} resources`;
+      else if (Array.isArray(DATA[k])) count = `${DATA[k].length} places`;
       t.innerHTML = `<span class="emoji">${c.emoji}</span><div><div class="label">${c.label}</div><div class="count">${count}</div></div>`;
       t.addEventListener('click', () => go(k));
       grid.appendChild(t);
