@@ -210,11 +210,35 @@
     return v;
   }
 
+  // local YYYY-MM-DD for today (browser's real date)
+  function todayStr() {
+    const d = new Date();
+    return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+  }
+  function fmtDay(iso) {
+    const p = iso.split('-');
+    const d = new Date(+p[0], +p[1] - 1, +p[2]);
+    return d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+  }
+  function datedWhen(e, today) {
+    if (e.end && e.end !== e.date) {
+      if (e.date <= today) return 'On now · through ' + fmtDay(e.end);
+      return fmtDay(e.date) + ' – ' + fmtDay(e.end);
+    }
+    return fmtDay(e.date);
+  }
+  function evtCard(when, name, where, note) {
+    const card = el('div', 'evt');
+    card.innerHTML = `<div class="when">${esc(when)}</div><h4>${esc(name)}</h4><p>${esc(where)}${note ? ' — ' + esc(note) : ''}</p>`;
+    return card;
+  }
+
   function renderEvents() {
     const v = el('section', 'view');
     v.appendChild(el('div', 'section-title', '📅 Events'));
-    v.appendChild(el('div', 'section-note', 'Recurring and annual happenings. For one-off listings, tap a live calendar at the bottom.'));
+    v.appendChild(el('div', 'section-note', 'What’s actually coming up, then the standing weekly and seasonal patterns.'));
     const radius = filterState.events || '15';
+    const within = radius === '15' ? 15 : 30;
     const toggle = el('div', 'cal-toggle');
     [['15', 'Within 15 miles'], ['30', 'Within 30 miles']].forEach(([r, lab]) => {
       const b = el('button', r === radius ? 'active' : '', lab);
@@ -223,15 +247,39 @@
     });
     v.appendChild(toggle);
 
-    const data = (DATA.events && DATA.events[radius]) || {};
-    Object.keys(data).forEach((season) => {
-      v.appendChild(el('div', 'season-head', season));
-      data[season].forEach((e) => {
-        const card = el('div', 'evt');
-        card.innerHTML = `<div class="when">${esc(e.when)}</div><h4>${esc(e.name)}</h4><p>${esc(e.where)}${e.note ? ' — ' + esc(e.note) : ''}</p>`;
-        v.appendChild(card);
-      });
+    const today = todayStr();
+    const dated = (DATA.datedEvents || [])
+      .filter((e) => (e.end || e.date) >= today)
+      .sort((a, b) => a.date < b.date ? -1 : a.date > b.date ? 1 : 0);
+
+    // Coming up — within the selected radius (close-in)
+    const near = dated.filter((e) => !e.drive && e.mi <= within);
+    v.appendChild(el('div', 'season-head', 'Coming up — confirmed dates'));
+    if (DATA.eventsNote) v.appendChild(el('div', 'callout', DATA.eventsNote));
+    if (!near.length) {
+      v.appendChild(el('div', 'empty', 'No upcoming dated events left in this radius — check a live calendar below.'));
+    } else {
+      near.forEach((e) => v.appendChild(evtCard(datedWhen(e, today), e.name, e.where, e.note)));
+    }
+
+    // Worth the drive (beyond 30 mi) — only on the wider view
+    if (radius === '30') {
+      const far = dated.filter((e) => e.drive);
+      if (far.length) {
+        v.appendChild(el('div', 'season-head', 'Worth the drive (beyond 30 mi)'));
+        far.forEach((e) => v.appendChild(evtCard(datedWhen(e, today), e.name, e.where + ' · ~' + e.mi + ' mi', e.note)));
+      }
+    }
+
+    // Standing patterns
+    const groups = ['Every week', 'Every month', 'Seasonal patterns'];
+    groups.forEach((g) => {
+      const items = (DATA.recurring || []).filter((r) => r.group === g && r.mi <= within);
+      if (!items.length) return;
+      v.appendChild(el('div', 'season-head', g === 'Seasonal patterns' ? 'Happens each season' : g));
+      items.forEach((e) => v.appendChild(evtCard(e.when, e.name, e.where, e.note)));
     });
+
     if (DATA.eventLinks) {
       v.appendChild(el('div', 'season-head', 'Live calendars'));
       const wrap = el('div', 'cards');

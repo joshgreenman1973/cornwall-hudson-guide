@@ -519,57 +519,68 @@ window.DATA = {
   ],
   commuteNote: "Fares, schedules and tolls change often — these are last-verified June 2026. Tap through to mta.info, coachusa.com, njtransit.com and the NYSDOT bridge-shuttle page for live numbers.",
 
-  /* ---------------- EVENTS ---------------- */
-  events: {
-    "15": {
-      "Every week": [
-        { when: "Tuesdays, 6:30–8pm (Jun–Aug)", name: "Bandstand Concert Series", where: "Village Bandstand, 250 Hudson St, Cornwall-on-Hudson", note: "The signature village summer event — bring a blanket and a picnic. Free." },
-        { when: "Wednesdays, 11am–5pm (May–Nov)", name: "Cornwall Farmers Market", where: "Town Hall, 183 Main St, Cornwall" },
-        { when: "Saturdays, 8:30am–1pm (year-round)", name: "Cold Spring Farmers' Market", where: "Boscobel grounds, Garrison" },
-        { when: "Sundays, 10am–2pm (year-round)", name: "Beacon Farmers Market", where: "413 Main St, Beacon" },
-        { when: "Saturdays, 10am–3pm (summer)", name: "Newburgh Farmers' Market", where: "Safe Harbors Green, 97 Broadway, Newburgh" }
-      ],
-      "Every month": [
-        { when: "2nd Saturday evenings", name: "Beacon Second Saturday", where: "Main Street, Beacon", note: "Gallery openings, receptions and live music. Free, year-round." },
-        { when: "Last Saturday afternoons (Apr–Oct)", name: "Newburgh ArtSeen", where: "Downtown Newburgh", note: "Monthly public-art and gallery walks." },
-        { when: "First Fridays (May–Sep)", name: "Cornwall First Fridays Art Walk", where: "Main Street, Cornwall", note: "Open-air exhibits, demos and pop-ups. Confirm 2026 months." }
-      ],
-      "Spring": [
-        { when: "~April 1", name: "Storm King Art Center opens", where: "Mountainville", note: "The marquee local cultural anchor reopens for the season; members preview late March." }
-      ],
-      "Summer": [
-        { when: "Sunday, June 7, 2026, 11am–6pm", name: "RiverFest (27th year)", where: "Donahue Memorial Park, Cornwall-on-Hudson", note: "Music, kids' activities, a big craft and food fair, shuttle buses." },
-        { when: "Jun 20 – Aug 15", name: "Storm King Summer concerts", where: "Storm King Art Center", note: "2026 lineup includes Kim Gordon (Jun 20) and Sun Ra Arkestra (Aug 15). Verify at stormking.org." }
-      ],
-      "Fall": [
-        { when: "September", name: "Cornwall Fall Festival", where: "Main Street, downtown Cornwall", note: "Street closed for vendors, crafts, food and live music. Confirm 2026 date at cornwallchamber.org." },
-        { when: "Last weekend of September", name: "Newburgh Open Studios", where: "Citywide, Newburgh", note: "Artist studios and pop-up galleries open to the public." },
-        { when: "Sun, ~Sept 27, 2026", name: "Spirit of Beacon Day", where: "Main Street, Beacon", note: "A parade and festival since 1977 celebrating community and diversity. Free." },
-        { when: "October weekends", name: "Pumpkin season — Jones Farm & Lawrence Farms", where: "Cornwall & Newburgh", note: "Cider donuts, pumpkins and the hay-bale maze. Weekdays are calmer." }
-      ],
-      "Winter": [
-        { when: "Early December (~first Sunday)", name: "Village Tree Lighting", where: "Village Bandstand, Cornwall-on-Hudson", note: "~6pm. Confirm the exact date on the village site." },
-        { when: "Early November", name: "Beacon Bonfire Music + Art Festival", where: "20+ venues across Beacon", note: "400+ artists over several days. Confirm 2026 dates." }
-      ]
-    },
-    "30": {
-      "Summer": [
-        { when: "July 4–5, 2026, 10am–5pm", name: "Great American Weekend", where: "33 Park Place, Goshen", note: "Orange County's premier July 4th celebration since 1982 — 185+ craft vendors, music, food. Free." },
-        { when: "July 3–5, 2026", name: "Goshen Historic Track racing", where: "Goshen Historic Track", note: "The world's oldest active harness track. Gates 11am, racing 1pm; kids 12 & under free." },
-        { when: "July 23 – Aug 2, 2026", name: "Orange County Fair", where: "Orange County Fairgrounds, Wallkill/Middletown" }
-      ],
-      "Fall": [
-        { when: "Sunday, October 4, 2026", name: "Warwick Applefest", where: "Historic Warwick village", note: "One of NY's biggest apple festivals — 150+ vendors, four music stages, carnival rides. Free." },
-        { when: "October 10–11, 2026, 10am–5pm", name: "Sugar Loaf Fall Festival", where: "Sugar Loaf arts & crafts village, Chester", note: "Music, food and vendors in the craft village." },
-        { when: "Select fall dates", name: "LEGOLAND Brick-or-Treat", where: "Goshen", note: "Family Halloween event, included with admission. Confirm dates." }
-      ],
-      "Year-round": [
-        { when: "Seasonal calendar", name: "Walkway Over the Hudson events", where: "Poughkeepsie–Highland", note: "Walkway at Night, Pride in the Sky and the Walkway Marathon. Full calendar at walkway.org." },
-        { when: "Signature weekends", name: "Mohonk Mountain House events", where: "New Paltz", note: "Oktoberfest (late Sept), Halloween Haunts, summer Music Week. Mostly stay-based." },
-        { when: "Nov–Jan", name: "LEGOLAND Holiday Bricktacular", where: "Goshen", note: "Five festive zones; confirm 2026 dates." }
-      ]
-    }
-  },
+  /* ---------------- EVENTS ----------------
+     datedEvents: specific 2026 dates. The app sorts them chronologically and
+     drops any whose date has passed (using the device's real date), so the
+     "Coming up" list always reflects what's actually ahead. Snapshot June 2026 —
+     verify before going; medium-confidence dates carry a note.
+     mi = approx miles from home (for the radius toggle). drive:true = beyond 30mi. */
+  eventsNote: "“Coming up” lists confirmed 2026 dates and is a snapshot from June 2026 — the app hides events once they've passed, so it thins out over the year. Tap a live calendar at the bottom for the latest. Concert dates marked “verify” came from ticket aggregators; confirm with the venue.",
+
+  datedEvents: [
+    // ---- within ~15 miles ----
+    { date: "2026-06-20", name: "Kim Gordon (with The Fiery Furnaces)", where: "Storm King Art Center, New Windsor", mi: 5, note: "Sonic Youth co-founder; outdoor summer concert, ~5–9pm." },
+    { date: "2026-06-21", name: "Black Country, New Road (with Horsegirl)", where: "Storm King Art Center, New Windsor", mi: 5, note: "British art-rock, outdoor evening concert." },
+    { date: "2026-06-27", name: "Anicka Yi: artist talk with Rana Dasgupta", where: "Storm King Art Center, New Windsor", mi: 5, note: "Tied to her outdoor installation ‘Message from the Mud,’ on view this season." },
+    { date: "2026-06-29", end: "2026-06-29", name: "‘Piero Manzoni: Total Space’ closes", where: "Magazzino Italian Art, Cold Spring", mi: 14, note: "Last days of the Manzoni show — verify the closing date." },
+    { date: "2026-07-11", name: "Devonté Hynes Ensemble", where: "Storm King Art Center, New Windsor", mi: 5, note: "Blood Orange’s Dev Hynes." },
+    { date: "2026-07-17", name: "Bridget Riley installation opens", where: "Dia Beacon", mi: 12, note: "New long-run installation debuts." },
+    { date: "2026-07-31", name: "Richard Tuttle installation opens", where: "Dia Beacon", mi: 12 },
+    { date: "2026-08-15", name: "Sun Ra Arkestra", where: "Storm King Art Center, New Windsor", mi: 5, note: "The legendary cosmic-jazz big band." },
+    { date: "2026-08-19", name: "Bannerman Island Butterfly Day", where: "Bannerman Island (boat from Beacon)", mi: 8, note: "Guided monarch-butterfly walking tour." },
+    { date: "2026-09-05", name: "Farm-to-Table Chef’s Dinner", where: "Bannerman Island (boat from Beacon)", mi: 8, note: "Annual fundraiser, two seatings." },
+    { date: "2026-09-21", name: "Cornwall Fall Festival", where: "Main Street, Cornwall", mi: 3, note: "Chamber street fair, ~10–5. Confirm exact date." },
+    { date: "2026-09-27", name: "Spirit of Beacon Day", where: "Main Street, Beacon", mi: 12, note: "Multicultural parade + festival since 1977. Last Sunday of Sept — confirm." },
+    { date: "2026-10-03", name: "Walter De Maria, ‘360° I Ching’ opens", where: "Dia Beacon", mi: 12, note: "New long-run installation debuts." },
+    { date: "2026-11-13", name: "Frédéric Bruly Bouabré installation opens", where: "Dia Beacon", mi: 12 },
+    { date: "2026-12-06", name: "Village Tree Lighting", where: "Village Bandstand, Cornwall-on-Hudson", mi: 1, note: "~6pm. First-Sunday pattern — confirm the date on the village site." },
+
+    // ---- ~15–30 miles ----
+    { date: "2026-06-18", end: "2026-07-26", name: "Powerhouse Theater season (40th)", where: "Vassar College, Poughkeepsie", mi: 18, note: "New-works summer festival — readings, workshops, premieres." },
+    { date: "2026-07-03", end: "2026-07-05", name: "Great American Weekend + harness racing", where: "Goshen Historic Track, Goshen", mi: 16, note: "July 4th craft fair + Grand Circuit racing at the world’s oldest harness track." },
+    { date: "2026-07-23", end: "2026-08-02", name: "Orange County Fair", where: "Fairgrounds, Middletown", mi: 20, note: "Rides, concerts, racing, livestock." },
+    { date: "2026-09-06", name: "Beatles vs. Stones: A Musical Showdown", where: "Bardavon 1869 Opera House, Poughkeepsie", mi: 18, note: "Verify date with the venue." },
+    { date: "2026-09-19", name: "Cowboy Junkies (40th anniversary)", where: "Bardavon 1869 Opera House, Poughkeepsie", mi: 18, note: "Verify date with the venue." },
+    { date: "2026-10-03", name: "Stayin’ Alive: One Night of the Bee Gees", where: "Bardavon 1869 Opera House, Poughkeepsie", mi: 18, note: "Verify date with the venue." },
+    { date: "2026-10-04", name: "Warwick Applefest", where: "Village of Warwick", mi: 24, note: "Orange County’s largest one-day festival, 9–5. Free." },
+    { date: "2026-10-10", end: "2026-10-11", name: "Sugar Loaf Fall Festival", where: "Sugar Loaf Art & Craft Village, Chester", mi: 20, note: "Artisan crafts, live music, food, 10–5." },
+    { date: "2026-11-12", name: "Big Head Todd and The Monsters", where: "Paramount Hudson Valley, Peekskill", mi: 22, note: "Verify date with the venue." },
+    { date: "2026-11-28", end: "2027-01-03", name: "LEGOLAND Holiday Bricktacular", where: "LEGOLAND New York, Goshen", mi: 18, note: "Holiday overlay on every open date." },
+    { date: "2026-12-12", name: "Jessica Lynn", where: "Paramount Hudson Valley, Peekskill", mi: 22, note: "Verify date with the venue." },
+
+    // ---- worth the drive (beyond 30 mi) ----
+    { date: "2026-05-17", end: "2026-10-25", name: "‘Frederic Church: Global Artist’", where: "Olana State Historic Site, Hudson", mi: 42, drive: true, note: "Flagship exhibition of the Church bicentennial." },
+    { date: "2026-06-20", end: "2026-11-01", name: "Cynthia Daignault: ‘Light Atlas’", where: "Thomas Cole NHS, Catskill", mi: 45, drive: true, note: "360 small landscapes in Cole’s 1846 New Studio." },
+    { date: "2026-08-01", name: "Billy Strings", where: "Bethel Woods Center for the Arts, Bethel", mi: 45, drive: true, note: "Verify with the venue." }
+  ],
+
+  recurring: [
+    { group: "Every week", when: "Tuesdays, 6:30–8pm (Jun–Aug)", name: "Bandstand Concert Series", where: "Village Bandstand, Cornwall-on-Hudson", mi: 1, note: "The signature village summer event — bring a blanket and a picnic. Free." },
+    { group: "Every week", when: "Wednesdays, 11am–5pm (May–Nov)", name: "Cornwall Farmers Market", where: "Town Hall, 183 Main St, Cornwall", mi: 3 },
+    { group: "Every week", when: "Saturdays, 8:30am–1pm (year-round)", name: "Cold Spring Farmers’ Market", where: "Boscobel grounds, Garrison", mi: 12 },
+    { group: "Every week", when: "Sundays, 10am–2pm (year-round)", name: "Beacon Farmers Market", where: "413 Main St, Beacon", mi: 12 },
+    { group: "Every week", when: "Saturdays, 10am–3pm (summer)", name: "Newburgh Farmers’ Market", where: "Safe Harbors Green, 97 Broadway, Newburgh", mi: 6 },
+    { group: "Every month", when: "2nd Saturday evenings", name: "Beacon Second Saturday", where: "Main Street, Beacon", mi: 12, note: "Gallery openings, receptions and live music. Free, year-round." },
+    { group: "Every month", when: "Last Saturday afternoons (Apr–Oct)", name: "Newburgh ArtSeen", where: "Downtown Newburgh", mi: 6, note: "Monthly public-art and gallery walks." },
+    { group: "Every month", when: "First Fridays (May–Sep)", name: "Cornwall First Fridays Art Walk", where: "Main Street, Cornwall", mi: 3, note: "Open-air exhibits, demos and pop-ups." },
+    { group: "Seasonal patterns", when: "~April 1", name: "Storm King Art Center opens", where: "Mountainville", mi: 5, note: "The marquee local anchor reopens; members preview late March." },
+    { group: "Seasonal patterns", when: "Late September", name: "Newburgh Open Studios", where: "Citywide, Newburgh", mi: 6, note: "Artist studios and pop-up galleries open to the public." },
+    { group: "Seasonal patterns", when: "October weekends", name: "Pumpkin season — Jones Farm & Lawrence Farms", where: "Cornwall & Newburgh", mi: 5, note: "Cider donuts, pumpkins and the hay-bale maze. Weekdays are calmer." },
+    { group: "Seasonal patterns", when: "Early November", name: "Beacon Bonfire Music + Art Festival", where: "20+ venues, Beacon", mi: 12, note: "400+ artists over several days; 2026 dates not yet posted." },
+    { group: "Seasonal patterns", when: "Fall weekends", name: "LEGOLAND Brick-or-Treat", where: "Goshen", mi: 18, note: "Family Halloween event, included with admission; dates TBA." },
+    { group: "Seasonal patterns", when: "Year-round calendar", name: "Walkway Over the Hudson events", where: "Poughkeepsie–Highland", mi: 18, note: "Walkway at Night, Pride in the Sky and the Walkway Marathon." },
+    { group: "Seasonal patterns", when: "Signature weekends", name: "Mohonk Mountain House events", where: "New Paltz", mi: 25, note: "Oktoberfest, Halloween Haunts, summer Music Week. Mostly stay-based." }
+  ],
 
   eventLinks: [
     { name: "Village of Cornwall-on-Hudson calendar", url: "https://cornwall-on-hudson.gov/Calendar-Notices/Calendar", note: "Authoritative for RiverFest, tree lighting and bandstand concerts." },
