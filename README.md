@@ -1,40 +1,48 @@
-# Highlands — A Cornwall-on-Hudson Guide
+# The Cornwall-on-Hudson Guide
 
-A mobile-first, installable PWA hyperlocal guide to the Hudson Highlands and lower Hudson
-Valley, centered on **10 Abbott Lane, Cornwall-on-Hudson, NY 12520**.
+A complete, well-organized web guide to **Cornwall-on-Hudson, New York** and the surrounding
+Hudson Highlands — built for new residents and curious neighbors. Everything is centered on and
+sorted by distance from **10 Abbott Lane, Cornwall-on-Hudson, NY 12520** (on Storm King Mountain).
+
+> This is a **regular web page** — a long, anchored single page with a sticky section nav, a global
+> search and a self-updating events calendar. (It replaces an earlier installable-PWA version; the
+> service worker and manifest were removed and any old worker is torn down on load.)
 
 ## What it covers
-Nine sections, each sorted by distance from home where it makes sense:
-- **Eat & drink** — village spots out to cross-river day trips, with signature dishes and local notes
-- **Arts & culture** — Storm King, Dia Beacon, Magazzino, galleries, music venues
-- **History** — long-form: the Storm King environmental case, the Great Chain, the Purple Heart, and more
-- **For kids** — nature centers, playgrounds, farms, hikes, LEGOLAND, libraries
-- **Shopping** — yarn, books, toys first; then groceries (everyday + the Adams Fairacre Farms outing)
-- **Movies** — the art-house cinema and the regional drive-ins
-- **Events** — recurring + annual happenings, toggled between a 15-mile and 30-mile radius, plus live-calendar links
-- **Commute to NYC** — an honest comparison of the four real ways off the west bank
-- **Spectrum services** — autism diagnostic, therapy, school and sensory-friendly resources
+A new arrival can find almost anything here. Sections (each sorted by distance where it makes sense):
+
+- **Getting set up** — village vs. town government, utilities (Central Hudson), trash & recycling, the school district, voting, DMV, post offices, emergencies and houses of worship
+- **The outdoors** — Storm King, Black Rock Forest, Schunnemunk, the river and waterfront, trails, waterfalls, gardens and the big state parks (with current trail/closure notes)
+- **Eat & drink** — village spots out to cross-river day trips
+- **Home, hardware & garden** — hardware, lumber, paint, appliances, furniture, antiques and garden centers
+- **Shopping & everyday goods** — yarn, books, toys, groceries, pharmacies, wine, pets, bikes, jewelry and more
+- **Repairs & home services** — verified local handymen, plumbers, electricians, HVAC, tree, auto and more
+- **Healthcare** — hospitals/ERs, urgent care, primary care, pediatrics, dentists, optometry, PT
+- **Everyday essentials** — childcare & preschools, banks, gas, gyms, vets, car wash, laundry, salons
+- **Kids & families**, **Arts & culture**, **History** (long-form), **Movies**, **Curiosities**
+- **Events** — confirmed dates that auto-hide once past, plus recurring patterns and live-calendar links
+- **Getting around & the commute** — the honest comparison of routes off the west bank
+- **Community & groups** — the Facebook groups, Nextdoor and official channels where neighbors connect
+- **Disability & autism services**
 
 ## How it works (no black boxes)
-- **Pure static app.** `index.html` + `styles.css` + `app.js` + `data.js`. No build step, no dependencies, no API calls.
-- **Distances** are computed client-side with the haversine formula from the home coordinates
-  (`HOME` in `app.js`, ~41.4447, -74.0189). Place coordinates in `data.js` are approximate —
-  accurate enough for *relative* ordering, not turn-by-turn.
-- **All content lives in `data.js`.** To edit a listing, add a place, or fix hours, edit that one file.
-- **Offline-capable PWA.** `sw.js` caches the shell so it works without signal (handy in the Highlands).
-  Installable to the home screen via `manifest.webmanifest`.
-- **Directions** open Apple Maps with the address/name; phone and website links come from each listing.
+- **Pure static web page.** `index.html` + `styles.css` + `app.js` + `data.js`. No build step, no dependencies, no API calls. Fonts (Fraunces + Hanken Grotesk) load from Google Fonts with system fallbacks.
+- **All content lives in `data.js`.** To edit a listing, add a place or fix hours, edit that one file. Each section is wired up by the `SECTIONS` config at the top of `app.js`.
+- **Distances** are computed client-side with the haversine formula from the home coordinates (`HOME` in `app.js`, ~41.4447, -74.0189). Coordinates in `data.js` are approximate — accurate enough for *relative* ordering, not turn-by-turn.
+- **The events calendar updates itself.** `datedEvents` carry ISO dates; the page hides any whose date has passed (using the browser's real clock), so "Coming up" always reflects what's actually ahead. `recurring` holds weekly/seasonal patterns, filtered by a 15-/30-mile toggle.
+- **Directions** open Google Maps turn-by-turn from the visitor's location.
+- **Global search** filters every card across all sections and hides sections with no matches.
 
-## Sourcing & accuracy
-Every listing was web-researched and verified in **June 2026**. Where a source was uncertain,
-the listing says so ("confirm," "verify before going"). Closed businesses surfaced during research
-(Canterbury Brook Inn, Liberty Street Bistro, Caffe Macchiato, The Would, Whistling Willie's,
-Downing Film Center, the Newburgh-Beacon ferry) were **deliberately left off** rather than listed stale.
+## Sourcing, accuracy & the AI-caution note
+This guide was assembled through web research (parallel research agents, **June 2026**) and human
+review, under a strict **verify-or-omit** rule — no invented businesses, phone numbers or links. A
+few specifics worth knowing:
 
-**Time-sensitive by nature:** hours, fares, prices, seasons and program availability change constantly.
-The in-app "About this guide" note and per-section caveats reflect this. For autism/spectrum services,
-listings confirm each organization and its general scope but do **not** assert specific therapy offerings —
-always verify intake and services directly.
+- **Confidence is tracked.** Listings resting on a single or older source carry a `confidence: "medium"`/`"low"` flag, surfaced in the app as a small **confirm**/**verify** badge and reflected in their "Local note."
+- **Repair/service providers are not endorsements.** Each was verified to exist and to serve this area (often via a license roster or the provider's own site), but the app and this README both say to confirm a current New York license, insurance and price before hiring. Plumbing/sewer work in the village must be registered with the Board of Health.
+- **Phone numbers were omitted when unverifiable** rather than guessed. A "Cornwall Tire Service" that turned out to be in Cornwall, *Ontario* was deliberately excluded — an example of the name-collision traps that were screened out.
+- **Time-sensitive facts are flagged in-app**, e.g. Breakneck Ridge is closed for all of 2026 (Fjord Trail/station construction), Kowawese/Plum Point is posted closed, and the closest ER is the Montefiore St. Luke's **Newburgh** campus (the Cornwall campus has no ER).
+- The in-app **"AI caution"** button (top right) lists these caveats. Hours, fares, prices, seasons and program details change constantly — treat the guide as a smart starting point, not gospel.
 
 ## Run it locally
 ```
@@ -45,10 +53,8 @@ Then open http://localhost:8520 (or "highlands-guide" in the Launch panel).
 ## Files
 | File | Purpose |
 |---|---|
-| `index.html` | App shell |
-| `styles.css` | Mobile-first styling, Hudson Highlands palette |
-| `app.js` | Rendering engine: home grid, lists, distance, sheet, events, commute |
+| `index.html` | Page shell: header, sticky nav, hero mount, footer, AI-caution popover |
+| `styles.css` | Field-guide editorial design — Hudson Highlands palette, topographic motif, responsive + print |
+| `app.js` | Rendering engine: `SECTIONS` config, distance sort, filter chips, search, events, scroll-spy |
 | `data.js` | **All content** — edit here |
-| `sw.js` | Service worker (offline cache) |
-| `manifest.webmanifest` | PWA install metadata |
-| `icons/` | App icons |
+| `icons/` | Favicon / touch icon |
