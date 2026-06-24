@@ -362,11 +362,11 @@
   function buildNav() {
     const nav = $('#sectionNav');
     nav.innerHTML = '';
+    const top = el('a', '', 'Top'); top.href = '#top';
+    nav.appendChild(top);
     [['map.html', '🗺 Map'], ['wildlife.html', '🦅 Wildlife']].forEach(([href, label]) => {
       const a = el('a', 'page-pill', esc(label)); a.href = href; nav.appendChild(a);
     });
-    const top = el('a', '', 'Top'); top.href = '#top';
-    nav.appendChild(top);
     liveSections().forEach((cfg) => {
       const a = el('a', '', esc(cfg.nav || cfg.label));
       a.href = '#' + cfg.id;
