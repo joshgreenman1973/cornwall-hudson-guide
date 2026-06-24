@@ -163,6 +163,7 @@ button { font-family: inherit; cursor: pointer; }
 .section-nav a.active { background: var(--night); color: var(--paper); border-color: var(--night); }
 .section-nav a.page-pill { background: var(--rust-deep); color: var(--paper); border-color: var(--rust-deep); }
 .section-nav a.page-pill:hover { background: var(--rust); color: var(--paper); }
+.section-nav .nav-sep { flex: 0 0 auto; align-self: center; width: 1px; height: 16px; background: var(--line); margin: 0 5px; }
 .btn.reviews { border-color: var(--gold); }
 
 /* ============================================================
@@ -492,6 +493,7 @@ button { font-family: inherit; cursor: pointer; }
   }
   .section-nav.open { max-height: 70vh; overflow-y: auto; padding-top: 8px; padding-bottom: 10px; border-top: 1px solid var(--line-soft); }
   .section-nav a { width: 100%; }
+  .section-nav .nav-sep { width: auto; height: 1px; margin: 6px 10px; align-self: stretch; }
 }
 @media (max-width: 420px) {
   .header-tools .search { display: none; }

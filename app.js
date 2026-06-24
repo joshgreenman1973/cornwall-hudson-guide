@@ -47,24 +47,26 @@
   // ---- section config -----------------------------------------
   // type: cards | prose | commute | events | groups
   const SECTIONS = [
-    { id: 'setup',        key: 'civic',       label: 'Getting set up',   nav: 'Set up',     ico: '🧭', accent: 'var(--moss)',      kicker: 'The first week', type: 'cards' },
-    { id: 'outdoors',     key: 'nature',      label: 'The outdoors',     nav: 'Outdoors',   ico: '⛰',  accent: 'var(--moss)',      kicker: 'The lay of the land', type: 'cards' },
-    { id: 'on-the-water', key: 'water',       label: 'On the water',     nav: 'Water',      ico: '🛶', accent: 'var(--river)',     kicker: 'Boats, beaches & lakes', type: 'cards' },
-    { id: 'eat',          key: 'eat',         label: 'Eat & drink',      nav: 'Eat',        ico: '🍽', accent: 'var(--rust)',      kicker: 'The table', reviews: true, type: 'cards' },
-    { id: 'home',         key: 'home',        label: 'Home, hardware & garden', nav: 'Home goods', ico: '🔨', accent: 'var(--gold)', kicker: 'Outfitting the house', type: 'cards' },
-    { id: 'shopping',     key: 'shopping',    label: 'Shopping & everyday goods', nav: 'Shopping', ico: '🛍', accent: 'var(--river)', kicker: 'The other errands', type: 'cards' },
-    { id: 'services',     key: 'services',    label: 'Repairs & home services', nav: 'Repairs', ico: '🛠', accent: 'var(--rust)', kicker: 'Who to call', type: 'cards' },
-    { id: 'health',       key: 'health',      label: 'Healthcare',       nav: 'Health',     ico: '⚕',  accent: 'var(--river)',     kicker: 'Doctors & care', type: 'cards' },
-    { id: 'essentials',   key: 'essentials',  label: 'Everyday essentials', nav: 'Essentials', ico: '🏦', accent: 'var(--river-deep)', kicker: 'Banks, gas, gyms & more', type: 'cards' },
-    { id: 'kids',         key: 'kids',        label: 'Kids & families',  nav: 'Kids',       ico: '🧒', accent: 'var(--moss-light)', kicker: 'For the little ones', type: 'cards' },
-    { id: 'arts',         key: 'arts',        label: 'Arts & culture',   nav: 'Arts',       ico: '🎨', accent: 'var(--river)',     kicker: 'Inside the picture plane', type: 'cards' },
-    { id: 'history',      key: 'history',     label: 'History',          nav: 'History',    ico: '🏛', accent: 'var(--rust-deep)', kicker: 'Underfoot', type: 'prose' },
-    { id: 'movies',       key: 'movies',      label: 'Movies',           nav: 'Movies',     ico: '🎬', accent: 'var(--river-deep)', kicker: 'The big screen', type: 'cards' },
-    { id: 'events',       key: 'events',      label: 'Events',           nav: 'Events',     ico: '📅', accent: 'var(--moss)',      kicker: "What's coming up", type: 'events' },
-    { id: 'getting-around', key: 'commute',   label: 'Getting around & the commute', nav: 'Travel', ico: '🚆', accent: 'var(--river)', kicker: 'Off the west bank', type: 'commute' },
-    { id: 'community',    key: 'community',   label: 'Community & groups', nav: 'Community', ico: '💬', accent: 'var(--gold)',     kicker: 'Plugging in', type: 'groups' },
-    { id: 'curiosities',  key: 'curiosities', label: 'Curiosities',      nav: 'Curiosities', ico: '🧭', accent: 'var(--gold)',     kicker: 'The offbeat layer', type: 'cards' },
-    { id: 'spectrum',     key: 'spectrum',    label: 'Disability & autism services', nav: 'Disability services', ico: '🧩', accent: 'var(--moss)', kicker: 'Support & access', type: 'cards' }
+    // ---- Settling in (the utilitarian stuff) ----
+    { id: 'setup',        key: 'civic',       label: 'Getting set up',   nav: 'Set up',     ico: '🧭', accent: 'var(--moss)',      kicker: 'The first week', group: 'use', type: 'cards' },
+    { id: 'home',         key: 'home',        label: 'Home, hardware & garden', nav: 'Home goods', ico: '🔨', accent: 'var(--gold)', kicker: 'Outfitting the house', group: 'use', type: 'cards' },
+    { id: 'shopping',     key: 'shopping',    label: 'Shopping & everyday goods', nav: 'Shopping', ico: '🛍', accent: 'var(--river)', kicker: 'The other errands', group: 'use', type: 'cards' },
+    { id: 'services',     key: 'services',    label: 'Repairs & home services', nav: 'Repairs', ico: '🛠', accent: 'var(--rust)', kicker: 'Who to call', group: 'use', type: 'cards' },
+    { id: 'health',       key: 'health',      label: 'Healthcare',       nav: 'Health',     ico: '⚕',  accent: 'var(--river)',     kicker: 'Doctors & care', group: 'use', type: 'cards' },
+    { id: 'essentials',   key: 'essentials',  label: 'Everyday essentials', nav: 'Essentials', ico: '🏦', accent: 'var(--river-deep)', kicker: 'Banks, gas, gyms & more', group: 'use', type: 'cards' },
+    { id: 'getting-around', key: 'commute',   label: 'Getting around & the commute', nav: 'Travel', ico: '🚆', accent: 'var(--river)', kicker: 'Off the west bank', group: 'use', type: 'commute' },
+    { id: 'community',    key: 'community',   label: 'Community & groups', nav: 'Community', ico: '💬', accent: 'var(--gold)',     kicker: 'Plugging in', group: 'use', type: 'groups' },
+    { id: 'spectrum',     key: 'spectrum',    label: 'Disability & autism services', nav: 'Disability services', ico: '🧩', accent: 'var(--moss)', kicker: 'Support & access', group: 'use', type: 'cards' },
+    // ---- Exploring the area (the informational stuff) ----
+    { id: 'eat',          key: 'eat',         label: 'Eat & drink',      nav: 'Eat',        ico: '🍽', accent: 'var(--rust)',      kicker: 'The table', reviews: true, group: 'see', type: 'cards' },
+    { id: 'outdoors',     key: 'nature',      label: 'The outdoors',     nav: 'Outdoors',   ico: '⛰',  accent: 'var(--moss)',      kicker: 'The lay of the land', group: 'see', type: 'cards' },
+    { id: 'on-the-water', key: 'water',       label: 'On the water',     nav: 'Water',      ico: '🛶', accent: 'var(--river)',     kicker: 'Boats, beaches & lakes', group: 'see', type: 'cards' },
+    { id: 'history',      key: 'history',     label: 'History',          nav: 'History',    ico: '🏛', accent: 'var(--rust-deep)', kicker: 'Underfoot', group: 'see', type: 'prose' },
+    { id: 'arts',         key: 'arts',        label: 'Arts & culture',   nav: 'Arts',       ico: '🎨', accent: 'var(--river)',     kicker: 'Inside the picture plane', group: 'see', type: 'cards' },
+    { id: 'kids',         key: 'kids',        label: 'Kids & families',  nav: 'Kids',       ico: '🧒', accent: 'var(--moss-light)', kicker: 'For the little ones', group: 'see', type: 'cards' },
+    { id: 'movies',       key: 'movies',      label: 'Movies',           nav: 'Movies',     ico: '🎬', accent: 'var(--river-deep)', kicker: 'The big screen', group: 'see', type: 'cards' },
+    { id: 'events',       key: 'events',      label: 'Events',           nav: 'Events',     ico: '📅', accent: 'var(--moss)',      kicker: "What's coming up", group: 'see', type: 'events' },
+    { id: 'curiosities',  key: 'curiosities', label: 'Curiosities',      nav: 'Curiosities', ico: '🧭', accent: 'var(--gold)',     kicker: 'The offbeat layer', group: 'see', type: 'cards' }
   ];
 
   let query = '';
@@ -364,14 +366,20 @@
     nav.innerHTML = '';
     const top = el('a', '', 'Top'); top.href = '#top';
     nav.appendChild(top);
-    [['map.html', '🗺 Map'], ['wildlife.html', '🦅 Wildlife']].forEach(([href, label]) => {
-      const a = el('a', 'page-pill', esc(label)); a.href = href; nav.appendChild(a);
-    });
+    // Map leads as a distinct overview view (it spans everything).
+    const mapA = el('a', 'page-pill', '🗺 Map'); mapA.href = 'map.html'; nav.appendChild(mapA);
+    let lastGroup = null;
     liveSections().forEach((cfg) => {
+      if (cfg.group && lastGroup && cfg.group !== lastGroup) nav.appendChild(el('span', 'nav-sep'));
+      if (cfg.group) lastGroup = cfg.group;
       const a = el('a', '', esc(cfg.nav || cfg.label));
       a.href = '#' + cfg.id;
       a.dataset.target = cfg.id;
       nav.appendChild(a);
+      // Wildlife is its own page, but it belongs with the outdoors cluster.
+      if (cfg.id === 'on-the-water') {
+        const w = el('a', 'nav-page', '🦅 Wildlife'); w.href = 'wildlife.html'; nav.appendChild(w);
+      }
     });
   }
 
