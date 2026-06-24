@@ -47,9 +47,10 @@
   // ---- section config -----------------------------------------
   // type: cards | prose | commute | events | groups
   const SECTIONS = [
-    { id: 'setup',        key: 'civic',       label: 'Getting set up',   nav: 'Set up',     ico: '🧭', accent: 'var(--moss)',      kicker: 'Your first week', type: 'cards' },
-    { id: 'outdoors',     key: 'nature',      label: 'The outdoors',     nav: 'Outdoors',   ico: '⛰',  accent: 'var(--moss)',      kicker: 'The land around you', type: 'cards' },
-    { id: 'eat',          key: 'eat',         label: 'Eat & drink',      nav: 'Eat',        ico: '🍽', accent: 'var(--rust)',      kicker: 'The table', type: 'cards' },
+    { id: 'setup',        key: 'civic',       label: 'Getting set up',   nav: 'Set up',     ico: '🧭', accent: 'var(--moss)',      kicker: 'The first week', type: 'cards' },
+    { id: 'outdoors',     key: 'nature',      label: 'The outdoors',     nav: 'Outdoors',   ico: '⛰',  accent: 'var(--moss)',      kicker: 'The lay of the land', type: 'cards' },
+    { id: 'on-the-water', key: 'water',       label: 'On the water',     nav: 'Water',      ico: '🛶', accent: 'var(--river)',     kicker: 'Boats, beaches & lakes', type: 'cards' },
+    { id: 'eat',          key: 'eat',         label: 'Eat & drink',      nav: 'Eat',        ico: '🍽', accent: 'var(--rust)',      kicker: 'The table', reviews: true, type: 'cards' },
     { id: 'home',         key: 'home',        label: 'Home, hardware & garden', nav: 'Home goods', ico: '🔨', accent: 'var(--gold)', kicker: 'Outfitting the house', type: 'cards' },
     { id: 'shopping',     key: 'shopping',    label: 'Shopping & everyday goods', nav: 'Shopping', ico: '🛍', accent: 'var(--river)', kicker: 'The other errands', type: 'cards' },
     { id: 'services',     key: 'services',    label: 'Repairs & home services', nav: 'Repairs', ico: '🛠', accent: 'var(--rust)', kicker: 'Who to call', type: 'cards' },
@@ -57,7 +58,7 @@
     { id: 'essentials',   key: 'essentials',  label: 'Everyday essentials', nav: 'Essentials', ico: '🏦', accent: 'var(--river-deep)', kicker: 'Banks, gas, gyms & more', type: 'cards' },
     { id: 'kids',         key: 'kids',        label: 'Kids & families',  nav: 'Kids',       ico: '🧒', accent: 'var(--moss-light)', kicker: 'For the little ones', type: 'cards' },
     { id: 'arts',         key: 'arts',        label: 'Arts & culture',   nav: 'Arts',       ico: '🎨', accent: 'var(--river)',     kicker: 'Inside the picture plane', type: 'cards' },
-    { id: 'history',      key: 'history',     label: 'History',          nav: 'History',    ico: '🏛', accent: 'var(--rust-deep)', kicker: 'Under your feet', type: 'prose' },
+    { id: 'history',      key: 'history',     label: 'History',          nav: 'History',    ico: '🏛', accent: 'var(--rust-deep)', kicker: 'Underfoot', type: 'prose' },
     { id: 'movies',       key: 'movies',      label: 'Movies',           nav: 'Movies',     ico: '🎬', accent: 'var(--river-deep)', kicker: 'The big screen', type: 'cards' },
     { id: 'events',       key: 'events',      label: 'Events',           nav: 'Events',     ico: '📅', accent: 'var(--moss)',      kicker: "What's coming up", type: 'events' },
     { id: 'getting-around', key: 'commute',   label: 'Getting around & the commute', nav: 'Travel', ico: '🚆', accent: 'var(--river)', kicker: 'Off the west bank', type: 'commute' },
@@ -95,17 +96,22 @@
   }
 
   // ---- card rendering -----------------------------------------
-  function actionLinks(p) {
+  function reviewsUrl(p) {
+    return 'https://www.google.com/search?q=' + encodeURIComponent(p.name + ' ' + (p.town || '') + ' NY reviews');
+  }
+  function actionLinks(p, cfg) {
     const acts = [];
     if (p.lat != null || p.address) acts.push(`<a class="btn primary" href="${mapsUrl(p)}" target="_blank" rel="noopener">↗ Directions</a>`);
     if (p.phone) acts.push(`<a class="btn" href="tel:${esc(p.phone.replace(/[^0-9+]/g, ''))}">☎ Call</a>`);
     if (p.web) acts.push(`<a class="btn" href="${esc(p.web)}" target="_blank" rel="noopener">Website</a>`);
     if (p.menu) acts.push(`<a class="btn" href="${esc(p.menu)}" target="_blank" rel="noopener">Menu</a>`);
+    if (cfg && cfg.reviews) acts.push(`<a class="btn reviews" href="${reviewsUrl(p)}" target="_blank" rel="noopener">★ Reviews</a>`);
     if (!acts.length) return '';
     return `<div class="actions">${acts.join('')}</div>`;
   }
 
-  function placeCard(p, accent) {
+  function placeCard(p, cfg) {
+    const accent = cfg && cfg.accent;
     const card = el('article', 'card');
     if (accent) card.style.setProperty('--accent', accent);
     const dist = p._mi != null
@@ -119,7 +125,9 @@
       `<span class="tag${/spectrum|sensory|free/i.test(t) ? ' flag' : ''}">${esc(t)}</span>`).join('');
     const conf = (p.confidence === 'low' || p.confidence === 'medium')
       ? `<span class="confidence ${p.confidence}">${p.confidence === 'low' ? 'verify' : 'confirm'}</span>` : '';
+    const photo = p.img ? `<figure class="card-photo"><img loading="lazy" src="${esc(p.img)}" alt="${esc(p.name)}" onerror="this.closest('figure').remove()">${p.imgCredit ? `<figcaption>${esc(p.imgCredit)}</figcaption>` : ''}</figure>` : '';
     card.innerHTML = `
+      ${photo}
       <div class="card-top"><h3>${esc(p.name)}</h3>${dist}</div>
       ${metaHtml}
       ${p.hours ? `<div class="hours">${esc(p.hours)}</div>` : ''}
@@ -128,7 +136,7 @@
       ${p.texture ? `<div class="texture"><b>Local note —</b> ${esc(p.texture)}</div>` : ''}
       ${p.access ? `<div class="access"><b>Access —</b> ${esc(p.access)}</div>` : ''}
       ${tags || conf ? `<div class="tags">${tags}${conf}</div>` : ''}
-      ${actionLinks(p)}`;
+      ${actionLinks(p, cfg)}`;
     return card;
   }
 
@@ -174,7 +182,7 @@
       if (query) return null; // hide section entirely when searching with no hits
       grid.appendChild(el('div', 'empty', 'Nothing here yet.'));
     }
-    list.forEach((p) => grid.appendChild(placeCard(p, cfg.accent)));
+    list.forEach((p) => grid.appendChild(placeCard(p, cfg)));
     sec.appendChild(grid);
     return sec;
   }
@@ -354,6 +362,9 @@
   function buildNav() {
     const nav = $('#sectionNav');
     nav.innerHTML = '';
+    [['map.html', '🗺 Map'], ['wildlife.html', '🦅 Wildlife']].forEach(([href, label]) => {
+      const a = el('a', 'page-pill', esc(label)); a.href = href; nav.appendChild(a);
+    });
     const top = el('a', '', 'Top'); top.href = '#top';
     nav.appendChild(top);
     liveSections().forEach((cfg) => {
@@ -391,11 +402,12 @@
           <div>
             <h4>Good to wander</h4>
             <ul>
+              <li><a href="map.html">🗺 The map</a></li>
+              <li><a href="wildlife.html">🦅 Wildlife & habitat</a></li>
               <li><a href="#outdoors">The outdoors</a></li>
-              <li><a href="#eat">Eat & drink</a></li>
+              <li><a href="#on-the-water">On the water</a></li>
               <li><a href="#arts">Arts & culture</a></li>
               <li><a href="#history">History</a></li>
-              <li><a href="#curiosities">Curiosities</a></li>
             </ul>
           </div>
         </div>

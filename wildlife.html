@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#122e2b" />
+  <meta name="description" content="The birds, trees, mammals and other wildlife of the Hudson Highlands around Cornwall-on-Hudson — what lives on Storm King, in Black Rock Forest, at Constitution Marsh and in the Hudson." />
+  <link rel="icon" href="./icons/icon-192.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700&family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css" />
+  <title>Wildlife & habitat — The Cornwall-on-Hudson Guide</title>
+  <style>
+    .wild-hero {
+      position: relative; overflow: hidden; color: var(--paper);
+      background: linear-gradient(158deg, #0e2623 0%, #163a34 52%, #1f4a40 100%, var(--moss) 140%);
+      padding: clamp(36px, 6vw, 70px) clamp(18px, 5vw, 40px) clamp(40px, 6vw, 64px);
+    }
+    .wild-hero-inner { max-width: var(--maxw); margin: 0 auto; }
+    .wild-hero .eyebrow { font-size: 12px; text-transform: uppercase; letter-spacing: .24em; font-weight: 700; color: var(--gold-soft); margin-bottom: 14px; }
+    .wild-hero h1 { font-size: clamp(32px, 6vw, 58px); letter-spacing: -.02em; margin-bottom: 14px; max-width: 18ch; }
+    .wild-hero h1 em { font-style: italic; color: var(--gold-soft); font-weight: 500; }
+    .wild-hero p { font-size: clamp(15px, 2vw, 18px); max-width: 64ch; color: rgba(244,237,224,.9); margin: 0 0 8px; }
+    .wild-hero .seealso { margin-top: 16px; font-size: 14px; }
+    .wild-hero .seealso a { color: var(--gold-soft); font-weight: 700; }
+
+    .wsection { max-width: var(--maxw); margin: 0 auto; padding: clamp(34px, 5vw, 56px) clamp(14px, 4vw, 28px) 6px; }
+    .wsec-head { max-width: var(--readw); margin-bottom: 22px; }
+    .wkicker { font-size: 12px; text-transform: uppercase; letter-spacing: .18em; font-weight: 800; color: var(--accent, var(--rust)); margin-bottom: 8px; }
+    .wsec-head h2 { font-size: clamp(26px, 4.4vw, 40px); letter-spacing: -.02em; }
+    .wsec-head h2::after { content: ""; display: block; width: 52px; height: 4px; border-radius: 3px; margin-top: 13px; background: var(--accent, var(--rust)); }
+    .wnote { color: var(--ink-soft); font-size: 15.5px; margin-top: 13px; }
+
+    .wgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(244px, 1fr)); gap: 16px; }
+    .wcard { background: var(--card); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; transition: transform .16s, box-shadow .16s; }
+    .wcard:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+    .wphoto { margin: 0; position: relative; }
+    .wphoto img { width: 100%; height: 158px; object-fit: cover; display: block; background: var(--paper-2); }
+    .wphoto figcaption { position: absolute; bottom: 0; right: 0; font-size: 9.5px; color: #fff; background: rgba(12,36,32,.66); padding: 2px 7px; border-top-left-radius: 6px; letter-spacing: .02em; }
+    .wbody { padding: 14px 15px 15px; border-left: 4px solid var(--accent, var(--river)); flex: 1; }
+    .wcard .wtype { display: inline-block; font-size: 10px; text-transform: uppercase; letter-spacing: .08em; font-weight: 800; color: var(--accent, var(--river)); margin-bottom: 6px; }
+    .wcard h3 { font-size: 18px; font-weight: 600; line-height: 1.2; margin-top: 2px; }
+    .wcard .sci { font-family: var(--display); font-style: italic; font-size: 13.5px; color: var(--ink-soft); margin: 2px 0 8px; }
+    .wcard p { font-size: 13.5px; margin: 0; color: var(--ink); }
+    .wstatus { display: inline-block; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; padding: 2px 8px; border-radius: 5px; margin-bottom: 6px; }
+    .wstatus.endangered { background: #f3d6cf; color: #8c2d16; }
+    .wstatus.threatened { background: #f6e2cc; color: #9a5a1f; }
+    .wstatus.concern { background: #f3ecd0; color: #7e6a23; }
+    .wstatus.protected { background: #d9e8da; color: #2f5d3f; }
+
+    .wild-foot { max-width: var(--readw); margin: 36px auto 0; padding: 0 clamp(14px, 4vw, 28px) 10px; }
+    .wild-note { background: linear-gradient(180deg, #fbf4e6, #f6edda); border: 1px solid var(--line); border-radius: var(--r); padding: 16px 18px; font-size: 13px; color: var(--ink-soft); line-height: 1.55; }
+    .wild-note b { color: var(--ink); }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="wordmark" href="./" aria-label="Back to the guide">
+        <span class="wm-mark" aria-hidden="true"></span>
+        <span class="wm-text"><span class="wm-title">Cornwall&#8209;on&#8209;Hudson</span><span class="wm-sub">Wildlife &amp; habitat</span></span>
+      </a>
+      <div class="header-tools">
+        <a class="btn" href="map.html">🗺 Map</a>
+        <a class="btn primary" href="./">← The guide</a>
+      </div>
+    </div>
+  </header>
+
+  <header class="wild-hero">
+    <div class="wild-hero-inner">
+      <div class="eyebrow">Storm King · Black Rock Forest · Constitution Marsh · the Hudson</div>
+      <h1>The wildlife of the <em>Hudson Highlands</em></h1>
+      <p>The land around the house is an oak-chestnut forest on rocky ridges, wrapped by a tidal river. That mix packs in a lot of life: wintering eagles and migrating hawks over the cliffs, black bear and bobcat in the woods, two venomous snakes on the warm ledges, and endangered sturgeon in the Hudson below.</p>
+      <div class="seealso">Where to see it: <a href="index.html#outdoors">the trails and the marsh are in The outdoors</a>.</div>
+    </div>
+  </header>
+
+  <main id="wild"></main>
+
+  <div class="wild-foot">
+    <div class="wild-note">
+      <b>⚠ About this page.</b> The species here were web-researched and checked against the Black Rock Forest checklists, the Constitution Marsh (Audubon) species list, New York State DEC and NOAA Fisheries — but a guide is not a field survey. What is actually out on a given day shifts with season and luck. <b>Give wildlife room:</b> the timber rattlesnake and copperhead are venomous (and protected — never handle or harass them), and bears are best enjoyed from a distance. Conservation-status labels reflect the time of writing and can change. Photos are from Wikimedia Commons, credited on each image; they illustrate the species and were not taken locally.
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <h3>Keep exploring</h3>
+      <p>This is one corner of the full guide to Cornwall-on-Hudson — the river, the village and the towns within reach.</p>
+      <div class="footer-cols">
+        <div><h4>More</h4><ul>
+          <li><a href="./">The full guide</a></li>
+          <li><a href="map.html">The map</a></li>
+          <li><a href="index.html#outdoors">The outdoors</a></li>
+          <li><a href="index.html#events">Events calendar</a></li>
+        </ul></div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="./wildlife.js"></script>
+</body>
+</html>

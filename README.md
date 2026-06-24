@@ -13,6 +13,7 @@ A new arrival can find almost anything here. Sections (each sorted by distance w
 
 - **Getting set up** — village vs. town government, utilities (Central Hudson), trash & recycling, the school district, voting, DMV, post offices, emergencies and houses of worship
 - **The outdoors** — Storm King, Black Rock Forest, Schunnemunk, the river and waterfront, trails, waterfalls, gardens and the big state parks (with current trail/closure notes)
+- **On the water** — boat launches, kayak outfitters, marinas, swimming, fishing, the nearby lakes and the Bear Mountain carousel/Hessian Lake cluster
 - **Eat & drink** — village spots out to cross-river day trips
 - **Home, hardware & garden** — hardware, lumber, paint, appliances, furniture, antiques and garden centers
 - **Shopping & everyday goods** — yarn, books, toys, groceries, pharmacies, wine, pets, bikes, jewelry and more
@@ -57,4 +58,8 @@ Then open http://localhost:8520 (or "highlands-guide" in the Launch panel).
 | `styles.css` | Field-guide editorial design — Hudson Highlands palette, topographic motif, responsive + print |
 | `app.js` | Rendering engine: `SECTIONS` config, distance sort, filter chips, search, events, scroll-spy |
 | `data.js` | **All content** — edit here |
+| `map.html` + `map.js` | Companion **map page** (Leaflet + CARTO tiles): every located listing, colored and toggled by category |
+| `wildlife.html` + `wildlife.js` | Companion **wildlife & habitat page**: birds, trees, mammals and more, with conservation status and Wikimedia photos |
 | `icons/` | Favicon / touch icon |
+
+**Companion pages.** `map.html` plots all ~285 located listings on an interactive map, colored by category with a toggleable legend and the house marked. `wildlife.html` is a researched field guide to local birds, trees, mammals, fish and insects (verified against Black Rock Forest, the Constitution Marsh Audubon checklist, NY DEC and NOAA Fisheries). Both link from the guide's nav (the 🗺/🦅 pills) and footer. Photos on the wildlife page and a few guide cards are Wikimedia Commons images, credited inline (author + license); each was checked to load.

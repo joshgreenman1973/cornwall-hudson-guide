@@ -7,12 +7,12 @@ window.DATA = {
   meta: {
     heroLede: "A guide to Cornwall-on-Hudson and the surrounding Hudson Highlands — the places, the services and how things work, for anyone just settling in. Everything is sorted by distance from the house.",
     quickFacts: [
-      { n: "12520", l: "Your ZIP code" },
+      { n: "12520", l: "ZIP code" },
       { n: "Orange", l: "The county" },
       { n: "~57 mi", l: "To Midtown Manhattan" },
       { n: "West bank", l: "Side of the Hudson" }
     ],
-    homeNote: "Your address sits on Storm King Mountain, where the Abbott family was one of the prominent early-20th-century households — alongside the Stillmans, Ledoux and Matthiessens — who kept The Storm King School afloat through the Depression. The lane almost certainly carries their name.",
+    homeNote: "The house sits on Storm King Mountain, where the Abbott family was one of the prominent early-20th-century households — alongside the Stillmans, Ledoux and Matthiessens — who kept The Storm King School afloat through the Depression. The lane almost certainly carries their name.",
     about: "This guide was assembled through web research and human review, then organized for someone newly arrived in Cornwall-on-Hudson. Everything is sorted by distance from 10 Abbott Lane. Listings go stale — this stretch of the valley has heavy restaurant turnover, and hours, fares, prices and programs all change. Treat it as a smart starting point, not gospel: call ahead or check a website before a long drive.",
     updated: "Last researched June 2026.",
     aiCaution: [
@@ -33,8 +33,9 @@ window.DATA = {
     movies: "The art-house and the drive-ins. Note: Newburgh's Downing Film Center closed in 2023.",
     spectrum: "Start with the OPWDD Front Door for eligibility, then services flow from there. Call ahead — programs and ABA availability change; confirm before relying on any listing.",
     curiosities: "The Atlas Obscura layer — ruins in the woods, roadside oddities, hand-built castles and a few superlatives. Closest first; some need a hike or a seasonal tour.",
-    civic: "The official stuff a new arrival needs first — town hall, utilities, trash, schools, voting and emergencies. Cornwall has both a Village (your address, ZIP 12520) and a Town government; the Village handles your water, sewer and trash, so call Village Hall first.",
-    nature: "You live on Storm King Mountain, inside the viewshed that launched American landscape painting. Closest first — some are a flat village stroll, some a real scramble. Heads-up: Breakneck Ridge is closed for all of 2026 for trail and station construction.",
+    civic: "The official stuff a new arrival needs first — town hall, utilities, trash, schools, voting and emergencies. Cornwall has both a Village (ZIP 12520, which covers the house) and a Town government; the Village handles water, sewer and trash, so call Village Hall first.",
+    nature: "The house sits on Storm King Mountain, inside the viewshed that launched American landscape painting. Closest first — some are a flat village stroll, some a real scramble. Heads-up: Breakneck Ridge is closed for all of 2026 for trail and station construction.",
+    water: "Ways onto the Hudson and the nearby lakes. The closest river access — Donahue Memorial Park in the village, and Kowawese at Plum Point when it reopens — are over in The outdoors. Heads-up: gas motors are banned on almost every nearby lake except Greenwood, and Orange Lake and Beaver Dam Lake are private with no public access.",
     home: "Outfitting a house — hardware, lumber, paint, appliances, furniture, antiques and garden centers. Worth knowing up front: the village has no hardware store of its own, so the nearest full one is Brett's True Value in New Windsor.",
     services: "Verified local trades — but a listing is not a recommendation. For trades, neighbors' word of mouth beats any directory: search the Cornwall Facebook groups and Nextdoor (see Community & groups) and browse the Greater Cornwall Chamber directory. Always confirm a current New York license, insurance and price before hiring; plumbing and sewer work in the village must be registered with the Board of Health.",
     health: "Hospitals, urgent care and the practices a household needs. Key fact: the closest emergency room is the Montefiore St. Luke's Newburgh campus on Dubois Street — the Cornwall campus is outpatient only. For any emergency, call 911.",
@@ -165,7 +166,7 @@ window.DATA = {
       address: "1601 Route 9D, Garrison, NY 10524", web: "https://www.boscobel.org",
       blurb: "A Federal-style mansion overlooking the exact Highlands viewshed — Constitution Marsh, West Point and the river from Bear Mountain Bridge to Newburgh Bay — that the Hudson River School painted.",
       signature: "On the grounds: portrait busts of ten major Hudson River School artists by sculptor Greg Wyatt, funded by the Newington-Cropsey Foundation — an on-site art-historical roll call.",
-      texture: "This is where you stand inside the picture plane: the Highlands around your house are the subject of canvases by Cole, Church, Cropsey and Gifford. ~12 miles south.",
+      texture: "This is where you stand inside the picture plane: the Highlands around the house are the subject of canvases by Cole, Church, Cropsey and Gifford. ~12 miles south.",
       tags: ["Hudson River School", "Viewshed", "Historic house"] },
 
     /* ---- Design, land art & serious contemporary ---- */
@@ -222,7 +223,7 @@ window.DATA = {
   history: [
     { name: "The Storm King case — where environmental law was born", kicker: "On this mountain", town: "Storm King Mountain", lat: 41.4280, lon: -74.0200, web: "https://en.wikipedia.org/wiki/Scenic_Hudson_Preservation_Conference_v._Federal_Power_Commission", webLabel: "The case",
       body: [
-        "In September 1962 Consolidated Edison announced it would blast a 2,000-megawatt pumped-storage hydroelectric plant — then the largest in the world — into the face of Storm King Mountain, the very mountain your house sits on.",
+        "In September 1962 Consolidated Edison announced it would blast a 2,000-megawatt pumped-storage hydroelectric plant — then the largest in the world — into the face of Storm King Mountain, the very mountain the house sits on.",
         "Opponents formed the Scenic Hudson Preservation Conference. In 1965 the U.S. Court of Appeals for the Second Circuit ruled in 'Scenic Hudson v. Federal Power Commission' that citizens had legal standing to sue on aesthetic and environmental grounds — an unprecedented holding.",
         "That decision is widely credited with launching modern environmental law: it established the public's right to take part in environmental disputes and helped inspire the National Environmental Policy Act. The 17-year fight ended when Con Ed abandoned the plant; the settlement was signed in December 1980."
       ] },
@@ -336,6 +337,15 @@ window.DATA = {
       hours: "Zoo Apr–Oct 10–4:30; ice rink late Oct–mid-Mar. Confirm.",
       tags: ["Animals", "Stroller-OK", "Winter skating"] },
 
+    { name: "Bear Mountain carousel", town: "Bear Mountain", kind: "Theme park", lat: 41.3120, lon: -73.9890,
+      address: "By the Bear Mountain Inn and Hessian Lake, Bear Mountain, NY 10911", web: "https://parks.ny.gov/visit/state-parks/bear-mountain-state-park",
+      hours: "Summer Wed–Sun; weekends and holidays the rest of the year. Confirm 2026 days and ride price.",
+      blurb: "An indoor merry-go-round in a stone pavilion where kids ride 42 hand-carved native animals — black bear, fox, deer, raccoon — instead of horses, under hand-painted scenes of the park.",
+      signature: "Every figure is a hand-carved local animal, and the rounding boards are hand-painted park scenes — the signature family ride at Bear Mountain.",
+      texture: "Right by the Inn and Hessian Lake, so it pairs with a lakeside stroll, a pedal boat (see On the water) or the Trailside zoo. Best for families with small children.",
+      tags: ["Carousel", "Toddlers", "Indoor"],
+      img: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Bear_Mountain_Classic_Caroussel_%2830301322567%29.jpg/960px-Bear_Mountain_Classic_Caroussel_%2830301322567%29.jpg", imgCredit: "VillageHero · CC BY-SA 2.0" },
+
     { name: "Storm King Mountain hike", town: "Cornwall-on-Hudson", kind: "Hike", lat: 41.4280, lon: -74.0200,
       blurb: "A ~2.25-mile loop on the Orange/Stoney Lonesome trails with short rock scrambles and big Hudson views — minutes from the house.",
       texture: "Good for fit families with older kids; there's light hands-on-rock scrambling, so it's not stroller terrain. The Orange Trail starts at the far side of the northbound 9W pull-off.",
@@ -402,7 +412,7 @@ window.DATA = {
     { name: "Quilt Basket", town: "Pawling", kind: "Quilting", lat: 41.5630, lon: -73.6020,
       address: "4D Oak St, Pawling, NY 12564", phone: "845-227-7606", web: "https://quiltbasket.com",
       blurb: "A full-service quilt shop since 1989 — 100% cottons, books, patterns, notions — and a Handi Quilter longarm dealer.",
-      texture: "The go-to if your quilter is shopping for or servicing a longarm machine. It downsized from its old Wappingers store to this smaller Pawling shop but kept a strong online presence. ~30 miles east.",
+      texture: "The go-to for buying or servicing a longarm quilting machine. It downsized from its old Wappingers store to this smaller Pawling shop but kept a strong online presence. ~30 miles east.",
       tags: ["Quilting", "Longarm dealer", "Fabric"] },
 
     { name: "Hudson Valley Modern Quilt Guild", town: "Beacon / Fishkill / Garrison", kind: "Quilting", lat: 41.5050, lon: -73.9700,
@@ -414,7 +424,7 @@ window.DATA = {
     { name: "Good Books", town: "Cornwall", kind: "Bookstore", lat: 41.4480, lon: -74.0500,
       address: "284 Main St, Cornwall, NY 12518", web: "https://www.goodbooksny.com",
       hours: "Tue–Fri 12–5, Sat 10–5, Sun 1–5 (closed Mon).",
-      blurb: "Your closest indie bookstore — a family-owned, community-centered shop on Cornwall's Main Street.",
+      blurb: "The closest indie bookstore — a family-owned, community-centered shop on Cornwall's Main Street.",
       texture: "The children's section has bean-bag seating and a careful curation; the shop partners with the Cornwall Public Library on events. (There is no 'Storm King' bookstore in Cornwall — this is the real one.)",
       tags: ["Books", "Kids", "Closest"] },
 
@@ -989,7 +999,7 @@ window.DATA = {
       address: "194 Hudson St, Cornwall-on-Hudson", price: "$",
       hours: "Daily 10:30am–9pm.",
       blurb: "The everyday village pizza-and-pasta joint — gourmet and Sicilian pies, calzones, heroes, plus gluten-free and whole-wheat crust.",
-      texture: "Your reliable weeknight takeout and delivery. Has a party room and does catering.",
+      texture: "The reliable weeknight takeout and delivery. Has a party room and does catering.",
       tags: ["Kid-friendly", "Takeout", "Closest"] },
 
     { name: "Jones Farm café & bakery", town: "Cornwall", kind: "Farm", lat: 41.4550, lon: -74.0600,
@@ -1131,7 +1141,7 @@ window.DATA = {
     { name: "Brett's True Value", town: "New Windsor", kind: "Hardware", lat: 41.4699, lon: -74.0801,
       address: "115 Temple Hill Rd, New Windsor, NY 12553", phone: "845-391-8198", web: "https://brettstruevalue.shoptruevalue.com",
       hours: "Mon–Fri 7:30–7, Sat 8–6, Sun 9–5.",
-      blurb: "Your nearest real full-line hardware store — tools, fasteners, plumbing, electrical, paint matching, key cutting and propane.",
+      blurb: "The nearest real full-line hardware store — tools, fasteners, plumbing, electrical, paint matching, key cutting and propane.",
       texture: "About 15 minutes via Route 32 and Temple Hill Rd. This is the everyday hardware run; it stocks a deep general inventory, not just power equipment.",
       tags: ["Hardware", "Paint", "Keys", "Closest full"] },
 
@@ -1324,7 +1334,7 @@ window.DATA = {
     { name: "Griffen Pump Service", town: "Wappingers Falls", kind: "Septic & well", lat: 41.5965, lon: -73.9210,
       address: "3 Nancy Ct, Ste 3, Wappingers Falls, NY 12590", phone: "845-897-3107", web: "https://www.griffenpumpservice.com",
       blurb: "A family-owned well and pump specialist since 1997 — well-pump repair, pressure tanks, water filtration and emergency water-system service.",
-      texture: "Explicitly lists New Windsor and Cornwall and services all major well-pump brands — the closest well specialist found. For septic pumping specifically, confirm they cover your need versus pump and water work.",
+      texture: "Explicitly lists New Windsor and Cornwall and services all major well-pump brands — the closest well specialist found. For septic pumping specifically, confirm they cover that need versus pump and water work.",
       tags: ["Well pump", "Water filtration", "Emergency"] },
 
     { name: "Tim Mills American Pest Control", town: "Middletown", kind: "Pest control", lat: 41.4459, lon: -74.4229,
@@ -1537,13 +1547,151 @@ window.DATA = {
       tags: ["Hike", "Lake", "Birding", "Views"] }
   ],
 
+  /* ---------------- ON THE WATER ---------------- */
+  water: [
+    { name: "Storm King Adventure Tours", town: "Cornwall-on-Hudson", kind: "Kayak & tours", lat: 41.4450, lon: -74.0200,
+      address: "4 Duncan Ave, Cornwall-on-Hudson, NY 12520", web: "https://stormkingadventuretours.com",
+      hours: "Guided kayak tours ~May to mid-October. Confirm 2026 dates and pricing.",
+      blurb: "The hometown outfitter — guided Hudson River kayak tours right from Cornwall-on-Hudson.",
+      texture: "Guided trips only (no self-guided rentals), with all gear and instruction provided — good for first-timers through experienced paddlers. Signature trips include Bannerman Island, sunset and full-moon paddles, and the Cornwall Bay sandbar.",
+      tags: ["Kayak", "Guided", "Closest"] },
+
+    { name: "Hudson River Expeditions", town: "Cold Spring", kind: "Kayak & tours", lat: 41.4200, lon: -73.9540,
+      address: "14 Market St, Cold Spring, NY 10516", web: "https://www.hudsonriverexpeditions.com",
+      hours: "Season ~late May to mid-October; days vary. Confirm hours and pricing.",
+      blurb: "A full-service paddling outfitter across the river — kayak, canoe and SUP rentals plus naturalist-guided tours.",
+      texture: "The closest place to rent a boat on a self-guided basis rather than join a tour; guided options include Constitution Marsh with Audubon and Dennings Point. Novices to experienced.",
+      tags: ["Kayak", "Rentals", "SUP"] },
+
+    { name: "Mountain Valley Guides", town: "Newburgh", kind: "Kayak & tours", lat: 41.5020, lon: -74.0080,
+      address: "2 Washington St, Newburgh, NY 12550", web: "https://mountainvalleyguides.com",
+      hours: "~Memorial Day to Columbus Day. Confirm pricing.",
+      blurb: "A kayak outfitter launching from the Newburgh waterfront across to Beacon.",
+      texture: "Guided tours only. The signature trip is the 'Paddles and Pints' crossing from Newburgh to Beacon's Long Dock Park, plus sunset paddles. Distinct from the similarly named Hudson Valley Guides.",
+      tags: ["Kayak", "Guided"], confidence: "medium" },
+
+    { name: "Hudson Valley Guides", town: "New Windsor", kind: "Kayak & tours", lat: 41.4750, lon: -74.0000,
+      web: "https://hudsonvalleyguides.com/kayak-tours",
+      hours: "Weekend tours referenced; confirm season and contact.",
+      blurb: "Guided kayak tours out to Bannerman Island from New Windsor, plus bald-eagle paddles.",
+      texture: "Guided tours only, gear and instruction included; a tandem can be reserved for a parent and child. A separate business from Mountain Valley Guides despite the similar name.",
+      tags: ["Kayak", "Guided", "Families"], confidence: "medium" },
+
+    { name: "Washington Street Boat Launch", town: "Newburgh", kind: "Boat launch", lat: 41.4983, lon: -74.0057,
+      address: "Foot of Washington St, Newburgh, NY 12550", web: "https://cityofnewburgh-ny.gov/facilities/facility/details/Washington-Street-Boat-Launching-Ramp-13",
+      hours: "Apr 1–Oct 1, 7am–9pm. ~$15/day meter or $100 season pass from the City Clerk. Confirm rates.",
+      blurb: "Newburgh's public hard-surface ramp — the nearest full trailer launch onto the Hudson, and fine for kayaks too.",
+      texture: "The only trailer ramp among the nearby Hudson sites; the lot is geared to tow vehicles. Seasonal (roughly April to October).",
+      tags: ["Trailer launch", "Hudson"] },
+
+    { name: "Foundry Dock Park", town: "Cold Spring", kind: "Boat launch", lat: 41.4142, lon: -73.9579,
+      address: "End of Market St, Cold Spring, NY 10516 (beside the train station)", web: "https://www.scenichudson.org/explore-the-valley/scenic-hudson-parks/foundry-dock-park/",
+      hours: "Free, dawn to dusk. Hand-launching needs no permit; trailer launching needs a Village of Cold Spring permit.",
+      blurb: "A small Scenic Hudson park on the old West Point Foundry dock with an easy hand-carry kayak launch into Foundry Cove.",
+      texture: "The easiest east-bank put-in for paddlers — hand-carry, free, no permit, right by the Cold Spring train station (free weekend station parking).",
+      tags: ["Kayak", "Free", "Transit"] },
+
+    { name: "Mine Dock Park", town: "Highland Falls", kind: "Boat launch", lat: 41.3274, lon: -73.9845,
+      address: "Highland Falls, NY (near West Point) — Palisades Interstate Park", web: "https://dec.ny.gov/things-to-do/boating/launch-sites/orange-county",
+      hours: "Confirm.",
+      blurb: "A Palisades-run car-top launch on the Hudson near West Point, about 12 miles below Cornwall.",
+      texture: "A hand launch (car-top only, no trailers) for kayakers exploring the West Point reach.",
+      tags: ["Kayak", "Hudson"], confidence: "medium" },
+
+    { name: "Cornwall Yacht Club", town: "Cornwall-on-Hudson", kind: "Marina", lat: 41.4600, lon: -74.0120,
+      address: "175 Shore Rd, Cornwall-on-Hudson, NY 12520", web: "https://www.cornwallyachtclub.com",
+      hours: "Boating season; member-owned, fees confirm. Weekend breakfast and lunch in the clubhouse.",
+      blurb: "The closest boat club — a 70-plus-year member-owned club with 105 slips at the base of Storm King.",
+      texture: "Member-owned and member-run, with transient/guest slips as space allows. Shore power, water, pumpout, Wi-Fi and showers. For boat owners, not paddlers.",
+      tags: ["Marina", "Slips", "Closest"] },
+
+    { name: "Newburgh Yacht Club", town: "Newburgh", kind: "Marina", lat: 41.5000, lon: -74.0080,
+      address: "1 Park Place, Newburgh, NY 12550", web: "https://newburghyc.com",
+      hours: "Boating season; private club, fees confirm.",
+      blurb: "A historic Hudson River club (boating since 1885) at the foot of Newburgh's waterfront, with a gas dock.",
+      texture: "Private club with slip and trailer boating and a gas dock. Confirm amenities (transient slips, pool, restaurant) with the club.",
+      tags: ["Marina", "Gas dock"], confidence: "medium" },
+
+    { name: "Riverfront Marina", town: "Newburgh", kind: "Marina", lat: 41.5030, lon: -74.0080,
+      address: "Newburgh, NY (confirm exact address)", web: "https://riverfront-marina.com",
+      hours: "Season Apr 15–Oct 15; slip fees confirm.",
+      blurb: "A gated 120-slip marina on the Newburgh waterfront with full pump-out and dockside repairs.",
+      texture: "Slip and trailer boating; 50-amp power, pump-out, showers, transient slips. No boat or jet-ski rentals.",
+      tags: ["Marina", "Slips"] },
+
+    { name: "Hessian Lake (Bear Mountain)", town: "Bear Mountain", kind: "Lake", lat: 41.3130, lon: -73.9890,
+      address: "Bear Mountain State Park, Bear Mountain, NY 10911", web: "https://parks.ny.gov/visit/state-parks/bear-mountain-state-park",
+      hours: "Seasonal pedal-boat and rowboat rentals (~spring to mid-Oct). No swimming in the lake.",
+      blurb: "A picturesque glacial lake at the foot of Bear Mountain, ringed by a flat, easy walking loop, with seasonal pedal-boat and rowboat rentals.",
+      texture: "Swimming is not allowed (use the park pool). Pedal boats and rowboats rent at the lakeside concession; no private boats. The ~1-mile loop is level and stroller-friendly, and pairs naturally with the carousel.",
+      tags: ["Lake", "Boat rental", "Stroller-OK", "Family"],
+      img: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Hessian_Lake_NY.JPG/960px-Hessian_Lake_NY.JPG", imgCredit: "Alexisrael · CC BY-SA 3.0" },
+
+    { name: "Bear Mountain Pool", town: "Bear Mountain", kind: "Swimming", lat: 41.3120, lon: -73.9890,
+      address: "Bear Mountain State Park, Bear Mountain, NY 10911", web: "https://parks.ny.gov/visit/state-parks/bear-mountain-state-park",
+      hours: "2026 opening pushed to ~July 4 (window 7/4–9/7). Weekdays 10–5:30, weekends 11–6:30. $5/person, cash only.",
+      blurb: "A large seasonal outdoor pool in the park's core — the only public swimming at Bear Mountain (the lake is off-limits).",
+      texture: "A budget cool-off close to the Inn, carousel and lake — cash only. The 2026 opening was delayed by construction, so verify before going.",
+      tags: ["Swimming", "Pool", "Family"] },
+
+    { name: "Lake Tiorati Beach", town: "Harriman State Park", kind: "Swimming", lat: 41.2550, lon: -74.0570,
+      address: "2300 Seven Lakes Dr, Southfields, NY 10975", web: "https://parks.ny.gov/visit/state-parks/lake-tiorati-beach-harriman-state-park",
+      hours: "Swimming Memorial Day–Labor Day; $10/car in season. Car-top launch by purchased key.",
+      blurb: "One of two Harriman lakes with a guarded swimming beach, plus a key-access launch for car-top boats and good fishing.",
+      texture: "Lifeguarded beach swimming. Car-top boats only (no trailers); electric trolling motors OK if registered, gas prohibited. No on-site rentals.",
+      tags: ["Swimming", "Beach", "Lake", "Family"],
+      img: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/A_view_from_a_kayak%2C_Lake_Tiorati%2C_NY%2C_2012.jpg/960px-A_view_from_a_kayak%2C_Lake_Tiorati%2C_NY%2C_2012.jpg", imgCredit: "Wjs23 · CC BY-SA 3.0" },
+
+    { name: "Lake Welch Beach", town: "Harriman State Park", kind: "Swimming", lat: 41.2050, lon: -74.0380,
+      address: "800 Kanawauke Rd, Stony Point, NY 10980", web: "https://parks.ny.gov/visit/state-parks/lake-welch-beach-harriman-state-park",
+      hours: "Swimming weekends 5/23–6/21, daily 6/22–9/7 (2026); $10/car in season.",
+      blurb: "Harriman's largest beach — a half-mile sandy strand, and the one Harriman lake that allows a trailered (non-gas) boat.",
+      texture: "Lifeguarded swimming; no dogs or alcohol on the beach. Lake Welch and Lake Kanawauke (both on Route 106) are the only Harriman launches that allow boat trailers. Electric motors OK if registered, gas prohibited.",
+      tags: ["Swimming", "Beach", "Lake"] },
+
+    { name: "Lake Sebago", town: "Harriman State Park", kind: "Boat launch", lat: 41.1970, lon: -74.1170,
+      address: "Boat launch off Seven Lakes Dr, Bear Mountain, NY 10911", web: "https://parks.ny.gov/visit/state-parks/lake-sebago-beach-harriman-state-park",
+      hours: "Swimming beach CLOSED for rehab (into ~mid-2027). Boat launch open; Palisades boat permit required.",
+      blurb: "A large, motor-free Harriman lake popular with paddlers and anglers, though its swimming beach is closed for rehab into 2027.",
+      texture: "No swimming for now (beach closed). Car-top boats launch with a Palisades permit; no trailers. Electric trolling motors OK if registered, gas prohibited.",
+      tags: ["Lake", "Kayak", "Fishing"] },
+
+    { name: "Round Lake", town: "Monroe", kind: "Lake", lat: 41.3180, lon: -74.2050,
+      address: "Town boat launch on Lakes Rd, Monroe, NY", web: "https://dec.ny.gov/places/round-lake-orange",
+      hours: "Confirm any town launch sticker or fee. NY fishing license required.",
+      blurb: "A 97-acre town lake stocked each spring with brown trout, with a public launch off Lakes Road and no gas motors.",
+      texture: "Rowboats, kayaks, canoes and small craft allowed; no gas motors. Fishing for brown trout, bass, crappie and panfish. For anglers and quiet paddlers.",
+      tags: ["Lake", "Fishing", "No gas motors"] },
+
+    { name: "Greenwood Lake", town: "Greenwood Lake", kind: "Lake", lat: 41.1800, lon: -74.3000,
+      address: "Shoreline mostly private; free village canoe/kayak launch plus marinas", web: "https://dec.ny.gov/places/greenwood-lake-orange",
+      hours: "Marina hours and fees vary; the village kayak launch is free. NY fishing license required.",
+      blurb: "A 1,918-acre two-state lake — the region's big powerboating and fishing destination, with private marinas, a free village kayak launch and trophy musky fishing.",
+      texture: "The one large nearby lake that allows gas-powered motorboats. Swimming is at private and association beaches, not a state beach. Fishing for walleye, bass and muskellunge; special Greenwood Lake regulations apply.",
+      tags: ["Lake", "Powerboats", "Fishing"] },
+
+    { name: "Sterling Lake", town: "Sterling Forest State Park", kind: "Fishing", lat: 41.1960, lon: -74.2520,
+      address: "Sterling Forest State Park, off Sterling Mine Rd, Tuxedo, NY", web: "https://dec.ny.gov/places/sterling-lake",
+      hours: "Daylight hours; NY fishing license required.",
+      blurb: "A crystal-clear lake circled by a hiking trail, open for shore fishing only and notable for a self-sustaining lake-trout population.",
+      texture: "No boating and no swimming — shore fishing only, daylight hours, no baitfish allowed. A ~4-mile trail follows the shoreline. For hike-in anglers. (Sterling Forest's separate Blue Lake does allow permit boating.)",
+      tags: ["Fishing", "Hike-in", "No boats"] },
+
+    { name: "Lake Washington", town: "New Windsor / Newburgh", kind: "Fishing", lat: 41.4840, lon: -74.0850,
+      address: "Designated shore-fishing area at Lockwood's Basin, off NY 207", web: "https://en.wikipedia.org/wiki/Lake_Washington_(New_York)",
+      hours: "Fishing Apr 1–Oct 31, 6am–6pm, with a City of Newburgh permit plus a NY license. No swimming or boating.",
+      blurb: "A City of Newburgh drinking-water reservoir that allows permit-only shore fishing in season — no swimming or boating.",
+      texture: "A drinking-water reservoir: shore fishing only, by city permit, from the designated area. Note a NY catch-and-release advisory for parts of the lake due to elevated PFAS in some fish.",
+      tags: ["Fishing", "Permit", "Catch-and-release"], confidence: "medium" }
+  ],
+
   /* ---------------- HEALTHCARE ---------------- */
   health: [
     { name: "Montefiore St. Luke's Cornwall — Newburgh Campus (ER)", town: "Newburgh", kind: "Hospital", lat: 41.5030, lon: -74.0180,
       address: "70 Dubois St, Newburgh, NY 12550", phone: "845-561-4400", web: "https://www.montefioreslc.org/our-services/emergency-department/",
       hours: "Emergency room open 24/7.",
       blurb: "The nearest full-service hospital emergency room — a 242-bed acute-care hospital and Level III trauma center.",
-      texture: "Your closest real ER, roughly 4–5 miles north (10–15 min). Do NOT confuse it with the Cornwall campus on Laurel Ave, which has no emergency room. For any true emergency, Dubois Street in Newburgh is the address.",
+      texture: "The closest real ER, roughly 4–5 miles north (10–15 min). Do NOT confuse it with the Cornwall campus on Laurel Ave, which has no emergency room. For any true emergency, Dubois Street in Newburgh is the address.",
       tags: ["Hospital", "Emergency room", "Closest ER"] },
 
     { name: "Montefiore St. Luke's Cornwall — Cornwall Campus (outpatient, no ER)", town: "Cornwall", kind: "Hospital", lat: 41.4420, lon: -74.0400,
@@ -1792,7 +1940,7 @@ window.DATA = {
       address: "115 Temple Hill Rd, New Windsor, NY 12553", phone: "845-565-5130", web: "https://vgcleaners.com/locations/",
       hours: "Attended Mon–Fri 7–7, Sat 7–5, Sun 9–3; self-service open 24 hours.",
       blurb: "A full laundromat with self-service machines plus drop-off dry cleaning and tailoring.",
-      texture: "About 10 min away — the nearest place to wash your own laundry, open 24 hours. A second 24-hour laundromat, Laundry Zone (407 Blooming Grove Tpke), is nearby as a backup.",
+      texture: "About 10 min away — the nearest place to do laundry on self-service machines, open 24 hours. A second 24-hour laundromat, Laundry Zone (407 Blooming Grove Tpke), is nearby as a backup.",
       tags: ["Laundromat", "Self-service", "24 hour"] },
 
     { name: "Hudson Street Hair Company", town: "Cornwall-on-Hudson", kind: "Salon", lat: 41.4465, lon: -74.0155,
@@ -1815,7 +1963,7 @@ window.DATA = {
     { name: "Village of Cornwall-on-Hudson (Village Hall)", town: "Cornwall-on-Hudson", kind: "Government", lat: 41.4445, lon: -74.0190,
       address: "325 Hudson St, Cornwall-on-Hudson, NY 12520", phone: "845-534-4200", web: "https://cornwall-on-hudson.gov",
       hours: "Mon–Fri 8:30–4:30.",
-      blurb: "Your village government — clerk, mayor and Village Board, plus village police, fire and public works. This is the right government for a 10 Abbott Lane address.",
+      blurb: "The village government — clerk, mayor and Village Board, plus village police, fire and public works. This is the right government for a 10 Abbott Lane address.",
       texture: "The Village Board meets twice a month on Monday nights (work session 2nd Monday, business meeting 3rd Monday). Distinct from the Town of Cornwall. Start here for water, sewer, trash and permits.",
       tags: ["Village", "Clerk", "Mayor", "Primary"] },
 
@@ -1900,7 +2048,7 @@ window.DATA = {
       address: "75 Webster Ave, Goshen, NY 10924", phone: "845-360-6500", web: "https://www.orangecountygov.com/783/Board-of-Elections",
       hours: "Mon–Fri 9–5.",
       blurb: "The county elections office — voter registration, absentee ballots and polling-place info for Cornwall residents.",
-      texture: "Register to vote and get your poll-site assignment here; registration forms are also at any town hall or post office.",
+      texture: "Register to vote and get a poll-site assignment here; registration forms are also at any town hall or post office.",
       tags: ["Voting", "Elections", "Registration"] },
 
     { name: "Central Hudson Gas & Electric", town: "Poughkeepsie", kind: "Utility", lat: 41.5034, lon: -74.0104,
@@ -1913,13 +2061,13 @@ window.DATA = {
     { name: "Spectrum (Charter) — internet & cable", town: "Cornwall area", kind: "Utility", lat: null, lon: null,
       phone: "833-267-6094", web: "https://www.spectrum.com",
       blurb: "The dominant wired internet and cable provider across this part of Orange County.",
-      texture: "The common wired ISP for the area; confirm availability and plans by your exact address. Listed as a practical setup resource, not an official municipal source.",
+      texture: "The common wired ISP for the area; confirm availability and plans by the exact address. Listed as a practical setup resource, not an official municipal source.",
       tags: ["Internet", "Cable", "ISP"], confidence: "medium" },
 
     { name: "Village DPW & trash / recycling", town: "Cornwall-on-Hudson", kind: "Waste & recycling", lat: 41.4445, lon: -74.0190,
       address: "Via Village Hall, 325 Hudson St, Cornwall-on-Hudson, NY 12520", phone: "845-534-4200", web: "https://cornwall-on-hudson.gov/Departments/Public-Works",
       blurb: "The Village Department of Public Works — the right authority for trash, recycling, water and sewer at a village address like 10 Abbott Lane.",
-      texture: "Confirm your exact pickup days and water/sewer billing through Village Hall. Do NOT assume the Town of Cornwall's Tuesday/Friday schedule applies inside the village — the village runs its own collection.",
+      texture: "Confirm the exact pickup days and water/sewer billing through Village Hall. Do NOT assume the Town of Cornwall's Tuesday/Friday schedule applies inside the village — the village runs its own collection.",
       tags: ["Trash", "Recycling", "Water", "Sewer", "Village"], confidence: "medium" },
 
     { name: "Town of Cornwall Recreation Department", town: "Cornwall", kind: "Recreation", lat: 41.4490, lon: -74.0290,
@@ -1993,7 +2141,7 @@ window.DATA = {
 
     { name: "Buy Nothing (Cornwall area)", kind: "Facebook group", web: "https://www.facebook.com/search/groups/?q=buy%20nothing%20cornwall%20ny",
       blurb: "A hyperlocal gift economy — give, receive and lend within the Cornwall area.",
-      texture: "Buy Nothing groups are private and hyperlocal by design, and reshuffle by geography, so search 'Buy Nothing Cornwall NY' and join the one matching your exact location. (This link runs that search.)",
+      texture: "Buy Nothing groups are private and hyperlocal by design, and reshuffle by geography, so search 'Buy Nothing Cornwall NY' and join the one matching the right location. (This link runs that search.)",
       tags: ["Buy Nothing", "Free", "Hyperlocal"], confidence: "medium" },
 
     { name: "Facebook Marketplace — Cornwall-on-Hudson", kind: "Facebook page", web: "https://www.facebook.com/marketplace/103721099667397/",

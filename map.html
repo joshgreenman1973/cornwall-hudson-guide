@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#122e2b" />
+  <meta name="description" content="An interactive map of everything in the Cornwall-on-Hudson guide — eat, shop, the outdoors, services and more, colored by category and centered on the village." />
+  <link rel="icon" href="./icons/icon-192.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700&family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="./styles.css" />
+  <title>Map — The Cornwall-on-Hudson Guide</title>
+  <style>
+    html, body.map-page { height: 100%; }
+    body.map-page { margin: 0; display: flex; flex-direction: column; overflow: hidden; background: var(--paper); }
+    .map-header {
+      display: flex; align-items: center; gap: 14px; flex: 0 0 auto;
+      padding: 10px clamp(14px, 4vw, 26px); background: rgba(244,237,224,.94);
+      backdrop-filter: saturate(150%) blur(12px); border-bottom: 1px solid var(--line); z-index: 1000;
+    }
+    .map-head-actions { margin-left: auto; display: flex; align-items: center; gap: 14px; }
+    .map-count { font-size: 12.5px; font-weight: 700; color: var(--ink-soft); }
+    #map { flex: 1 1 auto; width: 100%; background: #e9e3d6; z-index: 1; }
+
+    .map-legend {
+      position: absolute; top: 70px; right: 14px; z-index: 800; width: 232px; max-height: calc(100dvh - 96px); overflow-y: auto;
+      background: rgba(255,253,248,.96); border: 1px solid var(--line); border-radius: 14px; box-shadow: var(--shadow-md);
+      padding: 10px; backdrop-filter: blur(6px);
+    }
+    .legend-head { display: flex; align-items: center; justify-content: space-between; padding: 4px 6px 10px; font-family: var(--display); font-size: 15px; }
+    .legend-head button { border: 1px solid var(--line); background: var(--paper); color: var(--ink-soft); font-size: 11px; font-weight: 700; padding: 4px 9px; border-radius: 999px; cursor: pointer; }
+    .legend-row {
+      display: flex; align-items: center; gap: 9px; width: 100%; text-align: left; border: 0; background: transparent;
+      padding: 7px 6px; border-radius: 8px; cursor: pointer; font-size: 13.5px; font-weight: 600; color: var(--ink); transition: background .12s, opacity .12s;
+    }
+    .legend-row:hover { background: var(--paper-2); }
+    .legend-row .sw { width: 14px; height: 14px; border-radius: 4px; flex: 0 0 auto; box-shadow: inset 0 0 0 1px rgba(0,0,0,.15); }
+    .legend-row .ll { flex: 1; }
+    .legend-row .lc { font-size: 11.5px; font-weight: 700; color: var(--ink-faint); background: var(--paper-2); padding: 1px 7px; border-radius: 999px; }
+    .legend-row:not(.active) { opacity: .4; }
+    .legend-row:not(.active) .sw { background: var(--ink-faint) !important; }
+
+    .home-marker { width: 36px; height: 36px; display: grid; place-items: center; font-size: 18px; background: var(--night); border: 2px solid var(--gold); border-radius: 50%; box-shadow: 0 3px 10px rgba(0,0,0,.35); }
+
+    .map-ctl a { font-size: 15px; }
+    .map-ctl a + a { border-top: 1px solid #ccc; }
+
+    /* Leaflet popup styled to match the guide */
+    .leaflet-popup-content-wrapper { border-radius: 12px; }
+    .leaflet-popup-content { margin: 12px 14px; font-family: var(--sans); }
+    .mp .mp-cat { font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em; font-weight: 800; display: block; margin-bottom: 3px; }
+    .mp b { font-family: var(--display); font-size: 16px; font-weight: 600; color: var(--ink); line-height: 1.2; }
+    .mp .mp-sub { font-size: 12px; color: var(--ink-soft); margin-top: 4px; font-weight: 600; }
+    .mp p { font-size: 12.5px; margin: 8px 0 0; color: var(--ink); }
+    .mp .mp-links { margin-top: 10px; font-size: 12.5px; font-weight: 700; }
+
+    @media (max-width: 640px) {
+      .map-legend { top: auto; bottom: 12px; right: 10px; left: 10px; width: auto; max-height: 40dvh; }
+      .map-head-actions .btn span.full { display: none; }
+    }
+  </style>
+</head>
+<body class="map-page">
+  <header class="map-header">
+    <a class="wordmark" href="./" aria-label="Back to the guide">
+      <span class="wm-mark" aria-hidden="true"></span>
+      <span class="wm-text">
+        <span class="wm-title">Cornwall&#8209;on&#8209;Hudson</span>
+        <span class="wm-sub">The map</span>
+      </span>
+    </a>
+    <div class="map-head-actions">
+      <span class="map-count" id="mapCount"></span>
+      <a class="btn" href="./">← Back to the guide</a>
+    </div>
+  </header>
+
+  <div id="map"></div>
+  <div class="map-legend" id="legend"></div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="./data.js"></script>
+  <script src="./map.js"></script>
+</body>
+</html>
