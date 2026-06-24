@@ -60,7 +60,7 @@ body {
   background-image:
     radial-gradient(120% 90% at 88% -8%, rgba(207,155,78,.10), transparent 60%),
     radial-gradient(100% 70% at -10% 4%, rgba(53,109,138,.07), transparent 55%);
-  background-attachment: fixed;
+  background-repeat: no-repeat;
   line-height: 1.58;
   font-size: 16.5px;
   -webkit-font-smoothing: antialiased;

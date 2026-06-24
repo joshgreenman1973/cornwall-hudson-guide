@@ -447,6 +447,7 @@
   // ---- scroll spy ---------------------------------------------
   function setupScrollSpy() {
     if (observer) observer.disconnect();
+    const navEl = $('#sectionNav');
     const navLinks = {};
     $$('#sectionNav a[data-target]').forEach((a) => { navLinks[a.dataset.target] = a; });
     observer = new IntersectionObserver((entries) => {
@@ -454,7 +455,17 @@
         if (en.isIntersecting) {
           $$('#sectionNav a').forEach((x) => x.classList.remove('active'));
           const a = navLinks[en.target.id];
-          if (a) { a.classList.add('active'); a.scrollIntoView({ block: 'nearest', inline: 'center', behavior: 'smooth' }); }
+          if (a) {
+            a.classList.add('active');
+            // Center the active pill by scrolling the NAV bar only — never the
+            // page. (scrollIntoView would nudge the window and fight the user's
+            // own scroll, which caused the "stop and bump" jitter.)
+            if (navEl.scrollWidth > navEl.clientWidth + 4) {
+              const nr = navEl.getBoundingClientRect(), ar = a.getBoundingClientRect();
+              const target = navEl.scrollLeft + (ar.left - nr.left) - (navEl.clientWidth - ar.width) / 2;
+              navEl.scrollTo({ left: Math.max(0, target), behavior: 'smooth' });
+            }
+          }
         }
       });
     }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
