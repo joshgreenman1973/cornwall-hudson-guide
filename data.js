@@ -1131,6 +1131,13 @@ window.DATA = {
 
   /* ---------------- HOME, HARDWARE & GARDEN ---------------- */
   home: [
+    { name: "Best in Backyards", town: "New Windsor", kind: "Sheds & outdoor", lat: 41.4460, lon: -74.0800,
+      address: "432 Temple Hill Rd, New Windsor, NY 12553", phone: "845-522-8413", web: "https://www.bestinbackyards.com/locations/new-windsor-ny",
+      hours: "Mon–Sat 10–6, Sun 11–5.",
+      blurb: "A backyard-living superstore — storage sheds, gazebos and pergolas, swing sets and trampolines, basketball hoops, hot tubs, grills and outdoor furniture.",
+      texture: "On the Temple Hill Rd / Vails Gate strip about 10 minutes out, near Pet Supplies Plus. The place for a shed, a playset or a gazebo, with custom design for decks and patios.",
+      tags: ["Sheds", "Playsets", "Outdoor", "Hot tubs"] },
+
     { name: "Cornwall Power Equipment (B&B Power Equipment)", town: "Cornwall", kind: "Hardware", lat: 41.4426, lon: -74.0246,
       address: "317 Main St, Cornwall, NY 12518", phone: "845-458-5512",
       hours: "Roughly Mon–Fri 8–6:30, Sat 8–5; closed Sun. Confirm.",
