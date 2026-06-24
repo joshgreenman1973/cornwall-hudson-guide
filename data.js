@@ -5,7 +5,7 @@
    ============================================================ */
 window.DATA = {
   meta: {
-    heroLede: "Everything worth knowing around your new front door: where to eat and shop, who to call when the furnace quits, where the kids can run, how to reach the city and how to plug into the village. Built for a household just settling in.",
+    heroLede: "A guide to Cornwall-on-Hudson and the surrounding Hudson Highlands — the places, the services and how things work, for anyone just settling in. Everything is sorted by distance from the house.",
     quickFacts: [
       { n: "12520", l: "Your ZIP code" },
       { n: "Orange", l: "The county" },
@@ -27,8 +27,8 @@ window.DATA = {
 
   notes: {
     eat: "Sorted by distance — the village is walkable. This stretch had heavy restaurant turnover in 2025–26, so a quick 'still open?' check before a long drive is wise. Closed spots (Canterbury Brook, Liberty Street Bistro, Caffe Macchiato, The Would, Whistling Willie's) are left off.",
-    arts: "You live inside the motif — the Highlands outside the door are the subject of the founding canvases of American landscape painting. Filter by University museum for the teaching collections (the Loeb's Magoon Hudson River School holdings, Bard's Hessel), or Hudson River School for Olana, Cole and the painted viewsheds. A few need planning: West Point (REAL ID), Newington-Cropsey and Manitoga (appointment/seasonal).",
-    kids: "Sorted by distance from home. The nature museum's village campus is practically walkable.",
+    arts: "The Highlands around the house are the subject of the founding canvases of American landscape painting. Filter by University museum for the teaching collections (the Loeb's Magoon Hudson River School holdings, Bard's Hessel), or Hudson River School for Olana, Cole and the painted viewsheds. A few need planning: West Point (REAL ID), Newington-Cropsey and Manitoga (appointment/seasonal).",
+    kids: "Sorted by distance from the house. The nature museum's village campus is practically walkable.",
     shopping: "Everyday and specialty shopping beyond the home-goods section: yarn and quilting, books, toys and groceries, then pharmacies, wine, pets, bikes, jewelry and more. (Hardware, furniture and garden centers live under Home, hardware & garden.)",
     movies: "The art-house and the drive-ins. Note: Newburgh's Downing Film Center closed in 2023.",
     spectrum: "Start with the OPWDD Front Door for eligibility, then services flow from there. Call ahead — programs and ABA availability change; confirm before relying on any listing.",
@@ -124,7 +124,7 @@ window.DATA = {
     { name: "West Point Museum", town: "West Point", kind: "Museum", lat: 41.3900, lon: -73.9560,
       address: "Olmsted Hall, 2110 New South Post Rd, West Point, NY 10996", web: "https://www.westpoint.edu/about/west-point-museum",
       hours: "Tue–Sun 10–4. Free.",
-      blurb: "America's oldest military museum (public since 1854) — and, less obviously, a node in Hudson River School history. The closest major institution to home, ~8 miles south.",
+      blurb: "America's oldest military museum (public since 1854) — and, less obviously, a node in Hudson River School history. The closest major institution to the house, ~8 miles south.",
       signature: "Robert Walter Weir taught drawing here for 42 years; his pupils included James McNeill Whistler. His son John Ferguson Weir painted 'View of the Highlands from West Point.' The academy holds significant American art and Highlands views across its buildings.",
       texture: "Access changed: as of March 2026 there are 100% ID checks. Non-DoD visitors must get a local-area credential at the Visitor Control Center first — bring a REAL ID and budget extra time.",
       access: "REAL ID required; obtain a visitor credential at the Visitor Control Center before entering.",
@@ -134,7 +134,7 @@ window.DATA = {
       address: "Aquinas Hall, 330 Powell Ave, Newburgh, NY 12550", web: "https://www.msmc.edu/cma-gallery",
       hours: "Mon–Fri business hours or by appointment. Free.",
       blurb: "A college gallery six miles away showing working artists from Newburgh, Beacon and the Valley — a rotating contemporary program.",
-      tags: ["Free", "Contemporary", "Close to home"] },
+      tags: ["Free", "Contemporary", "Close by"] },
 
     /* ---- Hudson River School & art-historical sites ---- */
     { name: "Olana State Historic Site", town: "Hudson", kind: "Hudson River School", lat: 42.2170, lon: -73.8300,
@@ -220,62 +220,62 @@ window.DATA = {
 
   /* ---------------- HISTORY (long-form) ---------------- */
   history: [
-    { name: "The Storm King case — where environmental law was born", kicker: "On this mountain", town: "Storm King Mountain", lat: 41.4280, lon: -74.0200,
+    { name: "The Storm King case — where environmental law was born", kicker: "On this mountain", town: "Storm King Mountain", lat: 41.4280, lon: -74.0200, web: "https://en.wikipedia.org/wiki/Scenic_Hudson_Preservation_Conference_v._Federal_Power_Commission", webLabel: "The case",
       body: [
         "In September 1962 Consolidated Edison announced it would blast a 2,000-megawatt pumped-storage hydroelectric plant — then the largest in the world — into the face of Storm King Mountain, the very mountain your house sits on.",
         "Opponents formed the Scenic Hudson Preservation Conference. In 1965 the U.S. Court of Appeals for the Second Circuit ruled in 'Scenic Hudson v. Federal Power Commission' that citizens had legal standing to sue on aesthetic and environmental grounds — an unprecedented holding.",
         "That decision is widely credited with launching modern environmental law: it established the public's right to take part in environmental disputes and helped inspire the National Environmental Policy Act. The 17-year fight ended when Con Ed abandoned the plant; the settlement was signed in December 1980."
       ] },
 
-    { name: "Storm King Highway (Route 218)", kicker: "Engineering feat", town: "Cornwall · West Point", lat: 41.4180, lon: -73.9870,
+    { name: "Storm King Highway (Route 218)", kicker: "Engineering feat", town: "Cornwall · West Point", lat: 41.4180, lon: -73.9870, web: "https://en.wikipedia.org/wiki/Storm_King_Highway",
       body: [
         "The dramatic cliffside road clinging to Storm King's eastern face. Construction began in 1916 and it opened on September 25, 1922, shortening the trip between Newburgh and West Point by 22 miles.",
         "Surveyors literally rappelled down the cliffs to mark the route. The project survived contractor bankruptcies and WWI labor shortages — and the constant hazard of boulders dropping onto the railroad below. The overlooks rise to roughly 420 feet above the river."
       ] },
 
-    { name: "Butter Hill becomes Storm King", kicker: "How it got its name", town: "Cornwall-on-Hudson", lat: 41.4270, lon: -74.0150,
+    { name: "Butter Hill becomes Storm King", kicker: "How it got its name", town: "Cornwall-on-Hudson", lat: 41.4270, lon: -74.0150, web: "https://en.wikipedia.org/wiki/Storm_King_Mountain_(New_York)",
       body: [
         "Dutch colonists called the mountain 'Boterberg' — Butter Hill — because it looked like a lump of butter.",
         "In the mid-19th century the magazine writer Nathaniel Parker Willis proposed the name 'Storm King,' noting that a morning cloud-beard on the summit reliably foretold a coming storm. Willis built his estate 'Idlewild' (designed by Calvert Vaux) near Canterbury Creek in 1852 and his writing helped turn Cornwall into a fashionable 19th-century country and health resort."
       ] },
 
-    { name: "Edward Payson Roe — bestselling novelist, famous fruit-grower", kicker: "Local character", town: "Cornwall-on-Hudson", lat: 41.4450, lon: -74.0160,
+    { name: "Edward Payson Roe — bestselling novelist, famous fruit-grower", kicker: "Local character", town: "Cornwall-on-Hudson", lat: 41.4450, lon: -74.0160, web: "https://en.wikipedia.org/wiki/Edward_Payson_Roe",
       body: [
         "The Rev. Edward Payson Roe (1838–1888) moved to Cornwall-on-Hudson in 1874 and lived a genuine double life: he wrote runaway-bestselling fiction ('Barriers Burned Away') while running greenhouses and growing roses and small fruits.",
         "He was as famous for his garden books — 'Success with Small Fruits,' 'The Home Acre' — as for his novels. A megaselling author who was equally celebrated as a horticulturist, right here in the village."
       ] },
 
-    { name: "Black Rock Forest & the Stillmans", kicker: "The forest next door", town: "Cornwall", lat: 41.4030, lon: -74.0270,
+    { name: "Black Rock Forest & the Stillmans", kicker: "The forest next door", town: "Cornwall", lat: 41.4030, lon: -74.0270, web: "https://www.blackrockforest.org", webLabel: "Black Rock Forest",
       body: [
         "Dr. Ernest G. Stillman, son of a powerful banker, inherited vast Cornwall acreage in 1918 and established Black Rock Forest in 1929 as a forest-research preserve, later donating roughly 3,800 acres plus an endowment to Harvard.",
         "Per his will, his ashes were scattered in the forest. Today it's a 3,900-acre preserve run by the Black Rock Forest Consortium — open daily, rarely crowded, with several family-friendly 3–4 mile routes."
       ] },
 
-    { name: "The Great Chain across the Hudson", kicker: "Revolutionary War", town: "West Point", lat: 41.3910, lon: -73.9560,
+    { name: "The Great Chain across the Hudson", kicker: "Revolutionary War", town: "West Point", lat: 41.3910, lon: -73.9560, web: "https://en.wikipedia.org/wiki/Hudson_River_Chain",
       body: [
         "In 1778 the Continental Army strung a 65-ton iron chain — links two feet long and 114 pounds each, some 600 yards in total — between West Point and Constitution Island to block British warships.",
         "The river's sharp westward bend at West Point forced sailing ships to slow and tack, exposing them to cannon fire. The chain was never tested by the Royal Navy. Surviving links are displayed at Trophy Point."
       ] },
 
-    { name: "Washington's Headquarters & the Purple Heart", kicker: "Newburgh, 1782", town: "Newburgh", lat: 41.5010, lon: -74.0090, address: "84 Liberty St, Newburgh, NY 12550",
+    { name: "Washington's Headquarters & the Purple Heart", kicker: "Newburgh, 1782", town: "Newburgh", lat: 41.5010, lon: -74.0090, address: "84 Liberty St, Newburgh, NY 12550", web: "https://en.wikipedia.org/wiki/Washington%27s_Headquarters_State_Historic_Site", webLabel: "Historic site",
       body: [
         "The Hasbrouck House in Newburgh was Washington's headquarters from April 1782 to August 1783 — his longest stay anywhere. In 1850 it became the first publicly owned historic site in the United States.",
         "Here, on August 7, 1782, Washington created the Badge of Military Merit — the direct ancestor of the Purple Heart. The nearby New Windsor Cantonment was the army's final winter camp and the site of Washington's calming 'Newburgh Address'; the National Purple Heart Hall of Honor stands there today."
       ] },
 
-    { name: "Bannerman Castle on Pollepel Island", kicker: "The ruin in the river", town: "Hudson River off Cornwall", lat: 41.4550, lon: -73.9880,
+    { name: "Bannerman Castle on Pollepel Island", kicker: "The ruin in the river", town: "Hudson River off Cornwall", lat: 41.4550, lon: -73.9880, web: "https://bannermancastle.org", webLabel: "Bannerman Castle Trust",
       body: [
         "A tiny island in the Hudson, long steeped in ghost legend. In 1900 Francis Bannerman VI — a military-surplus dealer who couldn't legally store 30 million cartridges and black powder within New York City limits — bought the island and built a Scottish-style arsenal 'castle.'",
         "It's now a romantic ruin. The Bannerman Castle Trust runs seasonal boat and walking tours from Newburgh and Beacon."
       ] },
 
-    { name: "West Point Foundry & the Parrott gun", kicker: "Civil War industry", town: "Cold Spring", lat: 41.4150, lon: -73.9530,
+    { name: "West Point Foundry & the Parrott gun", kicker: "Civil War industry", town: "Cold Spring", lat: 41.4150, lon: -73.9530, web: "https://en.wikipedia.org/wiki/West_Point_Foundry",
       body: [
         "The West Point Foundry in Cold Spring (1818–1911) became the nation's largest artillery maker by the end of the Civil War. Robert Parker Parrott invented the Parrott rifle, a cannon strengthened by a wrought-iron band shrunk around the breech.",
         "The ruins are now the West Point Foundry Preserve, with interpretive trails winding through the archaeology — a quiet, under-visited walk."
       ] },
 
-    { name: "Newburgh's East End & the Freedom Church", kicker: "Architecture & Black history", town: "Newburgh", lat: 41.5030, lon: -74.0100,
+    { name: "Newburgh's East End & the Freedom Church", kicker: "Architecture & Black history", town: "Newburgh", lat: 41.5030, lon: -74.0100, web: "https://en.wikipedia.org/wiki/East_End_Historic_District_(Newburgh,_New_York)",
       body: [
         "Newburgh's East End Historic District holds 2,239 contributing buildings — the most of any federally recognized district in New York State — block after block of Italianate, Second Empire and Gothic Revival.",
         "The AME Zion Church, the 'Freedom Church,' was tied to the Underground Railroad; Frederick Douglass visited in 1870 and marched down Washington Street celebrating the 15th Amendment. (The historic church building's preservation has been threatened in recent years.)"
@@ -288,7 +288,7 @@ window.DATA = {
       address: "25 Boulevard, Cornwall-on-Hudson, NY 12520", phone: "845-534-7781", web: "https://hhnaturecenter.org",
       hours: "Sat–Sun 12–4, year-round. Confirm — it has closed for renovation periods.",
       blurb: "Live native, non-releasable animals in the village campus — essentially walkable from Abbott Lane.",
-      texture: "The closest attraction to home. Pair it with the museum's Outdoor Discovery Center a few miles away for trails and the Grasshopper Grove play area.",
+      texture: "The closest attraction to the house. Pair it with the museum's Outdoor Discovery Center a few miles away for trails and the Grasshopper Grove play area.",
       tags: ["Toddlers", "Animals", "Walkable"] },
 
     { name: "Hudson Highlands Nature Museum — Outdoor Discovery Center", town: "Cornwall", kind: "Nature center", lat: 41.4340, lon: -74.0450,
@@ -304,7 +304,7 @@ window.DATA = {
       tags: ["Riverfront", "Trains", "Picnic"] },
 
     { name: "Riverlight Park", town: "Cornwall-on-Hudson", kind: "Playground", lat: 41.4460, lon: -74.0120,
-      blurb: "The closest full playground to home — baseball fields, a wading pool, tennis and basketball courts.",
+      blurb: "The closest full playground to the house — baseball fields, a wading pool, tennis and basketball courts.",
       tags: ["Playground", "Walkable"] },
 
     { name: "Jones Farm & Country Store", town: "Cornwall", kind: "Farm", lat: 41.4550, lon: -74.0600,
@@ -337,7 +337,7 @@ window.DATA = {
       tags: ["Animals", "Stroller-OK", "Winter skating"] },
 
     { name: "Storm King Mountain hike", town: "Cornwall-on-Hudson", kind: "Hike", lat: 41.4280, lon: -74.0200,
-      blurb: "A ~2.25-mile loop on the Orange/Stoney Lonesome trails with short rock scrambles and big Hudson views — minutes from home.",
+      blurb: "A ~2.25-mile loop on the Orange/Stoney Lonesome trails with short rock scrambles and big Hudson views — minutes from the house.",
       texture: "Good for fit families with older kids; there's light hands-on-rock scrambling, so it's not stroller terrain. The Orange Trail starts at the far side of the northbound 9W pull-off.",
       tags: ["Hike", "Older kids", "Views"] },
 
@@ -382,7 +382,7 @@ window.DATA = {
 
     { name: "Hudson Valley Quilt & Sew", town: "Cornwall-on-Hudson", kind: "Quilting", lat: 41.4455, lon: -74.0165,
       address: "1 Idlewild Ave #2, Cornwall-on-Hudson, NY 12520 (parking in back)", phone: "845-534-7300",
-      blurb: "The headline find for a quilter: a full quilting-cotton shop — notions, patterns, kits and classes — right in the village, about half a mile from home.",
+      blurb: "The headline find for a quilter: a full quilting-cotton shop — notions, patterns, kits and classes — right in the village, about half a mile from the house.",
       texture: "A small, personal two-person operation (Annet and Gerri) that opened fairly recently, tucked just off Hudson Street. That's genuinely rare — most of this region's quilt shops are a 20+ mile drive. Call ahead for current hours, since it's a newer shop.",
       tags: ["Quilting", "Fabric", "Classes", "Closest"] },
 
@@ -408,7 +408,7 @@ window.DATA = {
     { name: "Hudson Valley Modern Quilt Guild", town: "Beacon / Fishkill / Garrison", kind: "Quilting", lat: 41.5050, lon: -73.9700,
       web: "https://hvmodernquiltguild.com",
       blurb: "The closest quilting guild — meets the 4th Sunday monthly at libraries in Beacon, Fishkill or Garrison, and its service area explicitly includes Orange County.",
-      texture: "Founded 2012, modern-quilt focus, with charity sewing and 'Quilt 'til You Wilt' sessions. Email hvmodernquiltguild@gmail.com to confirm the current meeting. For longarm finishing closer to home, 'Quilts Actually' lists Cornwall in its service area; Quilt Basket (above) is the nearest longarm dealer.",
+      texture: "Founded 2012, modern-quilt focus, with charity sewing and 'Quilt 'til You Wilt' sessions. Email hvmodernquiltguild@gmail.com to confirm the current meeting. For longarm finishing closer to the house, 'Quilts Actually' lists Cornwall in its service area; Quilt Basket (above) is the nearest longarm dealer.",
       tags: ["Quilting", "Guild", "Community"] },
 
     { name: "Good Books", town: "Cornwall", kind: "Bookstore", lat: 41.4480, lon: -74.0500,
@@ -438,7 +438,7 @@ window.DATA = {
     { name: "Clearwaters Gifts (at Jones Farm)", town: "Cornwall", kind: "Toys", lat: 41.4550, lon: -74.0600,
       address: "190 Angola Rd, Cornwall, NY 12518", web: "https://jonesfarminc.com/clearwaters-gifts",
       hours: "Wed–Sun 8–5.",
-      blurb: "The closest toy option to home, ~3 miles: a huge gift-and-home store in a converted gambrel dairy barn with a dedicated toy room.",
+      blurb: "The closest toy option to the house, ~3 miles: a huge gift-and-home store in a converted gambrel dairy barn with a dedicated toy room.",
       texture: "Not a pure toy shop, but the toy room overflows with classic games, educational and pretend-play toys and kids' books — and they gift-wrap free. It shares the Jones Farm complex, so you can fold in the bakery and petting zoo.",
       tags: ["Toys", "Gifts", "Closest", "Kids"] },
 
@@ -510,7 +510,7 @@ window.DATA = {
       address: "1 Idlewild Ave #1, Cornwall-on-Hudson, NY 12520", phone: "845-213-3180", web: "https://www.ghsjewelers.com",
       hours: "Roughly Tue–Sat 10–5:30 (Sat closes earlier) — call ahead.",
       blurb: "The only jeweler in the village — woman-owned since 1981, dealing in antique, estate and modern pieces with on-site custom work and repair.",
-      texture: "About a mile from home. Estate and antique jewelry plus full custom design and repairs you'd otherwise drive to Cold Spring for.",
+      texture: "About a mile from the house. Estate and antique jewelry plus full custom design and repairs you'd otherwise drive to Cold Spring for.",
       tags: ["Jewelry", "Estate", "Repair", "Closest"] },
 
     { name: "Bryan's Bikes", town: "Cornwall", kind: "Bikes", lat: 41.4399, lon: -74.0192,
@@ -537,7 +537,7 @@ window.DATA = {
     { name: "Merritt Florist", town: "Cornwall", kind: "Florist", lat: 41.4396, lon: -74.0210,
       address: "275 Main St, Cornwall, NY 12518", phone: "845-534-2551", web: "https://www.merrittflorist.com",
       blurb: "The hometown flower shop since 1956 — fresh-cut flowers, custom arrangements, weddings and same-day local delivery.",
-      texture: "Closest florist to home; delivers across Cornwall, Newburgh, New Windsor, Vails Gate and West Point.",
+      texture: "Closest florist to the house; delivers across Cornwall, Newburgh, New Windsor, Vails Gate and West Point.",
       tags: ["Florist", "Delivery", "Weddings"] },
 
     { name: "Cornwall Coffee Co. & Mercantile", town: "Cornwall", kind: "Gifts", lat: 41.4386, lon: -74.0216,
@@ -866,7 +866,7 @@ window.DATA = {
     { mode: "train", name: "Salisbury Mills-Cornwall, Port Jervis Line (closest, no bridge)", link: "https://www.mta.info/schedules/metro-north/port-jervis", linkLabel: "MTA Port Jervis Line",
       stats: [ { n: "~10–15m", l: "Drive to station" }, { n: "~1:40–2:00", l: "To Penn" }, { n: "~Every 2h", l: "Limited" } ],
       body: [
-        "Salisbury Mills-Cornwall (1600 NY-94) is the closest station to home — about 10–15 minutes, no river crossing, with a large 677-space park-and-ride.",
+        "Salisbury Mills-Cornwall (1600 NY-94) is the closest station to the house — about 10–15 minutes, no river crossing, with a large 677-space park-and-ride.",
         "But the honest tradeoff: the Port Jervis Line is operated by NJ Transit and runs south to Secaucus, where you transfer to an NJ Transit train into Penn Station. Realistically 1:40–2:00 door-to-Penn, and trains run only about every two hours, clustered at peak.",
         "Best for someone whose schedule fits the sparse timetable and who works near Penn Station."
       ] },
@@ -893,7 +893,7 @@ window.DATA = {
      drops any whose date has passed (using the device's real date), so the
      "Coming up" list always reflects what's actually ahead. Snapshot June 2026 —
      verify before going; medium-confidence dates carry a note.
-     mi = approx miles from home (for the radius toggle). drive:true = beyond 30mi. */
+     mi = approx miles from the house (for the radius toggle). drive:true = beyond 30mi. */
   eventsNote: "“Coming up” lists confirmed 2026 dates and is a snapshot from June 2026 — the app hides events once they've passed, so it thins out over the year. Tap a live calendar at the bottom for the latest. Concert dates marked “verify” came from ticket aggregators; confirm with the venue.",
 
   datedEvents: [

@@ -85,6 +85,15 @@
     </svg>`;
   }
 
+  // Layered ridgeline silhouette for the hero — Highlands at dusk.
+  function ridgelineSvg(cls) {
+    return `<svg class="${cls}" viewBox="0 0 1440 360" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path fill="#2f6258" fill-opacity="0.45" d="M0 196 L120 150 L236 188 L360 118 L520 182 L660 112 L824 172 L1000 104 L1180 176 L1316 132 L1440 178 L1440 360 L0 360 Z"/>
+      <path fill="#1a463d" fill-opacity="0.82" d="M0 256 L150 214 L300 256 L470 198 L628 252 L792 206 L956 256 L1132 202 L1296 250 L1440 216 L1440 360 L0 360 Z"/>
+      <path fill="#0c2420" d="M0 306 L182 282 L372 314 L572 276 L774 312 L968 280 L1188 314 L1368 286 L1440 302 L1440 360 L0 360 Z"/>
+    </svg>`;
+  }
+
   // ---- card rendering -----------------------------------------
   function actionLinks(p) {
     const acts = [];
@@ -133,9 +142,10 @@
   function sectionShell(cfg) {
     const sec = el('section', 'section');
     sec.id = cfg.id;
+    if (cfg.accent) sec.style.setProperty('--accent', cfg.accent);
     const head = el('div', 'section-head');
     head.innerHTML = `
-      <div class="kicker"><span class="ico">${cfg.ico}</span>${esc(cfg.kicker)}</div>
+      <div class="kicker"><span class="ico-badge">${cfg.ico}</span>${esc(cfg.kicker)}</div>
       <h2>${esc(cfg.label)}</h2>
       ${DATA.notes && DATA.notes[cfg.key] ? `<p class="note">${esc(DATA.notes[cfg.key])}</p>` : ''}`;
     sec.appendChild(head);
@@ -180,13 +190,12 @@
       block.innerHTML =
         (h.kicker ? `<div class="kicker">${esc(h.kicker)}</div>` : '') +
         `<h3>${esc(h.name)}</h3>` +
-        ((h.town || h._mi != null) ? `<div class="where">${esc(h.town || '')}${h._mi != null ? ' · ' + fmtMi(h._mi) + ' from home' : ''}</div>` : '') +
+        ((h.town || h._mi != null) ? `<div class="where">${esc(h.town || '')}${h._mi != null ? ' · ' + fmtMi(h._mi) + ' from the house' : ''}</div>` : '') +
         (h.body || []).map((p) => `<p>${esc(p)}</p>`).join('');
-      if (h.lat != null) {
-        const a = el('a', 'btn mapit', '↗ Map it');
-        a.href = mapsUrl(h); a.target = '_blank'; a.rel = 'noopener';
-        block.appendChild(a);
-      }
+      const acts = [];
+      if (h.web) acts.push(`<a class="btn primary" href="${esc(h.web)}" target="_blank" rel="noopener">${esc(h.webLabel || 'Read more')} ↗</a>`);
+      if (h.lat != null) acts.push(`<a class="btn" href="${mapsUrl(h)}" target="_blank" rel="noopener">↗ Map it</a>`);
+      if (acts.length) block.appendChild(el('div', 'prose-actions', acts.join('')));
       wrap.appendChild(block);
     });
     sec.appendChild(wrap);
@@ -320,11 +329,12 @@
     const facts = (DATA.meta && DATA.meta.quickFacts) || [];
     hero.innerHTML = `
       ${topoSvg('hero-topo')}
+      ${ridgelineSvg('hero-ridge')}
       <div class="hero-inner">
-        <div class="eyebrow reveal" style="animation-delay:.02s">A field guide to a river town</div>
+        <div class="eyebrow reveal" style="animation-delay:.02s">Orange County &middot; the Hudson Highlands</div>
         <h1 class="reveal" style="animation-delay:.08s">Welcome to <em>Cornwall&#8209;on&#8209;Hudson</em></h1>
         <p class="lede reveal" style="animation-delay:.16s">${esc((DATA.meta && DATA.meta.heroLede) || '')}</p>
-        <div class="place-chip reveal" style="animation-delay:.24s">📍 Centered on <b>10&nbsp;Abbott&nbsp;Lane</b> · everything sorted by distance from your door</div>
+        <div class="place-chip reveal" style="animation-delay:.24s">📍 Sorted by distance from <b>10&nbsp;Abbott&nbsp;Lane</b></div>
         ${facts.length ? `<div class="quick-facts reveal" style="animation-delay:.32s">${facts.map((f) => `<div class="qf"><div class="n">${esc(f.n)}</div><div class="l">${esc(f.l)}</div></div>`).join('')}</div>` : ''}
       </div>`;
     return hero;
@@ -470,6 +480,12 @@
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.getRegistrations().then((rs) => rs.forEach((r) => r.unregister())).catch(() => {});
       if (window.caches && caches.keys) caches.keys().then((ks) => ks.forEach((k) => caches.delete(k))).catch(() => {});
+    }
+
+    if (!document.querySelector('.page-topo')) {
+      const pt = el('div', 'page-topo');
+      pt.innerHTML = topoSvg('pt-svg');
+      document.body.insertBefore(pt, document.body.firstChild);
     }
 
     rerender();
