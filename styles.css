@@ -163,6 +163,9 @@ button { font-family: inherit; cursor: pointer; }
 .section-nav a.active { background: var(--night); color: var(--paper); border-color: var(--night); }
 .section-nav a.page-pill { background: var(--rust-deep); color: var(--paper); border-color: var(--rust-deep); }
 .section-nav a.page-pill:hover { background: var(--rust); color: var(--paper); }
+/* Events leads the nav — outlined so it reads as a section, not a separate page. */
+.section-nav a.nav-lead { color: var(--moss); border-color: var(--moss); }
+.section-nav a.nav-lead:hover { background: var(--moss); color: var(--paper); }
 .section-nav .nav-sep { flex: 0 0 auto; align-self: center; width: 1px; height: 16px; background: var(--line); margin: 0 5px; }
 .btn.reviews { border-color: var(--gold); }
 
@@ -379,6 +382,9 @@ button { font-family: inherit; cursor: pointer; }
 .evt .when.live { color: #fff; background: var(--moss); padding: 3px 7px; border-radius: 6px; display: inline-block; }
 .evt h4 { font-size: 16px; margin: 0 0 3px; }
 .evt p { font-size: 13px; color: var(--ink-soft); margin: 0; }
+.evt .evt-link { color: inherit; text-decoration: underline; text-decoration-color: var(--moss); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+.evt .evt-link:hover { color: var(--moss); }
+.evt .evt-arr { font-size: 11px; color: var(--moss); vertical-align: 2px; text-decoration: none; display: inline-block; }
 .live-links { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; margin-top: 8px; }
 .live-link { background: var(--card); border: 1px solid var(--line); border-radius: var(--r-sm); padding: 14px 15px; box-shadow: var(--shadow-sm); transition: transform .15s, box-shadow .15s; }
 .live-link:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }

@@ -47,6 +47,8 @@
   // ---- section config -----------------------------------------
   // type: cards | prose | commute | events | groups
   const SECTIONS = [
+    // ---- What's happening (leads: it's the one section that changes week to week) ----
+    { id: 'events',       key: 'events',      label: 'Events',           nav: 'Events',     ico: '📅', accent: 'var(--moss)',      kicker: "What's coming up", group: 'now', type: 'events' },
     // ---- Settling in (the utilitarian stuff) ----
     { id: 'setup',        key: 'civic',       label: 'Getting set up',   nav: 'Set up',     ico: '🧭', accent: 'var(--moss)',      kicker: 'The first week', group: 'use', type: 'cards' },
     { id: 'home',         key: 'home',        label: 'Home, hardware & garden', nav: 'Home goods', ico: '🔨', accent: 'var(--gold)', kicker: 'Outfitting the house', group: 'use', type: 'cards' },
@@ -65,7 +67,6 @@
     { id: 'arts',         key: 'arts',        label: 'Arts & culture',   nav: 'Arts',       ico: '🎨', accent: 'var(--river)',     kicker: 'Inside the picture plane', group: 'see', type: 'cards' },
     { id: 'kids',         key: 'kids',        label: 'Kids & families',  nav: 'Kids',       ico: '🧒', accent: 'var(--moss-light)', kicker: 'For the little ones', group: 'see', type: 'cards' },
     { id: 'movies',       key: 'movies',      label: 'Movies',           nav: 'Movies',     ico: '🎬', accent: 'var(--river-deep)', kicker: 'The big screen', group: 'see', type: 'cards' },
-    { id: 'events',       key: 'events',      label: 'Events',           nav: 'Events',     ico: '📅', accent: 'var(--moss)',      kicker: "What's coming up", group: 'see', type: 'events' },
     { id: 'curiosities',  key: 'curiosities', label: 'Curiosities',      nav: 'Curiosities', ico: '🧭', accent: 'var(--gold)',     kicker: 'The offbeat layer', group: 'see', type: 'cards' }
   ];
 
@@ -251,10 +252,15 @@
     }
     return [fmtDay(e.date), false];
   }
-  function evtCard(whenArr, name, where, note) {
+  function evtCard(whenArr, name, where, note, url) {
     const [when, live] = Array.isArray(whenArr) ? whenArr : [whenArr, false];
     const c = el('div', 'evt');
-    c.innerHTML = `<div><span class="when${live ? ' live' : ''}">${esc(when)}</span></div><div><h4>${esc(name)}</h4><p>${esc(where)}${note ? ' — ' + esc(note) : ''}</p></div>`;
+    // Title links straight to the venue's own page for the event, so "is this still on?"
+    // is one tap away — the dates here are a snapshot and the venue is the authority.
+    const title = url
+      ? `<a class="evt-link" href="${esc(url)}" target="_blank" rel="noopener">${esc(name)} <span class="evt-arr">↗</span></a>`
+      : esc(name);
+    c.innerHTML = `<div><span class="when${live ? ' live' : ''}">${esc(when)}</span></div><div><h4>${title}</h4><p>${esc(where)}${note ? ' — ' + esc(note) : ''}</p></div>`;
     return c;
   }
   function buildEvents(cfg) {
@@ -282,20 +288,20 @@
     wrap.appendChild(el('div', 'season-head', 'Coming up'));
     if (DATA.eventsNote && !query) wrap.appendChild(el('div', 'callout', DATA.eventsNote));
     if (!near.length) wrap.appendChild(el('div', 'empty', 'No dated events ahead in this radius right now — try the live calendars below.'));
-    else near.forEach((e) => wrap.appendChild(evtCard(datedWhen(e, today), e.name, e.where, e.note)));
+    else near.forEach((e) => wrap.appendChild(evtCard(datedWhen(e, today), e.name, e.where, e.note, e.url)));
 
     if (radius === '30' || query) {
       const far = dated.filter((e) => e.drive);
       if (far.length) {
         wrap.appendChild(el('div', 'season-head', 'Worth the drive (beyond 30 mi)'));
-        far.forEach((e) => wrap.appendChild(evtCard(datedWhen(e, today), e.name, e.where + ' · ~' + e.mi + ' mi', e.note)));
+        far.forEach((e) => wrap.appendChild(evtCard(datedWhen(e, today), e.name, e.where + ' · ~' + e.mi + ' mi', e.note, e.url)));
       }
     }
     ['Every week', 'Every month', 'Seasonal patterns'].forEach((g) => {
       const items = (DATA.recurring || []).filter((r) => r.group === g && r.mi <= within).filter(evtMatch);
       if (!items.length) return;
       wrap.appendChild(el('div', 'season-head', g === 'Seasonal patterns' ? 'Each season' : g));
-      items.forEach((e) => wrap.appendChild(evtCard(e.when, e.name, e.where, e.note)));
+      items.forEach((e) => wrap.appendChild(evtCard(e.when, e.name, e.where, e.note, e.url)));
     });
     if (DATA.eventLinks && !query) {
       wrap.appendChild(el('div', 'season-head', 'Live calendars'));
@@ -372,7 +378,7 @@
     liveSections().forEach((cfg) => {
       if (cfg.group && lastGroup && cfg.group !== lastGroup) nav.appendChild(el('span', 'nav-sep'));
       if (cfg.group) lastGroup = cfg.group;
-      const a = el('a', '', esc(cfg.nav || cfg.label));
+      const a = el('a', cfg.group === 'now' ? 'nav-lead' : '', esc(cfg.nav || cfg.label));
       a.href = '#' + cfg.id;
       a.dataset.target = cfg.id;
       nav.appendChild(a);
