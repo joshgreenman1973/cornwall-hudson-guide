@@ -901,47 +901,54 @@ window.DATA = {
   /* ---------------- EVENTS ----------------
      datedEvents: specific 2026 dates. The app sorts them chronologically and
      drops any whose date has passed (using the device's real date), so the
-     "Coming up" list always reflects what's actually ahead. Snapshot June 2026 —
+     "Coming up" list always reflects what's actually ahead. Snapshot August 2026 —
      verify before going; medium-confidence dates carry a note.
      mi = approx miles from the house (for the radius toggle). drive:true = beyond 30mi. */
-  eventsNote: "“Coming up” lists confirmed 2026 dates and is a snapshot from June 2026 — the app hides events once they've passed, so it thins out over the year. Tap a live calendar at the bottom for the latest. Concert dates marked “verify” came from ticket aggregators; confirm with the venue.",
+  eventsNote: "“Coming up” lists confirmed 2026 dates and is a snapshot from August 2026 — the app hides events once they've passed, so it thins out over the year. Tap a live calendar at the bottom for the latest. Concert dates marked “verify” came from ticket aggregators; confirm with the venue.",
 
   datedEvents: [
     // ---- within ~15 miles ----
-    { date: "2026-06-20", name: "Kim Gordon (with The Fiery Furnaces)", where: "Storm King Art Center, New Windsor", mi: 5, note: "Sonic Youth co-founder; outdoor summer concert, ~5–9pm." },
-    { date: "2026-06-21", name: "Black Country, New Road (with Horsegirl)", where: "Storm King Art Center, New Windsor", mi: 5, note: "British art-rock, outdoor evening concert." },
-    { date: "2026-06-27", name: "Anicka Yi: artist talk with Rana Dasgupta", where: "Storm King Art Center, New Windsor", mi: 5, note: "Tied to her outdoor installation ‘Message from the Mud,’ on view this season." },
-    { date: "2026-06-29", end: "2026-06-29", name: "‘Piero Manzoni: Total Space’ closes", where: "Magazzino Italian Art, Cold Spring", mi: 14, note: "Last days of the Manzoni show — verify the closing date." },
-    { date: "2026-07-11", name: "Devonté Hynes Ensemble", where: "Storm King Art Center, New Windsor", mi: 5, note: "Blood Orange’s Dev Hynes." },
-    { date: "2026-07-17", name: "Bridget Riley installation opens", where: "Dia Beacon", mi: 12, note: "New long-run installation debuts." },
-    { date: "2026-07-31", name: "Richard Tuttle installation opens", where: "Dia Beacon", mi: 12 },
-    { date: "2026-08-15", name: "Sun Ra Arkestra", where: "Storm King Art Center, New Windsor", mi: 5, note: "The legendary cosmic-jazz big band." },
-    { date: "2026-08-19", name: "Bannerman Island Butterfly Day", where: "Bannerman Island (boat from Beacon)", mi: 8, note: "Guided monarch-butterfly walking tour." },
+    { date: "2026-08-15", name: "Sun Ra Arkestra", where: "Storm King Art Center, New Windsor", mi: 5, note: "The legendary cosmic-jazz big band, and the last of the summer concerts. Doors 5pm, music 6:45." },
+    { date: "2026-08-19", name: "Bannerman Island Butterfly Day", where: "Bannerman Island (boat from Beacon)", mi: 8, note: "Guided monarch-butterfly walking tour, ~2.5 hours." },
     { date: "2026-09-05", name: "Farm-to-Table Chef’s Dinner", where: "Bannerman Island (boat from Beacon)", mi: 8, note: "Annual fundraiser, two seatings." },
-    { date: "2026-09-21", name: "Cornwall Fall Festival", where: "Main Street, Cornwall", mi: 3, note: "Chamber street fair, ~10–5. Confirm exact date." },
+    { date: "2026-09-15", end: "2026-09-27", name: "‘Dracula: The Journal of Jonathan Harker’", where: "Bannerman Island (boat from Beacon)", mi: 8, note: "Theater on the island ruins, Sept 15–20 and 23–27. Confirm performance dates on bannermancastle.org." },
+    { date: "2026-09-20", name: "Cornwall Fall Festival", where: "Main Street, Cornwall", mi: 3, note: "Chamber street fair, 10–5. Free." },
     { date: "2026-09-27", name: "Spirit of Beacon Day", where: "Main Street, Beacon", mi: 12, note: "Multicultural parade + festival since 1977. Last Sunday of Sept — confirm." },
     { date: "2026-10-03", name: "Walter De Maria, ‘360° I Ching’ opens", where: "Dia Beacon", mi: 12, note: "New long-run installation debuts." },
+    { date: "2026-10-10", name: "Haegue Yang installation opens", where: "Dia Beacon", mi: 12, note: "New long-run installation debuts." },
+    { date: "2026-10-23", name: "Moonlit Walk", where: "Storm King Art Center, New Windsor", mi: 5, note: "The sculpture fields after dark under a full moon, 8–10pm. Ticketed and it sells out." },
+    { date: "2026-11-07", name: "WHOOP DEE DOO at Storm King", where: "Storm King Art Center, New Windsor", mi: 5, note: "The Kansas City collective’s participatory variety show — loud, silly, good with kids." },
     { date: "2026-11-13", name: "Frédéric Bruly Bouabré installation opens", where: "Dia Beacon", mi: 12 },
+    { date: "2026-11-14", name: "Geology of Storm King walk", where: "Storm King Art Center, New Windsor", mi: 5, note: "Guided walk on the bedrock under the sculpture." },
     { date: "2026-12-06", name: "Village Tree Lighting", where: "Village Bandstand, Cornwall-on-Hudson", mi: 1, note: "~6pm. First-Sunday pattern — confirm the date on the village site." },
+    { date: "2026-12-18", name: "Howardena Pindell installation opens", where: "Dia Beacon", mi: 12, note: "New long-run installation debuts." },
 
     // ---- ~15–30 miles ----
-    { date: "2026-06-18", end: "2026-07-26", name: "Powerhouse Theater season (40th)", where: "Vassar College, Poughkeepsie", mi: 18, note: "New-works summer festival — readings, workshops, premieres." },
-    { date: "2026-07-03", end: "2026-07-05", name: "Great American Weekend + harness racing", where: "Goshen Historic Track, Goshen", mi: 16, note: "July 4th craft fair + Grand Circuit racing at the world’s oldest harness track." },
-    { date: "2026-07-23", end: "2026-08-02", name: "Orange County Fair", where: "Fairgrounds, Middletown", mi: 20, note: "Rides, concerts, racing, livestock." },
-    { date: "2026-09-06", name: "Beatles vs. Stones: A Musical Showdown", where: "Bardavon 1869 Opera House, Poughkeepsie", mi: 18, note: "Verify date with the venue." },
-    { date: "2026-09-19", name: "Cowboy Junkies (40th anniversary)", where: "Bardavon 1869 Opera House, Poughkeepsie", mi: 18, note: "Verify date with the venue." },
-    { date: "2026-10-03", name: "Stayin’ Alive: One Night of the Bee Gees", where: "Bardavon 1869 Opera House, Poughkeepsie", mi: 18, note: "Verify date with the venue." },
+    { date: "2026-09-06", name: "Beatles vs. Stones: A Musical Showdown", where: "Bardavon 1869 Opera House, Poughkeepsie", mi: 18, note: "7:30pm." },
+    { date: "2026-09-18", name: "Alex Edelman: What Are You Going To Do", where: "Bardavon 1869 Opera House, Poughkeepsie", mi: 18, note: "The ‘Just for Us’ comedian, 7:30pm." },
+    { date: "2026-09-18", end: "2026-11-08", name: "The Great Jack O’Lantern Blaze", where: "Van Cortlandt Manor, Croton-on-Hudson", mi: 28, note: "7,000+ carved pumpkins on select evenings; open every night in October. Timed tickets sell out early." },
     { date: "2026-10-04", name: "Warwick Applefest", where: "Village of Warwick", mi: 24, note: "Orange County’s largest one-day festival, 9–5. Free." },
     { date: "2026-10-09", end: "2026-10-10", name: "Northern Star Quilt Festival", where: "Northern Star Quilters’ Guild, Somers", mi: 32, drive: true, note: "The guild’s quilt festival (replacing its former big show). For the quilter in the family." },
     { date: "2026-10-10", end: "2026-10-11", name: "Sugar Loaf Fall Festival", where: "Sugar Loaf Art & Craft Village, Chester", mi: 20, note: "Artisan crafts, live music, food, 10–5." },
-    { date: "2026-11-12", name: "Big Head Todd and The Monsters", where: "Paramount Hudson Valley, Peekskill", mi: 22, note: "Verify date with the venue." },
+    { date: "2026-10-17", name: "The Met: Live in HD — ‘Macbeth’", where: "Bardavon 1869 Opera House, Poughkeepsie", mi: 18, note: "Verdi, broadcast live from the Met at 1pm." },
+    { date: "2026-10-22", name: "Neko Case: Neon Grey Midnight Green Tour", where: "Bardavon 1869 Opera House, Poughkeepsie", mi: 18, note: "7pm." },
+    { date: "2026-11-12", name: "Big Head Todd and The Monsters", where: "Paramount Hudson Valley, Peekskill", mi: 22, note: "8pm. Rescheduled from February." },
     { date: "2026-11-28", end: "2027-01-03", name: "LEGOLAND Holiday Bricktacular", where: "LEGOLAND New York, Goshen", mi: 18, note: "Holiday overlay on every open date." },
-    { date: "2026-12-12", name: "Jessica Lynn", where: "Paramount Hudson Valley, Peekskill", mi: 22, note: "Verify date with the venue." },
+    { date: "2026-12-12", name: "Jessica Lynn: A Very Merry Classic Christmas", where: "Paramount Hudson Valley, Peekskill", mi: 22, note: "7pm." },
 
     // ---- worth the drive (beyond 30 mi) ----
     { date: "2026-05-17", end: "2026-10-25", name: "‘Frederic Church: Global Artist’", where: "Olana State Historic Site, Hudson", mi: 42, drive: true, note: "Flagship exhibition of the Church bicentennial." },
     { date: "2026-06-20", end: "2026-11-01", name: "Cynthia Daignault: ‘Light Atlas’", where: "Thomas Cole NHS, Catskill", mi: 45, drive: true, note: "360 small landscapes in Cole’s 1846 New Studio." },
-    { date: "2026-08-01", name: "Billy Strings", where: "Bethel Woods Center for the Arts, Bethel", mi: 45, drive: true, note: "Verify with the venue." }
+    { date: "2026-08-16", name: "Brandi Carlile (with Jensen McRae)", where: "Bethel Woods Center for the Arts, Bethel", mi: 45, drive: true, note: "Lawn seats at the Woodstock site — bring a blanket." },
+    { date: "2026-08-23", name: "Josh Groban: Stage, Screen and Symphony", where: "Bethel Woods Center for the Arts, Bethel", mi: 45, drive: true },
+    { date: "2026-08-29", name: "Outlaw Music Festival", where: "Bethel Woods Center for the Arts, Bethel", mi: 45, drive: true, note: "Willie Nelson & Family, The Avett Brothers, Sheryl Crow." },
+    { date: "2026-09-04", name: "Alabama Shakes (with Mavis Staples)", where: "Bethel Woods Center for the Arts, Bethel", mi: 45, drive: true },
+    { date: "2026-09-13", name: "John Fogerty & Steve Winwood", where: "Bethel Woods Center for the Arts, Bethel", mi: 45, drive: true },
+    { date: "2026-09-19", name: "Blackberry Smoke: 25th Anniversary Tour", where: "UPAC, Kingston", mi: 33, drive: true, note: "7:30pm." },
+    { date: "2026-09-25", name: "Ringo Starr & His All Starr Band", where: "Bethel Woods Center for the Arts, Bethel", mi: 45, drive: true },
+    { date: "2026-09-26", end: "2026-09-27", name: "Hudson Valley Garlic Festival", where: "Cantine Field, Saugerties", mi: 42, drive: true, note: "Sat 10–6, Sun 10–5. Enormous, garlicky and very crowded — go early." },
+    { date: "2026-10-14", end: "2026-10-18", name: "Woodstock Film Festival (27th)", where: "Woodstock, Kingston, Rhinebeck and Saugerties", mi: 40, drive: true, note: "Five days of independent film across several river towns." },
+    { date: "2026-11-19", name: "The Wailin’ Jennys", where: "UPAC, Kingston", mi: 33, drive: true, note: "8pm." }
   ],
 
   recurring: [
