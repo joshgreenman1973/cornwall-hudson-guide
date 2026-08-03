@@ -4,7 +4,7 @@
    Renders a hero, anchored card sections (distance-sorted, with
    filter chips), long-form history, a commute comparison, a
    self-updating events calendar and a community-groups grid.
-   Plus: global search, scroll-spy nav, AI-caution popover.
+   Plus: global search and scroll-spy nav.
    ============================================================ */
 (function () {
   'use strict';
@@ -428,28 +428,8 @@
         <div class="footer-meta">
           <span>${esc(m.updated || '')}</span>
           <span>Distances are straight-line from 10 Abbott Lane — for ordering, not turn-by-turn.</span>
-          <span>Tap "AI caution" up top before you rely on anything.</span>
         </div>
       </div>`;
-  }
-
-  // ---- AI caution popover -------------------------------------
-  function openAi() {
-    const m = DATA.meta || {};
-    const pop = $('#aiPopover');
-    pop.innerHTML = `
-      <h3 id="aiTitle">Read me before you rely on this</h3>
-      <div class="pp-sub">This guide was assembled with AI research and human review. It is a smart starting point, not gospel.</div>
-      <ul>${(m.aiCaution || []).map((b) => `<li>${esc(b)}</li>`).join('')}</ul>
-      <button class="pp-close" type="button" id="aiClose">Got it</button>`;
-    $('#aiBackdrop').hidden = false; pop.hidden = false;
-    requestAnimationFrame(() => { $('#aiBackdrop').classList.add('open'); pop.classList.add('open'); });
-    $('#aiClose').addEventListener('click', closeAi);
-  }
-  function closeAi() {
-    const pop = $('#aiPopover');
-    $('#aiBackdrop').classList.remove('open'); pop.classList.remove('open');
-    setTimeout(() => { $('#aiBackdrop').hidden = true; pop.hidden = true; }, 200);
   }
 
   // ---- render --------------------------------------------------
@@ -531,10 +511,6 @@
     const s = $('#search');
     s.addEventListener('input', () => onSearch(s.value));
     $('#searchClear').addEventListener('click', () => { s.value = ''; onSearch(''); s.focus(); });
-
-    $('#aiBtn').addEventListener('click', openAi);
-    $('#aiBackdrop').addEventListener('click', closeAi);
-    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeAi(); });
 
     // mobile nav toggle
     const navToggle = $('#navToggle'), nav = $('#sectionNav');

@@ -134,14 +134,6 @@ button { font-family: inherit; cursor: pointer; }
 .search-ic { opacity: .5; font-size: 16px; }
 .search input { border: 0; outline: 0; background: transparent; flex: 1; font-size: 15px; color: var(--ink); min-width: 0; font-family: var(--sans); }
 .search-clear { border: 0; background: var(--paper-3); color: var(--ink-soft); width: 19px; height: 19px; border-radius: 50%; font-size: 14px; line-height: 1; display: grid; place-items: center; flex: 0 0 auto; }
-.ai-btn {
-  flex: 0 0 auto; border: 1px solid var(--rust-deep); background: var(--rust-deep); color: #fff;
-  font-size: 12.5px; font-weight: 700; padding: 8px 13px; border-radius: 999px; white-space: nowrap;
-  box-shadow: var(--shadow-sm); transition: background .15s, transform .1s;
-}
-.ai-btn::before { content: "⚠ "; }
-.ai-btn:hover { background: var(--rust); }
-.ai-btn:active { transform: translateY(1px); }
 
 .nav-toggle { display: none; }
 
@@ -439,23 +431,6 @@ button { font-family: inherit; cursor: pointer; }
 /* ============================================================
    AI POPOVER
    ============================================================ */
-.popover-backdrop { position: fixed; inset: 0; background: rgba(13,33,30,.5); z-index: 150; opacity: 0; transition: opacity .2s; }
-.popover-backdrop.open { opacity: 1; }
-.popover {
-  position: fixed; z-index: 151; left: 50%; top: 50%; transform: translate(-50%, -46%) scale(.98);
-  width: min(460px, calc(100vw - 32px)); max-height: 84vh; overflow-y: auto;
-  background: var(--night-2); color: var(--paper); border-radius: var(--r-lg);
-  border: 1px solid rgba(255,255,255,.14); box-shadow: var(--shadow-lg);
-  padding: 24px 24px 22px; opacity: 0; transition: opacity .2s, transform .2s;
-}
-.popover.open { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-.popover h3 { color: var(--paper); font-size: 22px; margin-bottom: 6px; }
-.popover h3::before { content: "⚠ "; color: var(--gold-soft); }
-.popover .pp-sub { font-size: 13px; color: rgba(244,237,224,.7); margin-bottom: 16px; }
-.popover ul { padding-left: 0; list-style: none; margin: 0 0 16px; }
-.popover li { font-size: 13.5px; padding: 9px 0 9px 26px; position: relative; border-top: 1px solid rgba(255,255,255,.1); color: rgba(244,237,224,.92); }
-.popover li::before { content: "✓"; position: absolute; left: 2px; top: 9px; color: var(--gold-soft); font-weight: 700; }
-.popover .pp-close { width: 100%; border: 0; background: var(--gold); color: #2a1f08; font-weight: 800; padding: 12px; border-radius: 10px; font-size: 14px; }
 
 /* ============================================================
    BACK TO TOP
@@ -480,7 +455,6 @@ button { font-family: inherit; cursor: pointer; }
   .wm-mark { width: 32px; height: 32px; }
   .wm-title { font-size: 16px; }
   .wm-sub { display: none; }
-  .ai-btn { font-size: 11px; padding: 7px 9px; }
   .hero h1 { font-size: clamp(31px, 8.6vw, 48px); }
   .quick-facts { grid-template-columns: repeat(2, 1fr); }
   .footer-cols { grid-template-columns: 1fr; gap: 24px; }
@@ -510,7 +484,7 @@ button { font-family: inherit; cursor: pointer; }
    PRINT
    ============================================================ */
 @media print {
-  .site-header, .to-top, .ai-btn, .nav-toggle, .section-nav, .actions .btn { display: none !important; }
+  .site-header, .to-top, .nav-toggle, .section-nav, .actions .btn { display: none !important; }
   body { background: #fff; font-size: 11pt; }
   .hero { color: #111; background: none; padding: 0 0 18px; border-bottom: 2px solid #111; }
   .hero h1 em, .hero .eyebrow { color: #555; }

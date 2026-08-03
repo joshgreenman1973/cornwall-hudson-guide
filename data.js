@@ -15,14 +15,6 @@ window.DATA = {
     homeNote: "The house sits on Storm King Mountain, where the Abbott family was one of the prominent early-20th-century households — alongside the Stillmans, Ledoux and Matthiessens — who kept The Storm King School afloat through the Depression. The lane almost certainly carries their name.",
     about: "This guide was assembled through web research and human review, then organized for someone newly arrived in Cornwall-on-Hudson. Everything is sorted by distance from 10 Abbott Lane. Listings go stale — this stretch of the valley has heavy restaurant turnover, and hours, fares, prices and programs all change. Treat it as a smart starting point, not gospel: call ahead or check a website before a long drive.",
     updated: "Last researched June 2026.",
-    aiCaution: [
-      "Every business, trail and resource here was web-researched and cross-checked — but this is a fast-changing river town. Restaurants, hours and phone numbers turn over often.",
-      "Listings tagged 'confirm' or 'verify' rest on a single or older source. Call ahead before relying on them or making a long drive.",
-      "Home-service and repair providers were verified to exist and to serve this area, but a listing is NOT an endorsement. Always confirm a current New York license, insurance and pricing before hiring anyone.",
-      "Facebook-group and government links were checked, but social links and meeting schedules change. If a link asks you to log in, search the group name instead.",
-      "Distances are straight-line from 10 Abbott Lane, for sorting only — not driving directions. Tap Directions for real routing.",
-      "Healthcare and emergency details can change; for anything urgent call 911 or the provider directly. Nothing here is medical, legal or financial advice."
-    ]
   },
 
   notes: {
