@@ -14,7 +14,7 @@ window.DATA = {
     ],
     homeNote: "The house sits on Storm King Mountain, where the Abbott family was one of the prominent early-20th-century households — alongside the Stillmans, Ledoux and Matthiessens — who kept The Storm King School afloat through the Depression. The lane almost certainly carries their name.",
     about: "This guide was assembled through web research and human review, then organized for someone newly arrived in Cornwall-on-Hudson. Everything is sorted by distance from 10 Abbott Lane. Listings go stale — this stretch of the valley has heavy restaurant turnover, and hours, fares, prices and programs all change. Treat it as a smart starting point, not gospel: call ahead or check a website before a long drive.",
-    updated: "Last researched June 2026.",
+    updated: "Last researched October 2026.",
   },
 
   notes: {
@@ -891,74 +891,65 @@ window.DATA = {
   commuteNote: "Fares, schedules and tolls change often — these are last-verified June 2026. Tap through to mta.info, coachusa.com, njtransit.com and the NYSDOT bridge-shuttle page for live numbers.",
 
   /* ---------------- EVENTS ----------------
-     datedEvents: specific 2026 dates. The app sorts them chronologically and
+     datedEvents: specific 2026-27 dates. The app sorts them chronologically and
      drops any whose date has passed (using the device's real date), so the
-     "Coming up" list always reflects what's actually ahead. Snapshot August 2026 —
+     "Coming up" list always reflects what's actually ahead. Snapshot October 2026 —
      verify before going; medium-confidence dates carry a note.
      mi = approx miles from the house (for the radius toggle). drive:true = beyond 30mi. */
-  eventsNote: "“Coming up” lists confirmed 2026 dates and is a snapshot from August 2026 — the app hides events once they've passed, so it thins out over the year. Tap a live calendar at the bottom for the latest. Concert dates marked “verify” came from ticket aggregators; confirm with the venue.",
+  eventsNote: "“Coming up” lists confirmed dates into early 2027 and is a snapshot from October 2026 — the app hides events once they've passed, so it thins out over the year. Tap a live calendar at the bottom for the latest. Concert dates marked “verify” came from ticket aggregators; confirm with the venue.",
 
   datedEvents: [
     // ---- within ~15 miles ----
-    { date: "2026-08-15", name: "Sun Ra Arkestra", where: "Storm King Art Center, New Windsor", mi: 5, note: "The legendary cosmic-jazz big band, and the last of the summer concerts. Doors 5pm, music 6:45.", url: "https://stormking.org/summer-concerts/" },
-    { date: "2026-08-19", name: "Bannerman Island Butterfly Day", where: "Bannerman Island (boat from Beacon)", mi: 8, note: "Guided monarch-butterfly walking tour, ~2.5 hours.", url: "https://bannermancastle.org/tours-events/" },
-    { date: "2026-08-25", name: "Outstanding in the Field", where: "Storm King Art Center, New Windsor", mi: 5, note: "Long-table dinner out among the sculpture. Ticketed, sells out.", url: "https://stormking.org/events/outstanding-in-the-field-2/" },
-    { date: "2026-09-03", end: "2026-09-10", name: "Boscobel Chamber Music Festival", where: "Boscobel, Garrison", mi: 16, note: "Fifth season, four public performances with the Highlands and the river behind the stage.", url: "https://www.boscobel.org/events/boscobel-chamber-music-festival-2026/" },
-    { date: "2026-09-05", name: "Farm-to-Table Chef’s Dinner", where: "Bannerman Island (boat from Beacon)", mi: 8, note: "Annual fundraiser, two seatings.", url: "https://bannermancastle.org/tours-events/" },
-    { date: "2026-09-05", name: "Army football vs. Bryant", where: "Michie Stadium, West Point", mi: 7, note: "Season opener, noon. Home games snarl 9W and Highland Falls — leave early or avoid.", url: "https://goarmywestpoint.com/sports/football/schedule" },
-    { date: "2026-09-05", end: "2026-09-06", name: "Civil War: Under Fire and Flag", where: "Museum Village, Monroe", mi: 16, note: "Living-history weekend, 10–4 both days.", url: "https://www.museumvillage.org/events" },
-    { date: "2026-09-12", name: "Army football vs. South Florida", where: "Michie Stadium, West Point", mi: 7, note: "Noon kickoff.", url: "https://goarmywestpoint.com/sports/football/schedule" },
-    { date: "2026-09-13", end: "2026-10-11", name: "Grape Stomp season", where: "Brotherhood Winery, Washingtonville", mi: 9, note: "Weekends only through Oct 11 at America’s oldest winery. Stomping, live music, food.", url: "https://www.brotherhood-winery.com/events" },
-    { date: "2026-09-15", end: "2026-09-27", name: "‘Dracula: The Journal of Jonathan Harker’", where: "Bannerman Island (boat from Beacon)", mi: 8, note: "Theater on the island ruins, Sept 15–20 and 23–27. Confirm performance dates on bannermancastle.org.", url: "https://bannermancastle.org/tours-events/" },
-    { date: "2026-09-19", name: "Fungi in the Field", where: "Storm King Art Center, New Windsor", mi: 5, note: "Guided mushroom walk across the grounds.", url: "https://stormking.org/events/fungi-in-the-field/" },
-    { date: "2026-09-19", end: "2026-09-20", name: "Village Fest", where: "Museum Village, Monroe", mi: 16, note: "The museum’s big fall weekend, 10–4 both days.", url: "https://www.museumvillage.org/events" },
-    { date: "2026-09-20", name: "Cornwall Fall Festival", where: "Main Street, Cornwall", mi: 3, note: "Chamber street fair, 10–5. Free.", url: "https://cornwallchamber.org/fall-festival/" },
-    { date: "2026-09-27", name: "Spirit of Beacon Day", where: "Main Street, Beacon", mi: 12, note: "Multicultural parade + festival since 1977. Last Sunday of Sept — confirm.", url: "https://www.spiritofbeacon.org/" },
-    { date: "2026-09-27", name: "Hudson Valley Shakespeare season closes", where: "Samuel H. Scripps Theater Center, Garrison", mi: 16, note: "Last days of the repertory season — “Les Misérables” runs to Sept 27, “As You Like It” to Sept 18, “King Lear” to Sept 17, in the new tented theater above the river.", url: "https://hvshakespeare.org/events" },
-    { date: "2026-10-03", name: "Walter De Maria, ‘360° I Ching’ opens", where: "Dia Beacon", mi: 12, note: "New long-run installation debuts.", url: "https://www.diaart.org/exhibition/exhibitions-projects/walter-de-maria-360-i-ching-exhibition" },
-    { date: "2026-10-10", end: "2026-10-12", name: "Family Fall Fest & Craft Brew Garden", where: "Bear Mountain Inn", mi: 13, note: "New three-day fall festival, 11–5 daily, rain or shine. Makers fair, live music at the Horseshoe Pavilion, festival food and a beer garden of New York and Hudson Valley breweries. Carousel and pedal boats running.", url: "https://visitbearmountain.com/series/family-fall-fest-craft-brew-garden/" },
-    { date: "2026-10-10", name: "Haegue Yang installation opens", where: "Dia Beacon", mi: 12, note: "New long-run installation debuts.", url: "https://www.diaart.org/exhibition/exhibitions-projects/haegue-yang-through-exhibition" },
+    { date: "2026-10-10", end: "2026-10-12", name: "Family Fall Fest & Craft Brew Garden", where: "Bear Mountain Inn", mi: 13, note: "Three-day fall festival, 11–5 daily, rain or shine. Makers fair, live music at the Horseshoe Pavilion, festival food and a beer garden of New York and Hudson Valley breweries. Carousel and pedal boats running.", url: "https://visitbearmountain.com/series/family-fall-fest-craft-brew-garden/" },
+    { date: "2026-10-10", name: "Haegue Yang: ‘Through’ opens", where: "Dia Beacon", mi: 12, note: "New long-run installation debuts.", url: "https://www.diaart.org/exhibition/exhibitions-projects/haegue-yang-through-exhibition" },
     { date: "2026-10-10", name: "Army football vs. Tulane", where: "Michie Stadium, West Point", mi: 7, note: "Noon kickoff, peak foliage weekend — expect heavy 9W traffic.", url: "https://goarmywestpoint.com/sports/football/schedule" },
+    { date: "2026-10-10", name: "Alison Brown Quintet", where: "Towne Crier Cafe, Beacon", mi: 12, note: "Grammy-winning banjo/bluegrass, with dinner service.", url: "https://townecrier.com" },
+    { date: "2026-09-13", end: "2026-10-11", name: "Grape Stomp season", where: "Brotherhood Winery, Washingtonville", mi: 9, note: "Weekends only through Oct 11 at America’s oldest winery. Stomping, live music, food.", url: "https://www.brotherhood-winery.com/events" },
     { date: "2026-10-16", end: "2026-10-18", name: "Newburgh Fringe Festival", where: "Safe Harbors / Ritz Theater, Newburgh", mi: 6, note: "Three days of fringe theater and performance across the Ritz, Safe Harbors Green and partner venues.", url: "https://safe-harbors.org/the-ritz-theater/newburgh-fringe-festival/" },
     { date: "2026-10-17", name: "Army football vs. Florida Atlantic", where: "Michie Stadium, West Point", mi: 7, note: "Noon kickoff.", url: "https://goarmywestpoint.com/sports/football/schedule" },
-    { date: "2026-10-23", name: "Moonlit Walk", where: "Storm King Art Center, New Windsor", mi: 5, note: "The sculpture fields after dark under a full moon, 8–10pm. Ticketed and it sells out.", url: "https://stormking.org/events/moonlit-walk-3/" },
+    { date: "2026-10-17", name: "Cider Night & Fall Family Day", where: "Boscobel, Garrison", mi: 16, note: "Family day 11–4, cider tasting evening 5–7, against the Highlands viewshed.", url: "https://www.boscobel.org/calendar/" },
+    { date: "2026-10-23", name: "Moonlit Walk + Stargazing", where: "Storm King Art Center, New Windsor", mi: 5, note: "The sculpture fields after dark under the stars, 6:30–8:30pm. Ticketed and it sells out.", url: "https://stormking.org/events/moonlit-walk-3/" },
+    { date: "2026-10-25", name: "Hudson Valley Free Day", where: "Dia Beacon", mi: 12, note: "Free admission for Hudson Valley residents, 10–5.", url: "https://www.diaart.org/visit/visit/dia-beacon-beacon-united-states" },
     { date: "2026-10-31", name: "Halloween Costume Spectacular", where: "Storm King Art Center, New Windsor", mi: 5, note: "Come in costume — family art-making among the sculpture.", url: "https://stormking.org/events/children-families-halloween/" },
+    { date: "2026-10-31", name: "‘Back to the Garden 1969: Hippie Halloween’", where: "Towne Crier Cafe, Beacon", mi: 12, note: "17th-anniversary costumed tribute show.", url: "https://townecrier.com" },
     { date: "2026-11-07", name: "WHOOP DEE DOO at Storm King", where: "Storm King Art Center, New Windsor", mi: 5, note: "The Kansas City collective’s participatory variety show — loud, silly, good with kids.", url: "https://stormking.org/events/whoop-dee-doo-at-storm-king-2/" },
     { date: "2026-11-07", name: "Army football vs. Air Force", where: "Michie Stadium, West Point", mi: 7, note: "7:30pm night game and the marquee home date — Commander-in-Chief’s Trophy rival. Traffic is heaviest of the season.", url: "https://goarmywestpoint.com/sports/football/schedule" },
-    { date: "2026-11-13", name: "Frédéric Bruly Bouabré installation opens", where: "Dia Beacon", mi: 12, url: "https://www.diaart.org/exhibition/exhibitions-projects/frederic-bruly-bouabre-exhibition" },
+    { date: "2026-11-11", name: "General Horatio Gates Winter Quarters Program", where: "Edmonston House, New Windsor", mi: 8, note: "Free, 2–6pm. Costumed interpreters from New Windsor Cantonment and Knox’s Headquarters mark the 1782–83 winter quarters.", url: "https://parks.ny.gov/visit/events/your-excellencys-dog-kennel-mount-vernon-good-quarter-i-am-now-0" },
     { date: "2026-11-14", name: "Geology of Storm King walk", where: "Storm King Art Center, New Windsor", mi: 5, note: "Guided walk on the bedrock under the sculpture.", url: "https://stormking.org/events/geology-of-storm-king-3/" },
+    { date: "2026-11-14", name: "Walter De Maria: ‘360° I Ching’ opens", where: "Dia Beacon", mi: 12, note: "New long-run installation debuts.", url: "https://www.diaart.org/exhibition/exhibitions-projects/walter-de-maria-360-i-ching-exhibition" },
     { date: "2026-11-21", name: "Army football vs. East Carolina", where: "Michie Stadium, West Point", mi: 7, note: "Noon kickoff, last home game of the year.", url: "https://goarmywestpoint.com/sports/football/schedule" },
     { date: "2026-11-21", end: "2026-11-22", name: "Gathered in Gratitude", where: "Museum Village, Monroe", mi: 16, note: "Harvest and Thanksgiving living history, 10–4 both days.", url: "https://www.museumvillage.org/events" },
     { date: "2026-12-05", end: "2026-12-06", name: "Revolutionary War: The Turning Point", where: "Museum Village, Monroe", mi: 16, note: "Living-history weekend, 10–4 both days.", url: "https://www.museumvillage.org/events" },
     { date: "2026-12-06", name: "Village Tree Lighting", where: "Village Bandstand, Cornwall-on-Hudson", mi: 1, note: "~6pm. First-Sunday pattern — confirm the date on the village site.", url: "https://cornwall-on-hudson.gov/Calendar-Notices/Calendar" },
-    { date: "2026-12-18", name: "Howardena Pindell installation opens", where: "Dia Beacon", mi: 12, note: "New long-run installation debuts.", url: "https://www.diaart.org/exhibition/exhibitions-projects/howardena-pindell-exhibition" },
+    { date: "2026-12-19", name: "Frédéric Bruly Bouabré installation opens", where: "Dia Beacon", mi: 12, note: "New long-run installation debuts.", url: "https://www.diaart.org/exhibition/exhibitions-projects/frederic-bruly-bouabre-exhibition" },
+    { date: "2027-01-30", name: "Howardena Pindell installation opens", where: "Dia Beacon", mi: 12, note: "New long-run installation debuts.", url: "https://www.diaart.org/exhibition/exhibitions-projects/howardena-pindell-exhibition" },
 
     // ---- ~15–30 miles ----
-    { date: "2026-09-06", name: "Beatles vs. Stones: A Musical Showdown", where: "Bardavon 1869 Opera House, Poughkeepsie", mi: 18, note: "7:30pm.", url: "https://www.bardavon.org/shows/beatles-vs-stones-a-musical-showdown/" },
-    { date: "2026-09-18", name: "Alex Edelman: What Are You Going To Do", where: "Bardavon 1869 Opera House, Poughkeepsie", mi: 18, note: "The ‘Just for Us’ comedian, 7:30pm.", url: "https://www.bardavon.org/shows/alex-edelman-2026/" },
-    { date: "2026-09-18", end: "2026-11-08", name: "The Great Jack O’Lantern Blaze", where: "Van Cortlandt Manor, Croton-on-Hudson", mi: 28, note: "7,000+ carved pumpkins on select evenings; open every night in October. Timed tickets sell out early.", url: "https://hudsonvalley.org/events/blaze/" },
     { date: "2026-10-04", name: "Warwick Applefest", where: "Village of Warwick", mi: 24, note: "Orange County’s largest one-day festival, 9–5. Free.", url: "https://www.warwickapplefest.com/" },
-    { date: "2026-10-09", end: "2026-10-10", name: "Northern Star Quilt Festival", where: "St. Mark’s, Mount Kisco", mi: 32, drive: true, note: "The guild’s festival — their big annual show is on hiatus. For the quilter in the family.", url: "https://www.northernstarquilters.com/" },
     { date: "2026-10-10", end: "2026-10-11", name: "Sugar Loaf Fall Festival", where: "Sugar Loaf Art & Craft Village, Chester", mi: 20, note: "Artisan crafts, live music, food, 10–5.", url: "https://sugarloafnewyork.com/" },
-    { date: "2026-10-17", name: "The Met: Live in HD — ‘Macbeth’", where: "Bardavon 1869 Opera House, Poughkeepsie", mi: 18, note: "Verdi, broadcast live from the Met at 1pm.", url: "https://www.bardavon.org/shows/met-macbeth-verdi/" },
+    { date: "2026-10-16", name: "The Rascals: 60th Anniversary Tour", where: "Paramount Hudson Valley, Peekskill", mi: 22, note: "8pm.", url: "https://paramounthudsonvalley.com" },
+    { date: "2026-09-18", end: "2026-11-08", name: "The Great Jack O’Lantern Blaze", where: "Van Cortlandt Manor, Croton-on-Hudson", mi: 28, note: "7,000+ carved pumpkins on select evenings; open every night in October. Timed tickets sell out early.", url: "https://hudsonvalley.org/events/blaze/" },
+    { date: "2026-10-17", name: "The Met: Live in HD — ‘Macbeth’", where: "Bardavon 1869 Opera House, Poughkeepsie", mi: 18, note: "Verdi, broadcast live from the Met at 1pm.", url: "https://www.bardavon.org/shows/" },
     { date: "2026-10-22", name: "Neko Case: Neon Grey Midnight Green Tour", where: "Bardavon 1869 Opera House, Poughkeepsie", mi: 18, note: "7pm.", url: "https://www.bardavon.org/shows/neko-case-neon-grey-midnight-green-tour/" },
+    { date: "2026-10-30", name: "StevieMac (Fleetwood Mac / Stevie Nicks tribute)", where: "Paramount Hudson Valley, Peekskill", mi: 22, note: "8pm.", url: "https://paramounthudsonvalley.com" },
     { date: "2026-11-12", name: "Big Head Todd and The Monsters", where: "Paramount Hudson Valley, Peekskill", mi: 22, note: "8pm. Rescheduled from February.", url: "https://paramounthudsonvalley.com/events/big-head-todd-and-the-monsters-winter-tour-2026/" },
+    { date: "2026-11-13", name: "Judy Collins: Sweet Judy Blue Eyes Farewell Tour", where: "Bardavon 1869 Opera House, Poughkeepsie", mi: 18, url: "https://www.bardavon.org/shows/judy-collins-sweet-judy-blue-eyes-farewell-tour/" },
+    { date: "2026-11-21", name: "The Pirates of Penzance (Gilbert & Sullivan Players)", where: "Bardavon 1869 Opera House, Poughkeepsie", mi: 18, url: "https://www.bardavon.org/shows/" },
     { date: "2026-11-28", end: "2027-01-03", name: "LEGOLAND Holiday Bricktacular", where: "LEGOLAND New York, Goshen", mi: 18, note: "Holiday overlay on every open date.", url: "https://www.legoland.com/new-york/things-to-do/seasonal-events/" },
     { date: "2026-12-12", name: "Jessica Lynn: A Very Merry Classic Christmas", where: "Paramount Hudson Valley, Peekskill", mi: 22, note: "7pm.", url: "https://paramounthudsonvalley.com/events/jessica-lynn-a-very-merry-classic-christmas-3/" },
+    { date: "2026-12-19", name: "Paula Poundstone", where: "Bardavon 1869 Opera House, Poughkeepsie", mi: 18, url: "https://www.bardavon.org/shows/" },
+    { date: "2027-01-23", name: "Chanticleer", where: "Bardavon 1869 Opera House, Poughkeepsie", mi: 18, note: "The a cappella ensemble’s annual stop.", url: "https://www.bardavon.org/shows/" },
 
     // ---- worth the drive (beyond 30 mi) ----
-    { date: "2026-05-17", end: "2026-10-25", name: "‘Frederic Church: Global Artist’", where: "Olana State Historic Site, Hudson", mi: 42, drive: true, note: "Flagship exhibition of the Church bicentennial.", url: "https://olana.org/frederic-church-global-artist/" },
+    { date: "2026-05-17", end: "2026-10-25", name: "‘Frederic Church: Global Artist’", where: "Olana State Historic Site, Hudson", mi: 42, drive: true, note: "Flagship exhibition of the Church bicentennial — closing soon.", url: "https://olana.org/frederic-church-global-artist/" },
     { date: "2026-06-20", end: "2026-11-01", name: "Cynthia Daignault: ‘Light Atlas’", where: "Thomas Cole NHS, Catskill", mi: 45, drive: true, note: "360 small landscapes in Cole’s 1846 New Studio.", url: "https://thomascole.org/exhibitions/" },
-    { date: "2026-08-16", name: "Brandi Carlile (with Jensen McRae)", where: "Bethel Woods Center for the Arts, Bethel", mi: 45, drive: true, note: "Lawn seats at the Woodstock site — bring a blanket.", url: "https://www.bethelwoodscenter.org/events/detail/brandi-carlile" },
-    { date: "2026-08-23", name: "Josh Groban: Stage, Screen and Symphony", where: "Bethel Woods Center for the Arts, Bethel", mi: 45, drive: true, url: "https://www.bethelwoodscenter.org/events" },
-    { date: "2026-08-29", name: "Outlaw Music Festival", where: "Bethel Woods Center for the Arts, Bethel", mi: 45, drive: true, note: "Willie Nelson & Family, The Avett Brothers, Sheryl Crow.", url: "https://www.bethelwoodscenter.org/events" },
-    { date: "2026-09-04", name: "Alabama Shakes (with Mavis Staples)", where: "Bethel Woods Center for the Arts, Bethel", mi: 45, drive: true, url: "https://www.bethelwoodscenter.org/events" },
-    { date: "2026-09-13", name: "John Fogerty & Steve Winwood", where: "Bethel Woods Center for the Arts, Bethel", mi: 45, drive: true, url: "https://www.bethelwoodscenter.org/events" },
-    { date: "2026-09-19", name: "Blackberry Smoke: 25th Anniversary Tour", where: "UPAC, Kingston", mi: 33, drive: true, note: "7:30pm.", url: "https://www.bardavon.org/shows/blackberry-smoke-25th-anniversary-tour-2026/" },
-    { date: "2026-09-25", name: "Ringo Starr & His All Starr Band", where: "Bethel Woods Center for the Arts, Bethel", mi: 45, drive: true, url: "https://www.bethelwoodscenter.org/events" },
-    { date: "2026-09-26", end: "2026-09-27", name: "Hudson Valley Garlic Festival", where: "Cantine Field, Saugerties", mi: 42, drive: true, note: "Sat 10–6, Sun 10–5. Enormous, garlicky and very crowded — go early.", url: "https://www.hvgf.org/" },
+    { date: "2026-10-03", name: "The Met: Live in HD — ‘Così fan tutte’", where: "UPAC, Kingston", mi: 33, drive: true, note: "Mozart, broadcast live from the Met at 1pm — the season opener.", url: "https://www.bardavon.org/shows/" },
+    { date: "2026-10-03", name: "Stayin’ Alive: One Night of the Bee Gees", where: "UPAC, Kingston", mi: 33, drive: true, url: "https://www.bardavon.org/shows/" },
+    { date: "2026-10-04", name: "Harvest Festival with the Julian Lee Quartet", where: "Bethel Woods Center for the Arts, Bethel", mi: 45, drive: true, note: "Fall-foliage pumpkin festival plus a Jazz at Lincoln Center quartet.", url: "https://www.bethelwoodscenter.org/events" },
+    { date: "2026-10-09", end: "2026-10-10", name: "Northern Star Quilt Festival", where: "St. Mark’s, Mount Kisco", mi: 32, drive: true, note: "The guild’s festival — their big annual show is on hiatus. For the quilter in the family.", url: "https://www.northernstarquilters.com/" },
     { date: "2026-10-14", end: "2026-10-18", name: "Woodstock Film Festival (27th)", where: "Woodstock, Kingston, Rhinebeck and Saugerties", mi: 40, drive: true, note: "Five days of independent film across several river towns.", url: "https://woodstockfilmfestival.org/" },
-    { date: "2026-11-19", name: "The Wailin’ Jennys", where: "UPAC, Kingston", mi: 33, drive: true, note: "8pm.", url: "https://www.bardavon.org/shows/the-wailin-jennys/" }
+    { date: "2026-11-19", name: "The Wailin’ Jennys", where: "UPAC, Kingston", mi: 33, drive: true, note: "8pm.", url: "https://www.bardavon.org/shows/the-wailin-jennys/" },
+    { date: "2026-11-22", end: "2027-03-28", name: "Laurent Grasso: ‘Metaphysical Maze’", where: "Olana & Thomas Cole NHS, Hudson/Catskill", mi: 42, drive: true, note: "Paired exhibition across both Hudson River School sites, part of a wider multi-venue constellation.", url: "https://thomascole.org/exhibitions/" }
   ],
 
   recurring: [
@@ -975,6 +966,7 @@ window.DATA = {
     { group: "Seasonal patterns", when: "October weekends", name: "Pumpkin season — Jones Farm & Lawrence Farms", where: "Cornwall & Newburgh", mi: 5, note: "Cider donuts, pumpkins and the hay-bale maze. Weekdays are calmer.", url: "https://jonesfarminc.com/" },
     { group: "Seasonal patterns", when: "Early November", name: "Beacon Bonfire Music + Art Festival", where: "20+ venues, Beacon", mi: 12, note: "400+ artists over several days; 2026 dates not yet posted." },
     { group: "Seasonal patterns", when: "Fall weekends", name: "LEGOLAND Brick-or-Treat", where: "Goshen", mi: 18, note: "Family Halloween event, included with admission; dates TBA.", url: "https://www.legoland.com/new-york/things-to-do/seasonal-events/brick-or-treat/" },
+    { group: "Seasonal patterns", when: "Last Sunday of October (pattern)", name: "Cornwall Halloween Spooktacular & Howl and Prowl Parade", where: "Main Street, Cornwall", mi: 3, note: "Costume contest, trick-or-treating and a pet-and-kids parade, 3–5pm. The Chamber’s own event page is unchanged from 2024 — confirm the 2026 date before going.", url: "https://cornwallchamber.org/halloween-spooktacular/" },
     { group: "Seasonal patterns", when: "Year-round calendar", name: "Walkway Over the Hudson events", where: "Poughkeepsie–Highland", mi: 18, note: "Walkway at Night, Pride in the Sky and the Walkway Marathon.", url: "https://walkway.org/events/" },
     { group: "Seasonal patterns", when: "Signature weekends", name: "Mohonk Mountain House events", where: "New Paltz", mi: 25, note: "Oktoberfest, Halloween Haunts, summer Music Week. Mostly stay-based.", url: "https://www.mohonk.com/events/" }
   ],
