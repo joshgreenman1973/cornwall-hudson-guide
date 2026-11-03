@@ -32,7 +32,7 @@ window.DATA = {
     services: "Verified local trades — but a listing is not a recommendation. For trades, neighbors' word of mouth beats any directory: search the Cornwall Facebook groups and Nextdoor (see Community & groups) and browse the Greater Cornwall Chamber directory. Always confirm a current New York license, insurance and price before hiring; plumbing and sewer work in the village must be registered with the Board of Health.",
     health: "Hospitals, urgent care and the practices a household needs. Key fact: the closest emergency room is the Montefiore St. Luke's Newburgh campus on Dubois Street — the Cornwall campus is outpatient only. For any emergency, call 911.",
     essentials: "The everyday infrastructure — banks, gas, gyms, childcare, vets and the car errands — closest first. Only Walden Savings has a branch in the village itself; most banks cluster along Windsor Highway in Vails Gate.",
-    community: "How to actually plug in: the Facebook groups where neighbors swap recommendations and news, plus Nextdoor and the village's own channels. A few links may ask you to log in or to search the group name."
+    community: "How to plug in: the Facebook groups where neighbors swap recommendations and news, plus Nextdoor and the village's own channels. A few links may ask you to log in or to search the group name."
   },
 
   /* ---------------- ARTS & CULTURE ---------------- */
@@ -188,7 +188,7 @@ window.DATA = {
       hours: "Wed–Sun 12–4.",
       blurb: "The former Foundry School Museum — and home to John Ferguson Weir's 'The Gun Foundry,' the renowned painting of the West Point Foundry interior.",
       signature: "'The Gun Foundry' (1866) is a touchstone of American industrial-sublime imagery — see it, then walk the actual painted site at the free West Point Foundry Preserve nearby.",
-      texture: "A small museum hiding a genuinely important canvas. ~12 miles south, pairs with a Cold Spring afternoon.",
+      texture: "A small museum with an important canvas. ~12 miles south, pairs with a Cold Spring afternoon.",
       tags: ["American art", "Industrial sublime", "Local history"] },
 
     { name: "Garrison Art Center", town: "Garrison", kind: "Galleries", lat: 41.3820, lon: -73.9470,
@@ -293,7 +293,7 @@ window.DATA = {
 
     { name: "Donahue Memorial Park", town: "Cornwall-on-Hudson", kind: "Park", lat: 41.4470, lon: -74.0100,
       address: "Shore Rd, Cornwall-on-Hudson", blurb: "8.6 riverfront acres with a gazebo, kayak put-in and picnic lawns — host of RiverFest each June.",
-      texture: "An active rail line runs right along the water here, making it a beloved trainspotting spot. More scenic-picnic than playground.",
+      texture: "An active rail line runs right along the water here, making it a popular trainspotting spot. More scenic-picnic than playground.",
       tags: ["Riverfront", "Trains", "Picnic"] },
 
     { name: "Riverlight Park", town: "Cornwall-on-Hudson", kind: "Playground", lat: 41.4460, lon: -74.0120,
@@ -385,7 +385,7 @@ window.DATA = {
     { name: "Hudson Valley Quilt & Sew", town: "Cornwall-on-Hudson", kind: "Quilting", lat: 41.4455, lon: -74.0165,
       address: "1 Idlewild Ave #2, Cornwall-on-Hudson, NY 12520 (parking in back)", phone: "845-534-7300",
       blurb: "The headline find for a quilter: a full quilting-cotton shop — notions, patterns, kits and classes — right in the village, about half a mile from the house.",
-      texture: "A small, personal two-person operation (Annet and Gerri) that opened fairly recently, tucked just off Hudson Street. That's genuinely rare — most of this region's quilt shops are a 20+ mile drive. Call ahead for current hours, since it's a newer shop.",
+      texture: "A small, personal two-person operation (Annet and Gerri) that opened fairly recently, tucked just off Hudson Street. That's rare here: most of this region's quilt shops are a 20+ mile drive. Call ahead for current hours, since it's a newer shop.",
       tags: ["Quilting", "Fabric", "Classes", "Closest"] },
 
     { name: "Beetle and Fred", town: "Beacon", kind: "Quilting", lat: 41.5050, lon: -73.9700,
@@ -422,19 +422,19 @@ window.DATA = {
 
     { name: "Binnacle Books", town: "Beacon", kind: "Bookstore", lat: 41.5050, lon: -73.9700,
       address: "321 Main St, Beacon, NY 12508", web: "https://www.binnaclebooks.com",
-      blurb: "Beacon's beloved new-and-used indie — deep literature, poetry, political history, art and graphic novels.",
+      blurb: "Beacon's popular new-and-used indie — deep literature, poetry, political history, art and graphic novels.",
       texture: "Tied to the Beacon Prison Books Project, which sends requested books to incarcerated people locally. On the same Main Street as The Beacon movie theater.",
       tags: ["Books", "Used books"] },
 
     { name: "Split Rock Books", town: "Cold Spring", kind: "Bookstore", lat: 41.4200, lon: -73.9550,
       blurb: "A sky-blue indie steps from the Cold Spring train station, opened in 2018 to fill a decade-long gap after the village's last bookshop closed.",
-      texture: "Strong on literary fiction, small presses and local-interest titles — the perfect start to a Cold Spring day on foot.",
+      texture: "Strong on literary fiction, small presses and local-interest titles — a good start to a Cold Spring day on foot.",
       tags: ["Books", "Walkable"] },
 
     { name: "The Gift Hut", town: "Cold Spring", kind: "Toys", lat: 41.4200, lon: -73.9540,
       address: "86 Main St, Cold Spring, NY 10516", phone: "845-297-3786", web: "https://www.thegifthut.com",
       blurb: "The standout independent toy shop in range, opened in 2000 — Made-in-USA and eco-friendly wooden toys, games and puzzles.",
-      texture: "A serious strategy-game wall (chess, backgammon, Katamino, Quarto), engineering model kits, and a grown-up side with blacksmith-made tavern puzzles and local woodwork. A real destination, not a chain — the best of the area's true toy shops.",
+      texture: "A serious strategy-game wall (chess, backgammon, Katamino, Quarto), engineering model kits, and a grown-up side with blacksmith-made tavern puzzles and local woodwork. An independent shop worth the trip, and the area's best dedicated toy store.",
       tags: ["Toys", "Wooden toys", "Games"] },
 
     { name: "Clearwaters Gifts (at Jones Farm)", town: "Cornwall", kind: "Toys", lat: 41.4550, lon: -74.0600,
@@ -696,7 +696,7 @@ window.DATA = {
       tags: ["Drive-in", "Seasonal", "Americana"] },
 
     { name: "Fair Oaks Drive-In", town: "Middletown", kind: "Drive-in", lat: 41.5000, lon: -74.4200,
-      web: "https://fairoaksdrivein.simpletix.com", blurb: "A Middletown drive-in known for genuinely good made-to-order food — burgers, fries, mozzarella sticks, empanadas, cheesesteaks.",
+      web: "https://fairoaksdrivein.simpletix.com", blurb: "A Middletown drive-in known for good made-to-order food — burgers, fries, mozzarella sticks, empanadas, cheesesteaks.",
       texture: "Often dark on certain holidays (e.g. Memorial Day) — check the night before driving out. Tickets online.",
       tags: ["Drive-in", "Good food"] },
 
@@ -812,7 +812,7 @@ window.DATA = {
     { name: "Museum Village", town: "Monroe", kind: "Quirky museum", lat: 41.3170, lon: -74.2130,
       address: "1010 Route 17M, Monroe, NY 10950", web: "https://www.museumvillage.org",
       hours: "Seasonal (~mid-Apr to mid-Nov), weekends. Confirm before going.",
-      blurb: "An open-air 19th-century living-history village — blacksmith, weaver, schoolhouse, candle shop — with a genuinely odd centerpiece. ~16 miles.",
+      blurb: "An open-air 19th-century living-history village — blacksmith, weaver, schoolhouse, candle shop — with an odd centerpiece. ~16 miles.",
       texture: "That centerpiece: a complete mastodon skeleton, reportedly one of only three full ones in the world. Very kid-friendly.",
       tags: ["Quirky museum", "Kid-friendly", "Seasonal"] },
 
@@ -825,7 +825,7 @@ window.DATA = {
     { name: "Gnome Chomsky, once the world’s largest garden gnome", town: "Kerhonkson", kind: "Oddity", lat: 41.7760, lon: -74.2990,
       address: "Kelder’s Farm, 5755 Route 209, Kerhonkson, NY 12446", web: "https://www.atlasobscura.com/places/gnome-chomsky",
       blurb: "A 13′6″ garden gnome, Guinness-certified world’s largest in 2007 (since demoted to third). ~40 miles, at the edge of the range.",
-      texture: "He anchors a mini-golf hole on a working farm with a petting zoo and pick-your-own — so it’s a half-day, not just a photo. Seasonal farm hours.",
+      texture: "He anchors a mini-golf hole on a working farm with a petting zoo and pick-your-own — so plan on a half-day. Seasonal farm hours.",
       tags: ["Oddity", "Kid-friendly", "Worth the drive"] },
 
     { name: "Balanced Rock", town: "North Salem", kind: "Natural oddity", lat: 41.3300, lon: -73.5750,
@@ -869,7 +869,7 @@ window.DATA = {
       stats: [ { n: "~10–15m", l: "Drive to station" }, { n: "~1:40–2:00", l: "To Penn" }, { n: "~Every 2h", l: "Limited" } ],
       body: [
         "Salisbury Mills-Cornwall (1600 NY-94) is the closest station to the house — about 10–15 minutes, no river crossing, with a large 677-space park-and-ride.",
-        "But the honest tradeoff: the Port Jervis Line is operated by NJ Transit and runs south to Secaucus, where you transfer to an NJ Transit train into Penn Station. Realistically 1:40–2:00 door-to-Penn, and trains run only about every two hours, clustered at peak.",
+        "But the tradeoff: the Port Jervis Line is operated by NJ Transit and runs south to Secaucus, where you transfer to an NJ Transit train into Penn Station. Realistically 1:40–2:00 door-to-Penn, and trains run only about every two hours, clustered at peak.",
         "Best for someone whose schedule fits the sparse timetable and who works near Penn Station."
       ] },
 
@@ -1011,7 +1011,7 @@ window.DATA = {
       hours: "Wed–Sun 8–5 (café to 3); closed Mon–Tue.",
       blurb: "Grandma Phoebe's Kitchen bakery plus a café doing homemade breakfast and lunch, on a working family farm since 1914.",
       signature: "The apple cider donuts and the baked-goods case.",
-      texture: "Go for the bakery and the gift barn as much as the food — don't show up Monday or Tuesday. A family destination, not just a meal.",
+      texture: "Go for the bakery and the gift barn as much as the food — don't show up Monday or Tuesday. A family destination.",
       tags: ["Kid-friendly", "Bakery", "Fall"] },
 
     { name: "Capri Restaurant & Pizzeria", town: "New Windsor", kind: "Italian", lat: 41.4700, lon: -74.0800,
@@ -1031,7 +1031,7 @@ window.DATA = {
       hours: "Roughly Thu–Sun; live music Fri/Sat 7pm, Sun 2pm.",
       blurb: "A fourth-floor taproom with sweeping Hudson views, 20+ house beers and a hearty shareables kitchen.",
       signature: "The Empire Smash Burger.",
-      texture: "Best at golden hour for the river view down to the bridge — and it's a genuinely family-welcome brewery, not a bar scene.",
+      texture: "Best at golden hour for the river view down to the bridge — and it's a family-welcome brewery, not a bar scene.",
       tags: ["Kid-friendly", "Beer", "View"] },
 
     { name: "Blu Pointe", town: "Newburgh", kind: "Fine dining", lat: 41.5020, lon: -74.0080,
@@ -1043,7 +1043,7 @@ window.DATA = {
     { name: "The Wherehouse", town: "Newburgh", kind: "American", lat: 41.5030, lon: -74.0120,
       address: "119 Liberty St, Newburgh", price: "$$",
       hours: "Closed Mondays.",
-      blurb: "A fun, beer-forward 'cosmic American comfort' spot on the Liberty St dining strip — 50+ Angus burgers with pop-culture names and a genuinely good vegan lineup.",
+      blurb: "A fun, beer-forward 'cosmic American comfort' spot on the Liberty St dining strip — 50+ Angus burgers with pop-culture names and a good vegan lineup.",
       texture: "In-house smoked meats, 16 rotating drafts, vegan onion soup and chili. Unpretentious downtown Newburgh anchor.",
       tags: ["Kid-friendly", "Burgers", "Vegan options"] },
 
@@ -1075,7 +1075,7 @@ window.DATA = {
       address: "330 Main St, Beacon", price: "$$",
       blurb: "A cult favorite — Japanese soul food (ramen, curry, donburi) in a moody former-diner space, and one of the Hudson Valley's premier small live-music rooms.",
       signature: "The chashu ramen; weekly jazz sessions.",
-      texture: "Go on a music night, but expect a wait at peak ramen hours. Quirky, beloved, very Beacon.",
+      texture: "Go on a music night, but expect a wait at peak ramen hours. Quirky and very Beacon.",
       tags: ["Ramen", "Live music"] },
 
     { name: "Ziatun", town: "Beacon", kind: "American", lat: 41.5040, lon: -73.9700,
@@ -1291,7 +1291,7 @@ window.DATA = {
     { name: "RPC Electric", town: "Cornwall", kind: "Electrical", lat: 41.4459, lon: -74.0185,
       address: "PO Box 6, Cornwall, NY 12518", phone: "845-476-0321",
       blurb: "A Cornwall-based licensed electrical contractor on the City of Newburgh's roster of licensed electricians (#105).",
-      texture: "A genuinely local, verifiably licensed electrician with no standalone website — confirm current availability by phone.",
+      texture: "A local, verifiably licensed electrician with no standalone website — confirm current availability by phone.",
       tags: ["Licensed", "Local", "Cornwall-based"] },
 
     { name: "Hudson Valley Electrical (James Paquin)", town: "Cornwall", kind: "Electrical", lat: 41.4459, lon: -74.0185,
@@ -1433,7 +1433,7 @@ window.DATA = {
       address: "Foot of Shore Rd, Cornwall-on-Hudson, NY 12520 (launch permit at Village Hall)", web: "https://cornwall-on-hudson.gov/Village-Clerk/Donahue-Memorial-Park",
       hours: "Dawn to dusk, free; launch permit required.",
       blurb: "The village's own riverfront park — a gazebo, picnic tables, grills and a car-top boat ramp on the Hudson.",
-      texture: "Flat, grassy and stroller-friendly, and a beloved trainspotting spot as the active rail line runs right along the water. A permit from Village Hall is needed to launch, and ramp parking is very limited in summer.",
+      texture: "Flat, grassy and stroller-friendly, and a popular trainspotting spot as the active rail line runs right along the water. A permit from Village Hall is needed to launch, and ramp parking is very limited in summer.",
       tags: ["Waterfront", "Kayak", "Stroller-OK", "Free"], confidence: "medium" },
 
     { name: "Storm King Highway (Route 218)", town: "Cornwall", kind: "Scenic drive", lat: 41.4205, lon: -73.9905,
@@ -1546,7 +1546,7 @@ window.DATA = {
       address: "Trailheads in Goshen, Chester, Monroe and Harriman (former Erie Railroad bed)", web: "https://www.orangecountygov.com/1475/Heritage-Trail",
       hours: "Dawn to dusk, free.",
       blurb: "A paved 19.5-mile rail trail on the former Erie Railroad through wildlife sanctuary, streams and rolling meadows.",
-      texture: "Flat and paved end to end — genuinely good for strollers, wheelchairs and easy family bike rides, in any length you like from four trailheads with parking. The best flat, stroller-and-bike-friendly route in the area, about 25–35 minutes west.",
+      texture: "Flat and paved end to end — good for strollers, wheelchairs and easy family bike rides, in any length you like from four trailheads with parking. The best flat, stroller-and-bike-friendly route in the area, about 25–35 minutes west.",
       tags: ["Rail trail", "Bike", "Stroller-OK", "Free"] },
 
     { name: "Sterling Forest State Park", town: "Tuxedo", kind: "State park", lat: 41.1980, lon: -74.2630,
@@ -1633,7 +1633,7 @@ window.DATA = {
     { name: "Hessian Lake (Bear Mountain)", town: "Bear Mountain", kind: "Lake", lat: 41.3130, lon: -73.9890,
       address: "Bear Mountain State Park, Bear Mountain, NY 10911", web: "https://parks.ny.gov/visit/state-parks/bear-mountain-state-park",
       hours: "Seasonal pedal-boat and rowboat rentals (~spring to mid-Oct). No swimming in the lake.",
-      blurb: "A picturesque glacial lake at the foot of Bear Mountain, ringed by a flat, easy walking loop, with seasonal pedal-boat and rowboat rentals.",
+      blurb: "A glacial lake at the foot of Bear Mountain, ringed by a flat, easy walking loop, with seasonal pedal-boat and rowboat rentals.",
       texture: "Swimming is not allowed (use the park pool). Pedal boats and rowboats rent at the lakeside concession; no private boats. The ~1-mile loop is level and stroller-friendly, and pairs naturally with the carousel.",
       tags: ["Lake", "Boat rental", "Stroller-OK", "Family"],
       img: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Hessian_Lake_NY.JPG/960px-Hessian_Lake_NY.JPG", imgCredit: "Alexisrael · CC BY-SA 3.0" },
@@ -1878,7 +1878,7 @@ window.DATA = {
       address: "263 Hudson St, Cornwall-on-Hudson, NY 12520", phone: "845-534-4458", web: "https://locations.cumberlandfarms.com/us/ny/cornwall-on-hudson/263-hudson-st",
       hours: "Daily ~6am–11pm.",
       blurb: "A convenience store with gas pumps right on Hudson Street in the village.",
-      texture: "The closest place to actually buy gas to the village center. It's small and reviewers note prices can run higher than the Vails Gate stations; the SmartPay app gives a per-gallon discount.",
+      texture: "The closest place to buy gas to the village center. It's small and reviewers note prices can run higher than the Vails Gate stations; the SmartPay app gives a per-gallon discount.",
       tags: ["Gas station", "Convenience", "In the village", "Closest"] },
 
     { name: "Vails Gate Sunoco", town: "New Windsor", kind: "Gas station", lat: 41.4640, lon: -74.0580,
@@ -1958,7 +1958,7 @@ window.DATA = {
       address: "261 Hudson St, Cornwall-on-Hudson, NY 12520", phone: "845-534-7636", web: "https://www.facebook.com/HudsonStreetHair/",
       hours: "Tue–Fri 9–8, Sat 9–4; closed Sun–Mon.",
       blurb: "A full-service hair salon — cuts, color, highlights, perms and waxing.",
-      texture: "The closest salon to the village center, genuinely walkable. Late weeknight hours (to 8pm) make it easy after work.",
+      texture: "The closest salon to the village center, and walkable. Late weeknight hours (to 8pm) make it easy after work.",
       tags: ["Salon", "Hair", "In the village", "Closest"] },
 
     { name: "Fresh Cuts Barber Shop", town: "Cornwall", kind: "Salon", lat: 41.4400, lon: -74.0300,
@@ -2112,7 +2112,7 @@ window.DATA = {
   community: [
     { name: "Living in Cornwall, NY", kind: "Facebook group", web: "https://www.facebook.com/groups/1470024856560229/",
       blurb: "The main neighbors-helping-neighbors group for Cornwall and Cornwall-on-Hudson.",
-      texture: "A confirmed public group and the single best place to ask for a plumber, electrician or handyman — the same trusted names get recommended repeatedly. Search before you post.",
+      texture: "A confirmed public group and the best place to ask for a plumber, electrician or handyman — the same trusted names get recommended repeatedly. Search before you post.",
       tags: ["Community", "Recommendations", "Ask a neighbor"] },
 
     { name: "Cornwall & Cornwall-On-Hudson Community Bulletin Board", kind: "Facebook group", web: "https://www.facebook.com/groups/2196890527200427/",

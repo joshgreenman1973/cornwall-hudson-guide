@@ -1,6 +1,6 @@
 # The Cornwall-on-Hudson Guide
 
-A complete, well-organized web guide to **Cornwall-on-Hudson, New York** and the surrounding
+A web guide to **Cornwall-on-Hudson, New York** and the surrounding
 Hudson Highlands — built for new residents and curious neighbors. Everything is centered on and
 sorted by distance from **10 Abbott Lane, Cornwall-on-Hudson, NY 12520** (on Storm King Mountain).
 
@@ -22,11 +22,11 @@ A new arrival can find almost anything here. Sections (each sorted by distance w
 - **Everyday essentials** — childcare & preschools, banks, gas, gyms, vets, car wash, laundry, salons
 - **Kids & families**, **Arts & culture**, **History** (long-form), **Movies**, **Curiosities**
 - **Events** — confirmed dates that auto-hide once past, plus recurring patterns and live-calendar links
-- **Getting around & the commute** — the honest comparison of routes off the west bank
+- **Getting around & the commute** — a comparison of routes off the west bank
 - **Community & groups** — the Facebook groups, Nextdoor and official channels where neighbors connect
 - **Disability & autism services**
 
-## How it works (no black boxes)
+## How it works
 - **Pure static web page.** `index.html` + `styles.css` + `app.js` + `data.js`. No build step, no dependencies, no API calls. Fonts (Fraunces + Hanken Grotesk) load from Google Fonts with system fallbacks.
 - **All content lives in `data.js`.** To edit a listing, add a place or fix hours, edit that one file. Each section is wired up by the `SECTIONS` config at the top of `app.js`.
 - **Distances** are computed client-side with the haversine formula from the home coordinates (`HOME` in `app.js`, ~41.4447, -74.0189). Coordinates in `data.js` are approximate — accurate enough for *relative* ordering, not turn-by-turn.
@@ -41,7 +41,7 @@ few specifics worth knowing:
 
 - **Confidence is tracked.** Listings resting on a single or older source carry a `confidence: "medium"`/`"low"` flag, surfaced in the app as a small **confirm**/**verify** badge and reflected in their "Local note."
 - **Repair/service providers are not endorsements.** Each was verified to exist and to serve this area (often via a license roster or the provider's own site), but the app and this README both say to confirm a current New York license, insurance and price before hiring. Plumbing/sewer work in the village must be registered with the Board of Health.
-- **Phone numbers were omitted when unverifiable** rather than guessed. A "Cornwall Tire Service" that turned out to be in Cornwall, *Ontario* was deliberately excluded — an example of the name-collision traps that were screened out.
+- **Phone numbers that could not be verified were omitted.** A "Cornwall Tire Service" that turned out to be in Cornwall, *Ontario* was deliberately excluded — an example of the name-collision traps that were screened out.
 - **Time-sensitive facts are flagged in-app**, e.g. Breakneck Ridge is closed for all of 2026 (Fjord Trail/station construction), Kowawese/Plum Point is posted closed, and the closest ER is the Montefiore St. Luke's **Newburgh** campus (the Cornwall campus has no ER).
 - The in-app **"AI caution"** button (top right) lists these caveats. Hours, fares, prices, seasons and program details change constantly — treat the guide as a smart starting point, not gospel.
 
