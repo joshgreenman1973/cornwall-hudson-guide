@@ -6,7 +6,7 @@
 (function () {
   'use strict';
 
-  var HOME = { lat: 41.419802, lon: -74.016404 }; // center of the 10 Abbott Lane tax parcel
+  var HOME = { lat: 41.420006, lon: -74.016329 }; // center of the house's building footprint at 10 Abbott Lane
 
   // category -> {label, color, emoji}. Order controls the legend.
   var CATS = {

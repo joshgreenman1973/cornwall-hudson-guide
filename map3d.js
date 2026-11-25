@@ -6,8 +6,8 @@
 (function () {
   'use strict';
 
-  // Center of the 10 Abbott Lane tax parcel (NYS tax parcels), ~796 ft per USGS EPQS.
-  var HOME = { lat: 41.419802, lon: -74.016404 };
+  // Center of the house's two FEMA USA Structures footprints (area-weighted); ground ~820 ft per USGS EPQS.
+  var HOME = { lat: 41.420006, lon: -74.016329 };
   var RADIUS_MI = 20;
   var TERRARIUM = 'https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png';
   var FONT = ['Noto Sans Regular'];
@@ -272,6 +272,21 @@
   // Keep views centered in the part of the map the side panel doesn't cover.
   if (window.matchMedia('(min-width: 701px)').matches) map.setPadding({ left: 350, top: 0, right: 0, bottom: 0 });
   window.__map = map; // handy for debugging in the console
+  // "Go to the house" button, top right above the zoom controls
+  function goHouse() {
+    stopSpin(); leaveSpot(false); popup.remove();
+    flyGround({ center: [HOME.lon, HOME.lat], zoom: 17, pitch: 50, bearing: map.getBearing(), duration: 2400, essential: true });
+  }
+  map.addControl({
+    onAdd: function () {
+      var d = document.createElement('div');
+      d.className = 'maplibregl-ctrl house-ctrl';
+      d.innerHTML = '<button type="button" title="Zoom in on the house and center it">Go to the house</button>';
+      d.firstChild.addEventListener('click', goHouse);
+      return d;
+    },
+    onRemove: function () {}
+  }, 'top-right');
   map.addControl(new maplibregl.NavigationControl({ visualizePitch: true }), 'top-right');
   map.addControl(new maplibregl.ScaleControl({ unit: 'imperial' }), 'bottom-right');
 
@@ -280,6 +295,7 @@
   hm.className = 'house';
   hm.innerHTML = '<span class="tag">The house</span><span class="stem"></span><span class="dot"></span>';
   new maplibregl.Marker({ element: hm, anchor: 'bottom' }).setLngLat([HOME.lon, HOME.lat]).addTo(map);
+  hm.querySelector('.tag').addEventListener('click', function (e) { e.stopPropagation(); goHouse(); });
 
   var loading = document.getElementById('loading');
   map.once('idle', function () { loading.hidden = true; });

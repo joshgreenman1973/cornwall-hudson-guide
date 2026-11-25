@@ -86,7 +86,9 @@
 
     /* ---- house marker ---- */
     .house { display: flex; flex-direction: column; align-items: center; pointer-events: none; }
-    .house .tag { background: var(--accent); color: #111311; font-size: 13px; font-weight: 700; padding: 3px 7px; white-space: nowrap; }
+    .house .tag { background: var(--accent); color: #111311; font-size: 13px; font-weight: 700; padding: 3px 7px; white-space: nowrap; pointer-events: auto; cursor: pointer; }
+    .house-ctrl button { font: inherit; font-size: 14px; font-weight: 700; color: #111311; background: var(--accent); border: 0; padding: 8px 12px; cursor: pointer; }
+    .house-ctrl button:hover { background: #ff8466; }
     .house .stem { width: 2px; height: 26px; background: var(--accent); }
     .house .dot { width: 12px; height: 12px; background: var(--accent); border: 2px solid #111311; margin-top: -1px; }
 
@@ -215,7 +217,7 @@
     </div>
 
     <div class="credits">
-      Terrain: <a href="https://registry.opendata.aws/terrain-tiles/" target="_blank" rel="noopener">AWS Terrain Tiles</a>, built from USGS 3DEP elevation data (about 10-meter cells here); the contour lines are computed from the same data. The LiDAR relief layer is the USGS 3D Elevation Program's 1-meter bare-earth model (around the house it comes from a 2022 flight; other counties in the circle were flown in other years), shaded by USGS; it shows the ground with trees and buildings stripped away, which is why old stone walls, cellar holes, roads and quarry cuts show up under the forest. Buildings, roads, trails, peaks and the smaller points of interest: <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors, served by <a href="https://openfreemap.org" target="_blank" rel="noopener">OpenFreeMap</a>. Most buildings carry no height in OpenStreetMap and are drawn at a standard height, so they show where things are, not how tall they are. Aerial photo: Esri World Imagery. The house is placed at the center of its tax parcel; guide places use the guide's own coordinates, which are approximate.
+      Terrain: <a href="https://registry.opendata.aws/terrain-tiles/" target="_blank" rel="noopener">AWS Terrain Tiles</a>, built from USGS 3DEP elevation data (about 10-meter cells here); the contour lines are computed from the same data. The LiDAR relief layer is the USGS 3D Elevation Program's 1-meter bare-earth model (around the house it comes from a 2022 flight; other counties in the circle were flown in other years), shaded by USGS; it shows the ground with trees and buildings stripped away, which is why old stone walls, cellar holes, roads and quarry cuts show up under the forest. Buildings, roads, trails, peaks and the smaller points of interest: <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors, served by <a href="https://openfreemap.org" target="_blank" rel="noopener">OpenFreeMap</a>. Most buildings carry no height in OpenStreetMap and are drawn at a standard height, so they show where things are, not how tall they are. Aerial photo: Esri World Imagery. The house is placed at the center of its building footprint (FEMA USA Structures); guide places use the guide's own coordinates, which are approximate.
     </div>
   </aside>
 
@@ -236,6 +238,6 @@
   <script src="https://unpkg.com/maplibre-gl@5.24.1/dist/maplibre-gl.js"></script>
   <script src="https://unpkg.com/maplibre-contour@0.2.0/dist/index.min.js"></script>
   <script src="./data.js"></script>
-  <script src="./map3d.js?v=7"></script>
+  <script src="./map3d.js?v=9"></script>
 </body>
 </html>

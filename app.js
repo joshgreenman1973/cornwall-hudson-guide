@@ -10,7 +10,7 @@
   'use strict';
 
   // 10 Abbott Lane, Cornwall-on-Hudson, NY 12520 (on Storm King Mtn)
-  const HOME = { lat: 41.419802, lon: -74.016404 }; // center of the 10 Abbott Lane tax parcel
+  const HOME = { lat: 41.420006, lon: -74.016329 }; // center of the house's building footprint at 10 Abbott Lane
 
   // ---- helpers -------------------------------------------------
   const $ = (s, r = document) => r.querySelector(s);
