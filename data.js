@@ -20,7 +20,7 @@ window.DATA = {
   notes: {
     eat: "Sorted by distance — the village is walkable. This stretch had heavy restaurant turnover in 2025–26, so a quick 'still open?' check before a long drive is wise. Closed spots (Canterbury Brook, Liberty Street Bistro, Caffe Macchiato, The Would, Whistling Willie's) are left off.",
     arts: "The Highlands around the house are the subject of the founding canvases of American landscape painting. Filter by University museum for the teaching collections (the Loeb's Magoon Hudson River School holdings, Bard's Hessel), or Hudson River School for Olana, Cole and the painted viewsheds. A few need planning: West Point (REAL ID), Newington-Cropsey and Manitoga (appointment/seasonal).",
-    kids: "Sorted by distance from the house. The nature museum's village campus is practically walkable.",
+    kids: "Sorted by distance from the house. The nature museum's village campus is about a mile and a half away.",
     shopping: "Everyday and specialty shopping beyond the home-goods section: yarn and quilting, books, toys and groceries, then pharmacies, wine, pets, bikes, jewelry and more. (Hardware, furniture and garden centers live under Home, hardware & garden.)",
     movies: "The art-house and the drive-ins. Note: Newburgh's Downing Film Center closed in 2023.",
     spectrum: "Start with the OPWDD Front Door for eligibility, then services flow from there. Call ahead — programs and ABA availability change; confirm before relying on any listing.",
@@ -280,7 +280,7 @@ window.DATA = {
     { name: "Hudson Highlands Nature Museum — Wildlife Education Center", town: "Cornwall-on-Hudson", kind: "Nature center", lat: 41.4430, lon: -74.0180,
       address: "25 Boulevard, Cornwall-on-Hudson, NY 12520", phone: "845-534-7781", web: "https://hhnaturecenter.org",
       hours: "Sat–Sun 12–4, year-round. Confirm — it has closed for renovation periods.",
-      blurb: "Live native, non-releasable animals in the village campus — essentially walkable from Abbott Lane.",
+      blurb: "Live native, non-releasable animals in the village campus, about a mile and a half from the house.",
       texture: "The closest attraction to the house. Pair it with the museum's Outdoor Discovery Center a few miles away for trails and the Grasshopper Grove play area.",
       tags: ["Toddlers", "Animals", "Walkable"] },
 
@@ -384,7 +384,7 @@ window.DATA = {
 
     { name: "Hudson Valley Quilt & Sew", town: "Cornwall-on-Hudson", kind: "Quilting", lat: 41.4455, lon: -74.0165,
       address: "1 Idlewild Ave #2, Cornwall-on-Hudson, NY 12520 (parking in back)", phone: "845-534-7300",
-      blurb: "The headline find for a quilter: a full quilting-cotton shop — notions, patterns, kits and classes — right in the village, about half a mile from the house.",
+      blurb: "The headline find for a quilter: a full quilting-cotton shop — notions, patterns, kits and classes — right in the village, under 2 miles from the house.",
       texture: "A small, personal two-person operation (Annet and Gerri) that opened fairly recently, tucked just off Hudson Street. That's rare here: most of this region's quilt shops are a 20+ mile drive. Call ahead for current hours, since it's a newer shop.",
       tags: ["Quilting", "Fabric", "Classes", "Closest"] },
 
@@ -512,7 +512,7 @@ window.DATA = {
       address: "1 Idlewild Ave #1, Cornwall-on-Hudson, NY 12520", phone: "845-213-3180", web: "https://www.ghsjewelers.com",
       hours: "Roughly Tue–Sat 10–5:30 (Sat closes earlier) — call ahead.",
       blurb: "The only jeweler in the village — woman-owned since 1981, dealing in antique, estate and modern pieces with on-site custom work and repair.",
-      texture: "About a mile from the house. Estate and antique jewelry plus full custom design and repairs you'd otherwise drive to Cold Spring for.",
+      texture: "Under 2 miles from the house. Estate and antique jewelry plus full custom design and repairs you'd otherwise drive to Cold Spring for.",
       tags: ["Jewelry", "Estate", "Repair", "Closest"] },
 
     { name: "Bryan's Bikes", town: "Cornwall", kind: "Bikes", lat: 41.4399, lon: -74.0192,
@@ -1146,7 +1146,7 @@ window.DATA = {
       address: "317 Main St, Cornwall, NY 12518", phone: "845-458-5512",
       hours: "Roughly Mon–Fri 8–6:30, Sat 8–5; closed Sun. Confirm.",
       blurb: "The closest hardware-category store to the village — an outdoor power-equipment dealer (Stihl, Ariens) with propane exchange, soil and basics.",
-      texture: "Barely 3 miles down the hill, but it skews to power equipment and repair rather than nuts-and-bolts hardware, and at least one listing says it has rebranded as B&B. Call before driving over.",
+      texture: "Under 2 miles down the hill, but it skews to power equipment and repair rather than nuts-and-bolts hardware, and at least one listing says it has rebranded as B&B. Call before driving over.",
       tags: ["Power equipment", "Propane", "Closest"], confidence: "medium" },
 
     { name: "Brett's True Value", town: "New Windsor", kind: "Hardware", lat: 41.4699, lon: -74.0801,

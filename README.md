@@ -29,7 +29,7 @@ A new arrival can find almost anything here. Sections (each sorted by distance w
 ## How it works
 - **Pure static web page.** `index.html` + `styles.css` + `app.js` + `data.js`. No build step, no dependencies, no API calls. Fonts (Fraunces + Hanken Grotesk) load from Google Fonts with system fallbacks.
 - **All content lives in `data.js`.** To edit a listing, add a place or fix hours, edit that one file. Each section is wired up by the `SECTIONS` config at the top of `app.js`.
-- **Distances** are computed client-side with the haversine formula from the home coordinates (`HOME` in `app.js`, ~41.4447, -74.0189). Coordinates in `data.js` are approximate — accurate enough for *relative* ordering, not turn-by-turn.
+- **Distances** are computed client-side with the haversine formula from the home coordinates (`HOME` in `app.js` and `map.js`: 41.419802, -74.016404, the center of the 10 Abbott Lane tax parcel; until November 2026 it was a point in the village about 1.7 miles north). Coordinates in `data.js` are approximate — accurate enough for *relative* ordering, not turn-by-turn.
 - **The events calendar updates itself.** `datedEvents` carry ISO dates; the page hides any whose date has passed (using the browser's real clock), so "Coming up" always reflects what's actually ahead. `recurring` holds weekly/seasonal patterns, filtered by a 15-/30-mile toggle.
 - **Directions** open Google Maps turn-by-turn from the visitor's location.
 - **Global search** filters every card across all sections and hides sections with no matches.

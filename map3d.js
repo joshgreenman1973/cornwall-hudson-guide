@@ -91,7 +91,7 @@
 
   document.getElementById('lede').textContent =
     'The guide’s ' + places.length + ' places inside the circle are pinned and colored by section. ' +
-    'Drag to move. Right-drag, or drag with two fingers, to tilt and turn. Click anywhere for its elevation.';
+    'Drag sideways to spin the view all the way around and up or down to tilt it; switch to \u201cMoves it\u201d to slide the map instead. Scroll or pinch to zoom. Click anywhere for its elevation, or to stand there and look around.';
 
   // ---------- rings + mask ----------
   var RINGS = [5, 10, 15, 20];
@@ -135,6 +135,10 @@
       aerial: { type: 'raster', tileSize: 256, maxzoom: 19,
         tiles: ['https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'],
         attribution: 'Aerial: Esri, Maxar, Earthstar Geographics' },
+      // 1-meter bare-earth LiDAR (USGS 3DEP), shaded from several light directions, drawn by USGS on request
+      lidar: { type: 'raster', tileSize: 256, minzoom: 11, maxzoom: 17,
+        tiles: ['https://elevation.nationalmap.gov/arcgis/rest/services/3DEPElevation/ImageServer/exportImage?bbox={bbox-epsg-3857}&bboxSR=3857&imageSR=3857&size=256,256&format=png&renderingRule=%7B%22rasterFunction%22%3A%22Hillshade%20Multidirectional%22%7D&f=image'],
+        attribution: 'LiDAR: USGS 3D Elevation Program' },
       rings: { type: 'geojson', data: ringsGeo },
       ringLabels: { type: 'geojson', data: ringLabels },
       mask: { type: 'geojson', data: maskGeo },
@@ -158,6 +162,8 @@
         paint: { 'hillshade-exaggeration': 0.75, 'hillshade-shadow-color': 'rgba(0,0,0,0.75)',
           'hillshade-highlight-color': 'rgba(255,255,240,0.32)', 'hillshade-accent-color': 'rgba(0,0,0,0.25)',
           'hillshade-illumination-direction': 315 } },
+      { id: 'lidar', type: 'raster', source: 'lidar', minzoom: 11, layout: { visibility: 'none' },
+        paint: { 'raster-opacity': 0.92, 'raster-contrast': 0.45, 'raster-brightness-min': 0.02, 'raster-brightness-max': 0.5, 'raster-fade-duration': 200 } },
       { id: 'park', type: 'fill', source: 'ofm', 'source-layer': 'park',
         paint: { 'fill-color': '#3fd68f', 'fill-opacity': 0.05 } },
       { id: 'park-line', type: 'line', source: 'ofm', 'source-layer': 'park',
@@ -289,6 +295,7 @@
   var readout = document.getElementById('readout');
   var pending = null, queued = false;
   map.on('mousemove', function (e) {
+    if (vp || picking) return;
     pending = e.lngLat;
     if (queued) return;
     queued = true;
@@ -302,6 +309,9 @@
 
   // ---------- popups ----------
   var popup = new maplibregl.Popup({ maxWidth: '300px', offset: 10 });
+  function standBtn(lng, lat) {
+    return '<button class="stand" type="button" data-lng="' + lng + '" data-lat="' + lat + '">Stand here and look around</button>';
+  }
   function placePopup(i) {
     var x = places[i], p = x.p, c = CATS[x.cat];
     var links = '<a href="' + mapsUrl(p) + '" target="_blank" rel="noopener">Directions ↗</a>' +
@@ -313,17 +323,19 @@
       '<div class="sub">' + esc([p.town, p.kind].filter(Boolean).join(' · ')) + '<br>' + esc(where(p.lat, p.lon)) +
       (z != null ? ' · about ' + fmtFt(z) + ' ft up' : '') + '</div>' +
       (p.blurb ? '<p>' + esc(p.blurb) + '</p>' : '') +
-      '<div class="links">' + links + '</div></div>').addTo(map);
+      '<div class="links">' + links + '</div>' + standBtn(p.lon, p.lat) + '</div>').addTo(map);
   }
   var clickable = ['places', 'peak-dot', 'peak-label', 'osm-poi'];
   map.on('click', function (e) {
+    if (suppressClick) { suppressClick = false; return; }
+    if (picking) { standAt(e.lngLat.lng, e.lngLat.lat); return; }
     var hits = map.queryRenderedFeatures(e.point, { layers: clickable.filter(function (id) { return map.getLayer(id) && map.getLayoutProperty(id, 'visibility') !== 'none'; }) });
     if (hits.length) {
       var f = hits[0], pr = f.properties, ll = f.geometry.coordinates;
       if (f.layer.id === 'places') return placePopup(pr.i);
       if (f.layer.id === 'peak-dot' || f.layer.id === 'peak-label') {
         popup.setLngLat(ll).setHTML('<div class="pp"><span class="cat">Peak</span><b>' + esc(pr.name) + '</b><div class="sub">' +
-          (pr.ele_ft ? Number(pr.ele_ft).toLocaleString('en-US') + ' ft (OpenStreetMap) · ' : '') + esc(where(ll[1], ll[0])) + '</div></div>').addTo(map);
+          (pr.ele_ft ? Number(pr.ele_ft).toLocaleString('en-US') + ' ft (OpenStreetMap) · ' : '') + esc(where(ll[1], ll[0])) + '</div>' + standBtn(ll[0], ll[1]) + '</div>').addTo(map);
         return;
       }
       popup.setLngLat(ll).setHTML('<div class="pp"><span class="cat">' + esc(String(pr.subclass || pr.class || 'Place').replace(/_/g, ' ')) +
@@ -332,7 +344,7 @@
     }
     var z = elevAt(e.lngLat);
     popup.setLngLat(e.lngLat).setHTML('<div class="pp"><b>' + (z == null ? 'Elevation loading' : 'About ' + fmtFt(z) + ' ft') + '</b><div class="sub">' +
-      esc(where(e.lngLat.lat, e.lngLat.lng)) + '<br>' + e.lngLat.lat.toFixed(4) + '° N, ' + Math.abs(e.lngLat.lng).toFixed(4) + '° W</div></div>').addTo(map);
+      esc(where(e.lngLat.lat, e.lngLat.lng)) + '<br>' + e.lngLat.lat.toFixed(4) + '° N, ' + Math.abs(e.lngLat.lng).toFixed(4) + '° W</div>' + standBtn(e.lngLat.lng, e.lngLat.lat) + '</div>').addTo(map);
   });
   clickable.forEach(function (id) {
     map.on('mouseenter', id, function () { map.getCanvas().style.cursor = 'pointer'; });
@@ -359,7 +371,8 @@
   function stopSpin() { spinning = false; spinBtn.classList.remove('on'); }
   function spinStep() {
     if (!spinning) return;
-    map.setBearing((map.getBearing() + 0.07) % 360);
+    if (vp) { vp.bearing = (vp.bearing + 0.07) % 360; vpApply(); }
+    else map.setBearing((map.getBearing() + 0.07) % 360);
     requestAnimationFrame(spinStep);
   }
   spinBtn.addEventListener('click', function () {
@@ -369,10 +382,65 @@
   ['mousedown', 'touchstart', 'wheel'].forEach(function (ev) {
     map.getCanvasContainer().addEventListener(ev, stopSpin, { passive: true });
   });
+  // ---------- drag to spin (a full 360) ----------
+  var dragMode = 'spin', drag = null, pointers = 0, mapEl = document.getElementById('map');
+  function setDragMode(m) {
+    dragMode = m;
+    mapEl.classList.toggle('spin-mode', m === 'spin');
+    if (m === 'spin') map.dragPan.disable(); else map.dragPan.enable();
+    document.querySelectorAll('#dragmode .btn').forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-drag') === m); });
+  }
+  document.getElementById('dragmode').addEventListener('click', function (e) {
+    var b = e.target.closest('[data-drag]');
+    if (b) setDragMode(b.getAttribute('data-drag'));
+  });
+  var cont = map.getCanvasContainer();
+  cont.addEventListener('pointerdown', function (e) {
+    pointers++;
+    if ((dragMode !== 'spin' && !vp) || e.button !== 0 || pointers > 1) { drag = null; return; }
+    drag = { x: e.clientX, y: e.clientY, b: vp ? vp.bearing : map.getBearing(), p: vp ? vp.pitch : map.getPitch(), moved: false };
+  });
+  window.addEventListener('pointermove', function (e) {
+    if (!drag) return;
+    var dx = e.clientX - drag.x, dy = e.clientY - drag.y;
+    if (!drag.moved && Math.abs(dx) + Math.abs(dy) < 4) return;
+    drag.moved = true; mapEl.classList.add('dragging');
+    if (vp) {
+      // standing: drag the scene the way a hand would turn your head
+      vp.bearing = drag.b - dx * 0.25;
+      vp.pitch = Math.max(60, Math.min(89.6, drag.p + dy * 0.12));
+      vpApply();
+    } else {
+      map.jumpTo({ bearing: drag.b - dx * 0.4, pitch: Math.max(0, Math.min(82, drag.p - dy * 0.25)) });
+    }
+  });
+  // A spin ends with a mouse-up, which the map would otherwise read as a click.
+  function endDrag() {
+    if (drag && drag.moved) { suppressClick = true; setTimeout(function () { suppressClick = false; }, 80); }
+    pointers = Math.max(0, pointers - 1); drag = null; mapEl.classList.remove('dragging');
+  }
+  window.addEventListener('pointerup', endDrag);
+  window.addEventListener('pointercancel', endDrag);
+
+  // facing dial
+  var turn = document.getElementById('turn'), facing = document.getElementById('facing');
+  function syncTurn() {
+    var b = (map.getBearing() + 360) % 360;
+    turn.value = Math.round(b) % 360;
+    facing.textContent = DIRS[Math.round(b / 22.5) % 16];
+  }
+  turn.addEventListener('input', function () {
+    stopSpin();
+    if (vp) { vp.bearing = +turn.value; vpApply(); } else map.setBearing(+turn.value);
+  });
+  map.on('rotate', syncTurn);
+  syncTurn();
+  setDragMode('spin');
+
   document.getElementById('views').addEventListener('click', function (e) {
     var v = e.target.closest('[data-view]');
     if (!v) return;
-    stopSpin();
+    stopSpin(); leaveSpot(false);
     var o = VIEWS[v.getAttribute('data-view')];
     flyGround({ center: o.center, zoom: o.zoom, pitch: o.pitch, bearing: o.bearing, duration: 3200, essential: true });
   });
@@ -396,16 +464,123 @@
     this.querySelectorAll('.btn').forEach(function (x) { x.classList.toggle('on', x === b); });
     setGround(b.getAttribute('data-ground'));
   });
+  function setExag(x) {
+    exag = x;
+    document.querySelectorAll('#exag .btn').forEach(function (b) { b.classList.toggle('on', parseFloat(b.getAttribute('data-x')) === x); });
+    map.setTerrain({ source: 'terrain', exaggeration: x });
+  }
   document.getElementById('exag').addEventListener('click', function (e) {
     var b = e.target.closest('[data-x]');
-    if (!b) return;
+    if (!b || vp) return;
+    setExag(parseFloat(b.getAttribute('data-x')));
+  });
+
+  // ---------- stand on a spot ----------
+  // Puts the camera at eye height over the bare ground at any point, at true scale.
+  // No trees: the terrain is bare earth, so this is the view with the forest cleared.
+  var vp = null, saved = null, picking = false, suppressClick = false, eyeFt = 6;
+  var vpbar = document.getElementById('vpbar'), vpWhere = document.getElementById('vpWhere'), pickBtn = document.getElementById('pickSpot');
+  function groundAt(lng, lat) {
+    // highest terrain within ~15 m, so the eye never ends up inside a slope
+    var best = null;
+    [[0, 0], [15, 0], [0, 15], [-15, 0], [0, -15]].forEach(function (d) {
+      var z = map.queryTerrainElevation({ lng: lng + d[0] / (111320 * Math.cos(lat * toR)), lat: lat + d[1] / 111320 });
+      if (z != null && (best == null || z > best)) best = z;
+    });
+    return best;
+  }
+  // MapLibre's own camera-from-position helper crashes at these angles (5.24), so place the camera by
+  // hand: march along the line of sight to where it meets the ground, aim at that point, and pick the
+  // zoom (camera-to-target distance) and tilt that put the camera exactly at the eye over the spot.
+  function metersAhead(lat, lng, brg, m) { var c = destination(lat, lng, brg, m / 1609.344); return { lng: c[0], lat: c[1] }; }
+  function vpApply() {
+    var A = vp.ground + eyeFt / 3.28084, cot = 1 / Math.tan(vp.pitch * toR), L = 0, hit = null, step = 25;
+    while (L < 40000) {
+      L += step; step = Math.min(step * 1.12, 600);
+      var c = metersAhead(vp.lat, vp.lng, vp.bearing, L), h = map.queryTerrainElevation(c);
+      if (h == null) h = 0;
+      if (h >= A - L * cot) { hit = { c: c, h: h, L: L }; break; }
+    }
+    if (!hit) { var cf = metersAhead(vp.lat, vp.lng, vp.bearing, 40000); hit = { c: cf, h: map.queryTerrainElevation(cf) || 0, L: 40000 }; }
+    var dz = A - hit.h;
+    if (dz < 1) dz = 1;                                   // target can't sit above the eye
+    var pitch = Math.atan2(hit.L, dz) / toR, D = Math.hypot(hit.L, dz);
+    var fov = (map.getVerticalFieldOfView ? map.getVerticalFieldOfView() : 36.87) * toR;
+    var ctc = 0.5 * map.getCanvas().clientHeight / Math.tan(fov / 2);   // camera-to-center distance in pixels
+    var zoom = Math.log2(ctc * 40075016.686 * Math.cos(hit.c.lat * toR) / (512 * D));
+    map.jumpTo({ center: hit.c, zoom: zoom, pitch: pitch, bearing: vp.bearing });
+    var d = DIRS[Math.round((((vp.bearing % 360) + 360) % 360) / 22.5) % 16];
+    vpWhere.innerHTML = 'Standing ' + esc(where(vp.lat, vp.lng)) + ' on ground about <b>' + fmtFt(vp.ground) + ' ft</b> up, looking <b>' + d + '</b>.';
+  }
+  function setHandlers(on) {
+    ['scrollZoom', 'boxZoom', 'dragRotate', 'keyboard', 'doubleClickZoom', 'touchZoomRotate', 'touchPitch'].forEach(function (h) {
+      if (map[h]) map[h][on ? 'enable' : 'disable']();
+    });
+  }
+  function setPicking(on) {
+    picking = on; pickBtn.classList.toggle('on', on); mapEl.classList.toggle('picking', on);
+    if (on) readout.innerHTML = 'Click the spot to stand on';
+  }
+  function refineGround(n) {
+    // the first read uses whatever terrain tiles were loaded; re-read once the close-up tiles arrive
+    if (n > 3) return;
+    map.once('idle', function () {
+      if (!vp) return;
+      var g = groundAt(vp.lng, vp.lat);
+      if (g != null && Math.abs(g - vp.ground) > 0.5) { vp.ground = g; vpApply(); refineGround(n + 1); }
+    });
+  }
+  function standAt(lng, lat) {
+    stopSpin(); popup.remove(); setPicking(false);
+    if (!vp) {
+      saved = { center: map.getCenter(), zoom: map.getZoom(), pitch: map.getPitch(), bearing: map.getBearing(), elevation: map.getCenterElevation(), exag: exag };
+      setExag(1);
+      map.setMaxBounds(null); map.setMaxPitch(90); map.setMaxZoom(24); map.setPadding({ left: 0, top: 0, right: 0, bottom: 0 });
+      map.dragPan.disable(); setHandlers(false);
+      if (map.setVerticalFieldOfView) map.setVerticalFieldOfView(55);
+      map.setLayoutProperty('mask', 'visibility', 'none');
+      map.setLayoutProperty('buildings', 'visibility', 'none');   // placeholder heights would wall off the view
+      document.body.classList.add('standing');
+    }
+    var g = groundAt(lng, lat);
+    vp = { lng: lng, lat: lat, ground: g == null ? 0 : g, bearing: vp ? vp.bearing : map.getBearing(), pitch: 87 };
+    vpbar.hidden = false;
+    vpApply();
+    refineGround(0);
+    if (window.matchMedia('(max-width: 700px)').matches) setCollapsed(true);
+  }
+  function leaveSpot(restoreView) {
+    if (!vp) return;
+    vp = null; vpbar.hidden = true; document.body.classList.remove('standing');
+    if (window.matchMedia('(min-width: 701px)').matches) map.setPadding({ left: 350, top: 0, right: 0, bottom: 0 });
+    if (map.setVerticalFieldOfView) map.setVerticalFieldOfView(36.87);
+    setHandlers(true); if (dragMode === 'move') map.dragPan.enable();
+    setExag(saved.exag);
+    map.setLayoutProperty('mask', 'visibility', layerOn('rings') ? 'visible' : 'none');
+    map.setLayoutProperty('buildings', 'visibility', layerOn('buildings') ? 'visible' : 'none');
+    map.setMaxPitch(82); map.setMaxZoom(18);
+    if (restoreView) map.jumpTo({ center: saved.center, zoom: saved.zoom, pitch: saved.pitch, bearing: saved.bearing });
+    map.setMaxBounds([sW, nE]);
+    readout.textContent = 'Move over the map for elevation';
+  }
+  document.getElementById('standHouse').addEventListener('click', function () { standAt(HOME.lon, HOME.lat); });
+  pickBtn.addEventListener('click', function () { setPicking(!picking); });
+  document.getElementById('vpLeave').addEventListener('click', function () { leaveSpot(true); });
+  document.getElementById('vpEye').addEventListener('click', function (e) {
+    var b = e.target.closest('[data-eye]');
+    if (!b || !vp) return;
+    eyeFt = +b.getAttribute('data-eye');
     this.querySelectorAll('.btn').forEach(function (x) { x.classList.toggle('on', x === b); });
-    exag = parseFloat(b.getAttribute('data-x'));
-    map.setTerrain({ source: 'terrain', exaggeration: exag });
+    vpApply();
+  });
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest && e.target.closest('.stand');
+    if (b) standAt(+b.getAttribute('data-lng'), +b.getAttribute('data-lat'));
   });
 
   // ---------- layer toggles ----------
   var LAYERS = [
+    { k: 'lidar', label: 'LiDAR relief, 1-meter (zoom in; slow to load)', ids: ['lidar'], color: '#d9d9d4', on: false },
     { k: 'buildings', label: 'Buildings (zoom in)', ids: ['buildings'], color: '#e4e1d6', on: true },
     { k: 'contours', label: 'Contour lines', ids: ['contour-minor', 'contour-index', 'contour-label'], color: '#ffffff', on: true },
     { k: 'trails', label: 'Trails and paths', ids: ['trail'], color: '#ff9f2e', on: true },
@@ -478,7 +653,7 @@
         b.type = 'button';
         b.innerHTML = esc(o.x.p.name) + '<br><small>' + esc(CATS[o.x.cat].label) + ' · ' + esc(where(o.x.p.lat, o.x.p.lon)) + '</small>';
         b.addEventListener('click', function () {
-          stopSpin();
+          stopSpin(); leaveSpot(false);
           if (!visible[o.x.cat]) { visible[o.x.cat] = true; catsEl.querySelector('[data-cat="' + o.x.cat + '"]').classList.add('on'); applyCats(); syncAll(); }
           flyGround({ center: [o.x.p.lon, o.x.p.lat], zoom: 15, pitch: 60, duration: 2600, essential: true });
           map.once('moveend', function () { placePopup(o.i); });

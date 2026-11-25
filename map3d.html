@@ -109,6 +109,29 @@
     .maplibregl-ctrl-group button + button { border-top: 1px solid var(--line); }
     .maplibregl-ctrl-group button .maplibregl-ctrl-icon { filter: invert(1); }
 
+    .turn { margin-top: 12px; }
+    .turn label { display: block; font-size: 13px; color: var(--fg2); margin-bottom: 6px; }
+    .turn label b { color: var(--fg); font-weight: 600; }
+    .turn input { width: 100%; accent-color: var(--accent); }
+    #map.spin-mode .maplibregl-canvas { cursor: ew-resize; }
+    #map.spin-mode.dragging .maplibregl-canvas { cursor: grabbing; }
+
+    .note { font-size: 13px; line-height: 1.4; color: var(--fg2); margin: 0 0 9px; }
+    .stand { display: block; margin-top: 10px; font: inherit; font-size: 13px; color: #111311; background: var(--accent); border: 0; padding: 6px 10px; cursor: pointer; }
+    #map.picking .maplibregl-canvas { cursor: crosshair !important; }
+    .standing .readout { display: none; }
+    .standing #exag { opacity: .35; pointer-events: none; }
+    .vpbar {
+      position: absolute; left: 50%; transform: translateX(-50%); bottom: 14px; z-index: 6; width: min(560px, calc(100vw - 28px));
+      background: rgba(17,19,17,.94); border: 1px solid var(--line); padding: 10px 12px; font-size: 14px; line-height: 1.35;
+    }
+    .vpbar[hidden] { display: none; }
+    .vpbar .row { margin-top: 8px; align-items: center; }
+    .vpbar .lbl { font-size: 13px; color: var(--fg2); margin-right: 2px; }
+    .vpbar .leave { margin-left: auto; border-color: var(--accent); }
+    .vp-note { font-size: 12px; color: var(--fg2); margin-top: 7px; }
+    @media (min-width: 701px) { .vpbar { left: calc(50% + 175px); width: min(560px, calc(100vw - 400px)); } }
+
     .loading { position: absolute; right: 60px; top: 18px; z-index: 5; font-size: 13px; color: var(--fg2); }
     .loading[hidden] { display: none; }
 
@@ -121,6 +144,7 @@
       .finding { font-size: 14.5px; }
       .readout { bottom: auto; top: 10px; font-size: 12px; }
       .loading { top: 44px; right: 12px; }
+      .vpbar { top: 10px; bottom: auto; font-size: 13px; }
     }
   </style>
 </head>
@@ -142,6 +166,24 @@
         <button class="btn" data-view="south" type="button">Through the Highlands</button>
         <button class="btn" data-view="all" type="button">All 20 miles</button>
         <button class="btn spin" id="spin" type="button">Circle</button>
+      </div>
+      <h2 style="margin-top:12px">Dragging the map</h2>
+      <div class="row" id="dragmode">
+        <button class="btn on" data-drag="spin" type="button">Spins it</button>
+        <button class="btn" data-drag="move" type="button">Moves it</button>
+      </div>
+      <div class="turn">
+        <label for="turn">Facing <b id="facing">north-northeast</b></label>
+        <input id="turn" type="range" min="0" max="359" step="1" value="0" aria-label="Which way the view faces, in degrees" />
+      </div>
+    </div>
+
+    <div class="grp">
+      <h2>Stand on a spot</h2>
+      <p class="note">Put yourself at eye level anywhere and look all the way around. Trees and buildings are left out, so this is the bare land: the view with the forest cleared.</p>
+      <div class="row">
+        <button class="btn" id="standHouse" type="button">At the house</button>
+        <button class="btn" id="pickSpot" type="button">Pick a spot</button>
       </div>
     </div>
 
@@ -173,16 +215,27 @@
     </div>
 
     <div class="credits">
-      Terrain: <a href="https://registry.opendata.aws/terrain-tiles/" target="_blank" rel="noopener">AWS Terrain Tiles</a>, built from USGS 3DEP elevation data (about 10-meter cells here); the contour lines are computed from the same data. Buildings, roads, trails, peaks and the smaller points of interest: <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors, served by <a href="https://openfreemap.org" target="_blank" rel="noopener">OpenFreeMap</a>. Most buildings carry no height in OpenStreetMap and are drawn at a standard height, so they show where things are, not how tall they are. Aerial photo: Esri World Imagery. The house is placed at the center of its tax parcel; guide places use the guide's own coordinates, which are approximate.
+      Terrain: <a href="https://registry.opendata.aws/terrain-tiles/" target="_blank" rel="noopener">AWS Terrain Tiles</a>, built from USGS 3DEP elevation data (about 10-meter cells here); the contour lines are computed from the same data. The LiDAR relief layer is the USGS 3D Elevation Program's 1-meter bare-earth model (around the house it comes from a 2022 flight; other counties in the circle were flown in other years), shaded by USGS; it shows the ground with trees and buildings stripped away, which is why old stone walls, cellar holes, roads and quarry cuts show up under the forest. Buildings, roads, trails, peaks and the smaller points of interest: <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors, served by <a href="https://openfreemap.org" target="_blank" rel="noopener">OpenFreeMap</a>. Most buildings carry no height in OpenStreetMap and are drawn at a standard height, so they show where things are, not how tall they are. Aerial photo: Esri World Imagery. The house is placed at the center of its tax parcel; guide places use the guide's own coordinates, which are approximate.
     </div>
   </aside>
 
+  <div class="vpbar" id="vpbar" hidden>
+    <div id="vpWhere"></div>
+    <div class="row" id="vpEye">
+      <span class="lbl">Eye height</span>
+      <button class="btn on" data-eye="6" type="button">6 ft</button>
+      <button class="btn" data-eye="60" type="button">60 ft</button>
+      <button class="btn" data-eye="400" type="button">400 ft</button>
+      <button class="btn leave" id="vpLeave" type="button">Back to the map</button>
+    </div>
+    <div class="vp-note">Drag to look around and up or down. True scale, bare ground: no trees or buildings.</div>
+  </div>
   <div class="readout" id="readout">Move over the map for elevation</div>
   <div class="loading" id="loading">Loading terrain…</div>
 
   <script src="https://unpkg.com/maplibre-gl@5.24.1/dist/maplibre-gl.js"></script>
   <script src="https://unpkg.com/maplibre-contour@0.2.0/dist/index.min.js"></script>
   <script src="./data.js"></script>
-  <script src="./map3d.js"></script>
+  <script src="./map3d.js?v=7"></script>
 </body>
 </html>
