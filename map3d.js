@@ -43,6 +43,16 @@
     var x = Math.cos(HOME.lat * toR) * Math.sin(lat * toR) - Math.sin(HOME.lat * toR) * Math.cos(lat * toR) * Math.cos((lon - HOME.lon) * toR);
     return (Math.atan2(y, x) / toR + 360) % 360;
   }
+  function bearingBetween(lat1, lon1, lat2, lon2) {
+    var y = Math.sin((lon2 - lon1) * toR) * Math.cos(lat2 * toR);
+    var x = Math.cos(lat1 * toR) * Math.sin(lat2 * toR) - Math.sin(lat1 * toR) * Math.cos(lat2 * toR) * Math.cos((lon2 - lon1) * toR);
+    return (Math.atan2(y, x) / toR + 360) % 360;
+  }
+  function milesBetween(lat1, lon1, lat2, lon2) {
+    var dLat = (lat2 - lat1) * toR, dLon = (lon2 - lon1) * toR;
+    var a = Math.pow(Math.sin(dLat / 2), 2) + Math.cos(lat1 * toR) * Math.cos(lat2 * toR) * Math.pow(Math.sin(dLon / 2), 2);
+    return 3958.8 * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  }
   var DIRS = ['north', 'north-northeast', 'northeast', 'east-northeast', 'east', 'east-southeast', 'southeast', 'south-southeast',
     'south', 'south-southwest', 'southwest', 'west-southwest', 'west', 'west-northwest', 'northwest', 'north-northwest'];
   function where(lat, lon) {
@@ -104,6 +114,10 @@
       ringLabels.features.push({ type: 'Feature', properties: { t: mi + ' mi' }, geometry: { type: 'Point', coordinates: destination(HOME.lat, HOME.lon, b, mi) } });
     });
   });
+  // Big N/E/S/W letters on the ground just outside the 20-mile ring
+  var cardinals = { type: 'FeatureCollection', features: [['N', 0], ['E', 90], ['S', 180], ['W', 270]].map(function (c) {
+    return { type: 'Feature', properties: { t: c[0] }, geometry: { type: 'Point', coordinates: destination(HOME.lat, HOME.lon, c[1], RADIUS_MI + 1.6) } };
+  }) };
   var outer = ring(RADIUS_MI);
   var maskGeo = { type: 'Feature', properties: {}, geometry: { type: 'Polygon', coordinates: [
     [[-80, 36], [-68, 36], [-68, 46], [-80, 46], [-80, 36]],
@@ -141,6 +155,7 @@
         attribution: 'LiDAR: USGS 3D Elevation Program' },
       rings: { type: 'geojson', data: ringsGeo },
       ringLabels: { type: 'geojson', data: ringLabels },
+      cardinals: { type: 'geojson', data: cardinals },
       mask: { type: 'geojson', data: maskGeo },
       places: { type: 'geojson', data: placesGeo }
     },
@@ -204,6 +219,9 @@
       { id: 'ring-labels', type: 'symbol', source: 'ringLabels',
         layout: { 'text-field': ['get', 't'], 'text-font': FONT_B, 'text-size': 12, 'text-allow-overlap': false },
         paint: { 'text-color': '#f2f3ef', 'text-halo-color': '#111311', 'text-halo-width': 1.6 } },
+      { id: 'cardinals', type: 'symbol', source: 'cardinals',
+        layout: { 'text-field': ['get', 't'], 'text-font': FONT_B, 'text-size': 40, 'text-allow-overlap': true, 'text-ignore-placement': true },
+        paint: { 'text-color': ['case', ['==', ['get', 't'], 'N'], '#ff6a45', '#f2f3ef'], 'text-halo-color': '#111311', 'text-halo-width': 2.5 } },
       { id: 'water-name', type: 'symbol', source: 'ofm', 'source-layer': 'water_name',
         layout: { 'text-field': ['get', 'name'], 'text-font': FONT, 'text-size': 12.5, 'text-letter-spacing': 0.05 },
         paint: { 'text-color': '#8fb0ff', 'text-halo-color': '#111311', 'text-halo-width': 1.2 } },
@@ -310,18 +328,121 @@
 
   var readout = document.getElementById('readout');
   var pending = null, queued = false;
+  var tip = document.getElementById('tip'), pendingPt = null;
   map.on('mousemove', function (e) {
-    if (vp || picking) return;
-    pending = e.lngLat;
+    if (picking) { tip.hidden = true; return; }
+    if (vp) { tip.hidden = true; lookAt(e.point); return; }
+    pending = e.lngLat; pendingPt = e.point;
     if (queued) return;
     queued = true;
     requestAnimationFrame(function () {
-      var ll = pending; queued = false;
+      var ll = pending, pt = pendingPt; queued = false;
       if (!ll) return;
       var z = elevAt(ll);
       readout.innerHTML = (z == null ? '' : '<b>' + fmtFt(z) + ' ft</b> &nbsp;·&nbsp; ') + esc(where(ll.lat, ll.lng));
+      // structure tooltip
+      var b = buildingAt(pt, ll);
+      if (b) {
+        tip.innerHTML = buildingHTML(b);
+        tip.hidden = false;
+        var x = pt.x + 16, y = pt.y + 16, w = tip.offsetWidth, h = tip.offsetHeight;
+        if (x + w > window.innerWidth - 8) x = pt.x - w - 16;
+        if (y + h > window.innerHeight - 8) y = pt.y - h - 16;
+        tip.style.left = x + 'px'; tip.style.top = y + 'px';
+        map.getCanvas().style.cursor = 'pointer';
+      } else if (!tip.hidden) {
+        tip.hidden = true; map.getCanvas().style.cursor = '';
+      }
     });
   });
+  map.getCanvasContainer().addEventListener('mouseleave', function () { tip.hidden = true; });
+
+  // ---------- structures ----------
+  // OpenStreetMap building outlines carry almost no attributes (and the tiles merge many outlines
+  // into one feature), so find the single outline under the cursor and describe it from what's
+  // around it: the house, guide places, named OSM places and street numbers inside it.
+  function pip(pt, ring) {
+    var inside = false;
+    for (var i = 0, j = ring.length - 1; i < ring.length; j = i++) {
+      var xi = ring[i][0], yi = ring[i][1], xj = ring[j][0], yj = ring[j][1];
+      if (((yi > pt[1]) !== (yj > pt[1])) && (pt[0] < (xj - xi) * (pt[1] - yi) / (yj - yi) + xi)) inside = !inside;
+    }
+    return inside;
+  }
+  function ringAreaM2(ring) {
+    var kx = 111320 * Math.cos(ring[0][1] * toR), ky = 110540, a = 0;
+    for (var i = 0, j = ring.length - 1; i < ring.length; j = i++) a += ring[j][0] * kx * ring[i][1] * ky - ring[i][0] * kx * ring[j][1] * ky;
+    return Math.abs(a / 2);
+  }
+  function ringCenter(ring) {
+    var x = 0, y = 0;
+    ring.forEach(function (p) { x += p[0]; y += p[1]; });
+    return [x / ring.length, y / ring.length];
+  }
+  function nearRing(pt, ring, c, m) {
+    if (pip(pt, ring)) return true;
+    var dx = (pt[0] - c[0]) * 111320 * Math.cos(c[1] * toR), dy = (pt[1] - c[1]) * 110540;
+    return Math.sqrt(dx * dx + dy * dy) < m;
+  }
+  function buildingAt(point, ll) {
+    if (!map.getLayer('buildings') || map.getLayoutProperty('buildings', 'visibility') === 'none' || map.getZoom() < 13) return null;
+    var hits = map.queryRenderedFeatures(point, { layers: ['buildings'] });
+    if (!hits.length) return null;
+    // The tiles merge many outlines into one feature, and in a tilted view the ground point under the
+    // cursor sits behind the building. So draw each nearby outline on screen (footprint and roof) and
+    // keep the one the cursor is actually over, nearest the viewer.
+    var kx = 111320 * Math.cos(ll.lat * toR), ky = 110540, pick = null, pickY = -1e9;
+    hits.forEach(function (f) {
+      var g = f.geometry, polys = g.type === 'Polygon' ? [g.coordinates] : g.type === 'MultiPolygon' ? g.coordinates : [];
+      var h = f.properties.render_height == null ? 6 : f.properties.render_height;
+      polys.forEach(function (pl) {
+        var r = pl[0], c = ringCenter(r), dx = (c[0] - ll.lng) * kx, dy = (c[1] - ll.lat) * ky;
+        if (dx * dx + dy * dy > 300 * 300) return;
+        var scr = r.map(function (q) { var s2 = map.project(q); return [s2.x, s2.y]; });
+        var c0 = map.project(c), c1 = map.project([c[0] + 1 / kx, c[1]]);
+        var ppm = Math.hypot(c1.x - c0.x, c1.y - c0.y);            // screen pixels per meter there
+        var lift = h * ppm * Math.sin(map.getPitch() * toR);       // how far up the roof is drawn
+        var hit = false;
+        for (var k = 0; k <= 4 && !hit; k++) {
+          var off = lift * k / 4;
+          hit = pip([point.x, point.y + off], scr);
+        }
+        if (hit && c0.y > pickY) { pickY = c0.y; pick = { ring: r, h: f.properties.render_height }; }
+      });
+    });
+    if (!pick) return null;
+    var ring = pick.ring;
+    var c = ringCenter(ring), names = [], kinds = [], nums = [];
+    places.forEach(function (x) { if (nearRing([x.p.lon, x.p.lat], ring, c, 20)) names.push({ n: x.p.name, k: CATS[x.cat].label, guide: true }); });
+    var seen = {};
+    map.querySourceFeatures('ofm', { sourceLayer: 'poi' }).forEach(function (q) {
+      var pc = q.geometry.coordinates, nm = q.properties.name;
+      if (!nm || seen[nm] || q.geometry.type !== 'Point' || !nearRing(pc, ring, c, 0)) return;
+      seen[nm] = 1; names.push({ n: nm, k: String(q.properties.subclass || q.properties.class || '').replace(/_/g, ' ') });
+    });
+    map.querySourceFeatures('ofm', { sourceLayer: 'housenumber' }).forEach(function (q) {
+      var hn = q.properties.housenumber;
+      if (hn && nums.indexOf(hn) < 0 && q.geometry.type === 'Point' && pip(q.geometry.coordinates, ring)) nums.push(hn);
+    });
+    return { ring: ring, c: c, h: pick.h, area: ringAreaM2(ring) * 10.7639,
+      isHouse: pip([HOME.lon, HOME.lat], ring) || nearRing([HOME.lon, HOME.lat], ring, c, 8), names: names, nums: nums };
+  }
+  function buildingHTML(b) {
+    var title = b.isHouse ? 'The house' : (b.names.length ? b.names[0].n : 'Building');
+    var kind = b.isHouse ? '10 Abbott Lane' : (b.names.length ? b.names[0].k : '');
+    var lines = [];
+    if (b.nums.length && !b.isHouse) lines.push('No. ' + b.nums.slice(0, 3).join(', '));
+    if (b.names.length > 1) lines.push('Also here: ' + b.names.slice(1, 4).map(function (n) { return n.n; }).join('; '));
+    lines.push('Footprint about ' + (Math.round(b.area / 10) * 10).toLocaleString('en-US') + ' sq ft');
+    lines.push(b.h == null || b.h === 5 ? 'Height not recorded; drawn at a standard height'
+      : 'About ' + Math.round(b.h * 3.28084) + ' ft tall, per OpenStreetMap');
+    var z = elevAt({ lng: b.c[0], lat: b.c[1] });
+    var bm = miles(b.c[1], b.c[0]);
+    var loc = b.isHouse ? '' : (bm < 0.1 ? 'about ' + (Math.round(bm * 5280 / 10) * 10) + ' ft from the house' : where(b.c[1], b.c[0])) + ' · ';
+    lines.push(loc + (z != null ? 'ground about ' + fmtFt(z) + ' ft' : ''));
+    return '<b>' + esc(title) + '</b>' + (kind ? '<span class="k">' + esc(kind) + '</span>' : '') +
+      lines.map(function (l) { return '<div>' + esc(l) + '</div>'; }).join('');
+  }
 
   // ---------- popups ----------
   var popup = new maplibregl.Popup({ maxWidth: '300px', offset: 10 });
@@ -356,6 +477,12 @@
       }
       popup.setLngLat(ll).setHTML('<div class="pp"><span class="cat">' + esc(String(pr.subclass || pr.class || 'Place').replace(/_/g, ' ')) +
         '</span><b>' + esc(pr.name || 'Unnamed') + '</b><div class="sub">' + esc(where(ll[1], ll[0])) + '<br>From OpenStreetMap; not checked for the guide</div></div>').addTo(map);
+      return;
+    }
+    var bld = buildingAt(e.point, e.lngLat);
+    if (bld) {
+      popup.setLngLat(e.lngLat).setHTML('<div class="pp bld">' + buildingHTML(bld) + standBtn(e.lngLat.lng, e.lngLat.lat) + '</div>').addTo(map);
+      tip.hidden = true;
       return;
     }
     var z = elevAt(e.lngLat);
@@ -423,8 +550,8 @@
     drag.moved = true; mapEl.classList.add('dragging');
     if (vp) {
       // standing: drag the scene the way a hand would turn your head
-      vp.bearing = drag.b - dx * 0.25;
-      vp.pitch = Math.max(60, Math.min(89.6, drag.p + dy * 0.12));
+      vp.bearing = ((drag.b - dx * 0.25 * vp.fov / 70) % 360 + 360) % 360;
+      vp.pitch = Math.max(70, Math.min(89.85, drag.p + dy * 0.12 * vp.fov / 70));
       vpApply();
     } else {
       map.jumpTo({ bearing: drag.b - dx * 0.4, pitch: Math.max(0, Math.min(82, drag.p - dy * 0.25)) });
@@ -451,6 +578,48 @@
   });
   map.on('rotate', syncTurn);
   syncTurn();
+
+  // ---------- compass rose (every view) + heading strip (standing view) ----------
+  var roseDial = document.getElementById('roseDial');
+  var tape = document.getElementById('tape'), tapeMarks = document.getElementById('tapeMarks'), heading = document.getElementById('heading');
+  var LETTERS = { 0: 'N', 45: 'NE', 90: 'E', 135: 'SE', 180: 'S', 225: 'SW', 270: 'W', 315: 'NW' };
+  var marks = [];
+  for (var a = 0; a < 360; a += 5) {
+    var el = document.createElement('span');
+    if (LETTERS[a] != null) { el.className = 'lt' + (a % 90 ? ' ic' : '') + (a === 0 ? ' north' : ''); el.textContent = LETTERS[a]; }
+    else if (a % 30 === 0) { el.className = 'num'; el.textContent = a; }
+    else if (a % 10 === 0) el.className = 'tk';
+    else el.className = 'tk mini';
+    tapeMarks.appendChild(el); marks.push([a, el]);
+  }
+  function compassText(b) {
+    b = ((b % 360) + 360) % 360;
+    var deg = Math.round(b) % 360;
+    return deg + '° ' + DIRS[Math.round(b / 22.5) % 16];
+  }
+  function syncCompass() {
+    var b = map.getBearing();
+    roseDial.style.transform = 'rotate(' + (-b) + 'deg)';
+    if (!vp) return;
+    // place each mark across the screen using the camera's real horizontal field of view
+    var c = map.getCanvas(), w = c.clientWidth, h = c.clientHeight;
+    var halfH = Math.atan(Math.tan(vp.fov * toR / 2) * w / h);
+    marks.forEach(function (m) {
+      var d = ((m[0] - vp.bearing + 540) % 360 - 180) * toR, el = m[1];
+      if (Math.abs(d) >= halfH * 0.98) { el.style.display = 'none'; return; }
+      var x = w / 2 + Math.tan(d) / Math.tan(halfH) * w / 2;
+      el.style.display = ''; el.style.left = x + 'px';
+    });
+    var down = 90 - vp.pitch;
+    heading.innerHTML = '<b>' + compassText(vp.bearing) + '</b><span>' +
+      (down < 0.5 ? 'looking level' : 'looking ' + Math.round(down) + '° down') + ' · ' + Math.round(vp.fov) + '° lens</span>';
+  }
+  map.on('move', syncCompass);
+  syncCompass();
+  document.getElementById('rose').addEventListener('click', function () {
+    stopSpin();
+    if (vp) { vp.bearing = 0; vpApply(); syncCompass(); } else map.easeTo({ bearing: 0, duration: 900 });
+  });
   setDragMode('spin');
 
   document.getElementById('views').addEventListener('click', function (e) {
@@ -494,7 +663,7 @@
   // ---------- stand on a spot ----------
   // Puts the camera at eye height over the bare ground at any point, at true scale.
   // No trees: the terrain is bare earth, so this is the view with the forest cleared.
-  var vp = null, saved = null, picking = false, suppressClick = false, eyeFt = 6;
+  var vp = null, saved = null, picking = false, suppressClick = false, eyeFt = 30;
   var vpbar = document.getElementById('vpbar'), vpWhere = document.getElementById('vpWhere'), pickBtn = document.getElementById('pickSpot');
   function groundAt(lng, lat) {
     // highest terrain within ~15 m, so the eye never ends up inside a slope
@@ -505,28 +674,61 @@
     });
     return best;
   }
-  // MapLibre's own camera-from-position helper crashes at these angles (5.24), so place the camera by
-  // hand: march along the line of sight to where it meets the ground, aim at that point, and pick the
-  // zoom (camera-to-target distance) and tilt that put the camera exactly at the eye over the spot.
+  // MapLibre's own camera-from-position helper crashes at these angles (5.24), so place the camera by hand.
   function metersAhead(lat, lng, brg, m) { var c = destination(lat, lng, brg, m / 1609.344); return { lng: c[0], lat: c[1] }; }
   function vpApply() {
-    var A = vp.ground + eyeFt / 3.28084, cot = 1 / Math.tan(vp.pitch * toR), L = 0, hit = null, step = 25;
-    while (L < 40000) {
-      L += step; step = Math.min(step * 1.12, 600);
-      var c = metersAhead(vp.lat, vp.lng, vp.bearing, L), h = map.queryTerrainElevation(c);
-      if (h == null) h = 0;
-      if (h >= A - L * cot) { hit = { c: c, h: h, L: L }; break; }
-    }
-    if (!hit) { var cf = metersAhead(vp.lat, vp.lng, vp.bearing, 40000); hit = { c: cf, h: map.queryTerrainElevation(cf) || 0, L: 40000 }; }
-    var dz = A - hit.h;
-    if (dz < 1) dz = 1;                                   // target can't sit above the eye
-    var pitch = Math.atan2(hit.L, dz) / toR, D = Math.hypot(hit.L, dz);
-    var fov = (map.getVerticalFieldOfView ? map.getVerticalFieldOfView() : 36.87) * toR;
+    // Aim at a point in the air 200 m out along the line of sight. With the aim point's height set by
+    // hand (not clamped to the ground) the camera lands exactly at the eye, and because the aim point is
+    // close, the ground around the eye is drawn from detailed tiles.
+    var A = vp.ground + eyeFt / 3.28084, D = 200, e = (90 - vp.pitch) * toR;
+    var c = metersAhead(vp.lat, vp.lng, vp.bearing, D * Math.cos(e));
+    var fov = vp.fov * toR;
     var ctc = 0.5 * map.getCanvas().clientHeight / Math.tan(fov / 2);   // camera-to-center distance in pixels
-    var zoom = Math.log2(ctc * 40075016.686 * Math.cos(hit.c.lat * toR) / (512 * D));
-    map.jumpTo({ center: hit.c, zoom: zoom, pitch: pitch, bearing: vp.bearing });
-    var d = DIRS[Math.round((((vp.bearing % 360) + 360) % 360) / 22.5) % 16];
-    vpWhere.innerHTML = 'Standing ' + esc(where(vp.lat, vp.lng)) + ' on ground about <b>' + fmtFt(vp.ground) + ' ft</b> up, looking <b>' + d + '</b>.';
+    var zoom = Math.log2(ctc * 40075016.686 * Math.cos(c.lat * toR) / (512 * D));
+    map.jumpTo({ center: c, zoom: zoom, pitch: vp.pitch, bearing: vp.bearing, elevation: A - D * Math.sin(e) });
+    if (Math.abs(map.getCenterElevation() - (A - D * Math.sin(e))) > 0.5) map.setCenterElevation(A - D * Math.sin(e));
+    if (lookPt) lookAt(lookPt);
+    vpWhere.innerHTML = 'Standing ' + esc(where(vp.lat, vp.lng)) + ', ground <b>' + fmtFt(vp.ground) + ' ft</b> above sea level, eye <b>' +
+      Math.round(eyeFt) + ' ft</b> above that.';
+  }
+  // the scroll wheel widens or narrows the lens while standing (the camera itself stays put)
+  map.getCanvasContainer().addEventListener('wheel', function (e) {
+    if (!vp) return;
+    e.preventDefault();
+    vp.fov = Math.max(20, Math.min(100, vp.fov * Math.exp(e.deltaY * 0.0015)));
+    if (map.setVerticalFieldOfView) map.setVerticalFieldOfView(vp.fov);
+    vpApply(); syncCompass();
+  }, { passive: false });
+  // what's under the cursor, measured from the spot
+  var lookQueued = false, lookPt = null;
+  // Cast the cursor's own line of sight from the eye and march it out until it meets the ground,
+  // so pointing at sky says so instead of reporting a stray point.
+  function lookAt(pt) {
+    lookPt = pt;
+    if (lookQueued) return;
+    lookQueued = true;
+    requestAnimationFrame(function () {
+      lookQueued = false;
+      if (!vp || !lookPt) return;
+      var c = map.getCanvas(), w = c.clientWidth, h = c.clientHeight, t = Math.tan(vp.fov * toR / 2);
+      var u = (lookPt.x - w / 2) / (h / 2) * t, v = (lookPt.y - h / 2) / (h / 2) * t, e0 = (90 - vp.pitch) * toR;
+      var fwd = Math.cos(e0) - v * Math.sin(e0), up = -Math.sin(e0) - v * Math.cos(e0);
+      var brg = vp.bearing + Math.atan2(u, fwd) / toR, slope = up / Math.hypot(fwd, u);
+      var A = vp.ground + eyeFt / 3.28084, L = 0, step = 5, hit = null;
+      while (L < 60000) {
+        L += step; step = Math.min(step * 1.08, 400);
+        var q = metersAhead(vp.lat, vp.lng, brg, L), z = map.queryTerrainElevation(q);
+        if (z == null) z = 0;
+        if (z >= A + slope * L) { hit = { q: q, z: z, L: L }; break; }
+      }
+      var dirTxt = '<b>' + compassText(brg) + '</b>', ang = Math.atan(slope) / toR;
+      var angTxt = Math.abs(ang) < 0.5 ? 'level' : Math.round(Math.abs(ang)) + '° ' + (ang > 0 ? 'up' : 'down');
+      if (!hit) { readout.innerHTML = dirTxt + ' &nbsp;·&nbsp; ' + angTxt + ' &nbsp;·&nbsp; open sky'; return; }
+      var dm = hit.L / 1609.344;
+      readout.innerHTML = dirTxt + ' &nbsp;·&nbsp; ' + angTxt + ' &nbsp;·&nbsp; ' +
+        (dm < 0.2 ? Math.round(hit.L * 3.28084).toLocaleString('en-US') + ' ft' : (dm < 10 ? dm.toFixed(1) : Math.round(dm)) + ' mi') +
+        ' away &nbsp;·&nbsp; ground <b>' + fmtFt(hit.z) + ' ft</b> up';
+    });
   }
   function setHandlers(on) {
     ['scrollZoom', 'boxZoom', 'dragRotate', 'keyboard', 'doubleClickZoom', 'touchZoomRotate', 'touchPitch'].forEach(function (h) {
@@ -553,24 +755,30 @@
       setExag(1);
       map.setMaxBounds(null); map.setMaxPitch(90); map.setMaxZoom(24); map.setPadding({ left: 0, top: 0, right: 0, bottom: 0 });
       map.dragPan.disable(); setHandlers(false);
-      if (map.setVerticalFieldOfView) map.setVerticalFieldOfView(55);
+      if (map.setCenterClampedToGround) map.setCenterClampedToGround(false);
+      ['osm-poi', 'peak-dot', 'places'].forEach(function (id) { if (map.getLayer(id)) map.setPaintProperty(id, 'circle-pitch-scale', 'viewport'); });
       map.setLayoutProperty('mask', 'visibility', 'none');
       map.setLayoutProperty('buildings', 'visibility', 'none');   // placeholder heights would wall off the view
       document.body.classList.add('standing');
     }
     var g = groundAt(lng, lat);
-    vp = { lng: lng, lat: lat, ground: g == null ? 0 : g, bearing: vp ? vp.bearing : map.getBearing(), pitch: 87 };
+    vp = vp ? Object.assign(vp, { lng: lng, lat: lat, ground: g == null ? 0 : g })
+            : { lng: lng, lat: lat, ground: g == null ? 0 : g, bearing: (map.getBearing() + 360) % 360, pitch: 89.3, fov: 70 };
+    if (map.setVerticalFieldOfView) map.setVerticalFieldOfView(vp.fov);
     vpbar.hidden = false;
-    vpApply();
+    readout.innerHTML = 'Point at anything for its bearing and distance';
+    vpApply(); syncCompass();
     refineGround(0);
     if (window.matchMedia('(max-width: 700px)').matches) setCollapsed(true);
   }
   function leaveSpot(restoreView) {
     if (!vp) return;
-    vp = null; vpbar.hidden = true; document.body.classList.remove('standing');
+    vp = null; lookPt = null; vpbar.hidden = true; document.body.classList.remove('standing');
     if (window.matchMedia('(min-width: 701px)').matches) map.setPadding({ left: 350, top: 0, right: 0, bottom: 0 });
     if (map.setVerticalFieldOfView) map.setVerticalFieldOfView(36.87);
     setHandlers(true); if (dragMode === 'move') map.dragPan.enable();
+    if (map.setCenterClampedToGround) map.setCenterClampedToGround(true);
+    ['osm-poi', 'peak-dot', 'places'].forEach(function (id) { if (map.getLayer(id)) map.setPaintProperty(id, 'circle-pitch-scale', 'map'); });
     setExag(saved.exag);
     map.setLayoutProperty('mask', 'visibility', layerOn('rings') ? 'visible' : 'none');
     map.setLayoutProperty('buildings', 'visibility', layerOn('buildings') ? 'visible' : 'none');
