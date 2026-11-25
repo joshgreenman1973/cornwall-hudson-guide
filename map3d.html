@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#111311" />
+  <meta name="description" content="A 3D map of the 20 miles around the house in Cornwall-on-Hudson: terrain, contour lines, buildings, peaks, trails and every place in the guide." />
+  <link rel="icon" href="./icons/icon-192.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Gloock&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@5.24.1/dist/maplibre-gl.css" />
+  <title>Twenty miles around the house, in 3D — The Cornwall-on-Hudson Guide</title>
+  <style>
+    :root {
+      --bg:#111311; --bg2:#1b1e1b; --fg:#f2f3ef; --fg2:#a2a8a1; --line:#3a3f3a; --line2:#262a26;
+      --cobalt:#5b86ff; --vermilion:#ff6a45; --sun:#ffd23f; --mint:#3fd68f;
+      --rose:#ff6fae; --cyan:#3cc8d8; --orange:#ff9f2e; --lilac:#b79bff;
+      --accent:var(--vermilion);
+      --sans:'Helvetica Neue',Helvetica,Arial,sans-serif;
+      --title:'Gloock',Georgia,serif;
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; background: var(--bg); color: var(--fg); font-family: var(--sans); font-size: 15px; -webkit-font-smoothing: antialiased; }
+    a { color: var(--fg); }
+    #map { position: fixed; inset: 0; }
+
+    /* ---- side panel ---- */
+    .panel {
+      position: absolute; top: 14px; left: 14px; z-index: 5; width: 330px;
+      max-height: calc(100dvh - 28px); overflow-y: auto; overscroll-behavior: contain;
+      background: rgba(17,19,17,.93); border: 1px solid var(--line); padding: 16px 18px 14px;
+      scrollbar-width: thin; scrollbar-color: var(--line) transparent;
+    }
+    .top { font-size: 13px; color: var(--fg2); display: flex; justify-content: space-between; gap: 10px; }
+    .top a { color: var(--fg2); text-decoration: none; }
+    .top a:hover { color: var(--fg); }
+    h1 { font-family: var(--title); font-weight: 400; font-size: 27px; line-height: 1.08; margin: 10px 0 10px; }
+    .finding { font-size: 16.5px; line-height: 1.35; margin: 0 0 8px; }
+    .lede { font-size: 14px; line-height: 1.45; color: var(--fg2); margin: 0 0 14px; }
+    .panel-toggle { display: none; }
+
+    .grp { border-top: 1px solid var(--line2); padding: 11px 0 4px; }
+    .grp h2 { font-size: 13px; font-weight: 700; margin: 0 0 8px; color: var(--fg); }
+    .row { display: flex; flex-wrap: wrap; gap: 6px; }
+    .btn {
+      font: inherit; font-size: 13.5px; color: var(--fg); background: transparent; border: 1px solid var(--line);
+      padding: 6px 10px; cursor: pointer; line-height: 1.1;
+    }
+    .btn:hover { border-color: var(--fg2); }
+    .btn.on { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+    .btn.spin.on { background: var(--accent); border-color: var(--accent); color: #111311; }
+
+    .tog { display: flex; align-items: center; gap: 9px; width: 100%; font: inherit; font-size: 14px; color: var(--fg);
+      background: none; border: 0; padding: 4px 0; cursor: pointer; text-align: left; }
+    .tog .sw { width: 13px; height: 13px; flex: 0 0 auto; border: 1.5px solid currentColor; }
+    .tog .ll { flex: 1; }
+    .tog .lc { font-size: 12.5px; color: var(--fg2); font-variant-numeric: tabular-nums; }
+    .tog:not(.on) { color: #6b716a; }
+    .tog:not(.on) .sw { background: transparent !important; border-color: #4a504a !important; }
+    .cats-head { display: flex; justify-content: space-between; align-items: baseline; }
+    .cats-head button { font: inherit; font-size: 12.5px; background: none; border: 0; color: var(--fg2); cursor: pointer; padding: 0; text-decoration: underline; }
+
+    .search { position: relative; margin-bottom: 4px; }
+    .search input {
+      width: 100%; font: inherit; font-size: 14px; color: var(--fg); background: var(--bg2); border: 1px solid var(--line);
+      padding: 8px 10px; outline: none; border-radius: 0; -webkit-appearance: none;
+    }
+    .search input:focus { border-color: var(--fg2); }
+    .results { list-style: none; margin: 0 0 6px; padding: 0; }
+    .results li button { display: block; width: 100%; text-align: left; font: inherit; font-size: 13.5px; background: none; border: 0;
+      border-bottom: 1px solid var(--line2); color: var(--fg); padding: 7px 2px; cursor: pointer; }
+    .results li button:hover { background: var(--bg2); }
+    .results li small { color: var(--fg2); font-size: 12.5px; }
+
+    .credits { font-size: 12px; line-height: 1.45; color: var(--fg2); border-top: 1px solid var(--line2); padding-top: 10px; margin-top: 8px; }
+    .credits a { color: var(--fg2); }
+
+    /* ---- readout ---- */
+    .readout {
+      position: absolute; left: 50%; transform: translateX(-50%); bottom: 14px; z-index: 5;
+      background: rgba(17,19,17,.9); border: 1px solid var(--line); padding: 6px 12px; font-size: 13px;
+      font-variant-numeric: tabular-nums; color: var(--fg2); white-space: nowrap; pointer-events: none;
+    }
+    .readout b { color: var(--fg); font-weight: 600; }
+
+    /* ---- house marker ---- */
+    .house { display: flex; flex-direction: column; align-items: center; pointer-events: none; }
+    .house .tag { background: var(--accent); color: #111311; font-size: 13px; font-weight: 700; padding: 3px 7px; white-space: nowrap; }
+    .house .stem { width: 2px; height: 26px; background: var(--accent); }
+    .house .dot { width: 12px; height: 12px; background: var(--accent); border: 2px solid #111311; margin-top: -1px; }
+
+    /* ---- popups ---- */
+    .maplibregl-popup-content { background: #111311; color: var(--fg); border: 1px solid var(--line); border-radius: 0; padding: 12px 14px 12px; box-shadow: none; font-family: var(--sans); }
+    .maplibregl-popup-tip { display: none; }
+    .maplibregl-popup-close-button { color: var(--fg2); font-size: 18px; padding: 2px 7px; }
+    .maplibregl-popup-close-button:hover { background: none; color: var(--fg); }
+    .pp .cat { font-size: 12.5px; font-weight: 700; display: block; margin-bottom: 4px; }
+    .pp b { font-size: 16px; line-height: 1.2; display: block; padding-right: 14px; }
+    .pp .sub { font-size: 12.5px; color: var(--fg2); margin-top: 5px; }
+    .pp p { font-size: 13px; line-height: 1.4; margin: 8px 0 0; }
+    .pp .links { margin-top: 9px; font-size: 13px; }
+    .pp .links a { margin-right: 12px; }
+
+    .maplibregl-ctrl-attrib { background: rgba(17,19,17,.8) !important; color: var(--fg2); font-size: 11px; }
+    .maplibregl-ctrl-attrib a { color: var(--fg2); }
+    .maplibregl-ctrl-attrib-button { filter: invert(1); }
+    .maplibregl-ctrl-group { background: #111311; border: 1px solid var(--line); border-radius: 0; box-shadow: none !important; }
+    .maplibregl-ctrl-group button + button { border-top: 1px solid var(--line); }
+    .maplibregl-ctrl-group button .maplibregl-ctrl-icon { filter: invert(1); }
+
+    .loading { position: absolute; right: 60px; top: 18px; z-index: 5; font-size: 13px; color: var(--fg2); }
+    .loading[hidden] { display: none; }
+
+    @media (max-width: 700px) {
+      .panel { top: auto; bottom: 0; left: 0; right: 0; width: auto; max-height: 55dvh; border-width: 1px 0 0; padding: 12px 14px; }
+      .panel.collapsed { max-height: 128px; overflow: hidden; }
+      .panel-toggle { display: block; position: absolute; top: 10px; right: 12px; font: inherit; font-size: 13px; background: #111311; border: 1px solid var(--line); color: var(--fg); padding: 4px 9px; }
+      .top a + a { display: none; }
+      h1 { font-size: 22px; margin: 6px 0 6px; padding-right: 70px; }
+      .finding { font-size: 14.5px; }
+      .readout { bottom: auto; top: 10px; font-size: 12px; }
+      .loading { top: 44px; right: 12px; }
+    }
+  </style>
+</head>
+<body>
+  <div id="map" role="region" aria-label="3D map of the area around the house"></div>
+
+  <aside class="panel collapsed" id="panel">
+    <button class="panel-toggle" id="panelToggle" type="button">More</button>
+    <div class="top"><a href="./">← The Cornwall-on-Hudson Guide</a><a href="map.html">Flat map</a></div>
+    <h1>Twenty miles around the house</h1>
+    <p class="finding">The house sits at about 800 feet on the flank of Storm King. Within 20 miles the land runs from the Hudson at sea level to about 1,670 feet on Schunemunk Mountain, six miles to the southwest.</p>
+    <p class="lede" id="lede">Drag to move. Right-drag, or drag with two fingers, to tilt and turn. Click anywhere for its elevation.</p>
+
+    <div class="grp">
+      <h2>Views</h2>
+      <div class="row" id="views">
+        <button class="btn" data-view="house" type="button">The house</button>
+        <button class="btn" data-view="north" type="button">Up the river</button>
+        <button class="btn" data-view="south" type="button">Through the Highlands</button>
+        <button class="btn" data-view="all" type="button">All 20 miles</button>
+        <button class="btn spin" id="spin" type="button">Circle</button>
+      </div>
+    </div>
+
+    <div class="grp">
+      <h2>Ground</h2>
+      <div class="row" id="ground">
+        <button class="btn on" data-ground="relief" type="button">Relief</button>
+        <button class="btn" data-ground="aerial" type="button">Aerial photo</button>
+      </div>
+      <h2 style="margin-top:12px">Height exaggeration</h2>
+      <div class="row" id="exag">
+        <button class="btn" data-x="1" type="button">True</button>
+        <button class="btn on" data-x="1.5" type="button">1.5×</button>
+        <button class="btn" data-x="2" type="button">2×</button>
+        <button class="btn" data-x="3" type="button">3×</button>
+      </div>
+    </div>
+
+    <div class="grp">
+      <h2>Layers</h2>
+      <div id="layers"></div>
+    </div>
+
+    <div class="grp">
+      <div class="cats-head"><h2>Places from the guide</h2><button id="allCats" type="button">Hide all</button></div>
+      <div class="search"><input id="q" type="search" placeholder="Find a place" autocomplete="off" aria-label="Find a place from the guide" /></div>
+      <ul class="results" id="results"></ul>
+      <div id="cats"></div>
+    </div>
+
+    <div class="credits">
+      Terrain: <a href="https://registry.opendata.aws/terrain-tiles/" target="_blank" rel="noopener">AWS Terrain Tiles</a>, built from USGS 3DEP elevation data (about 10-meter cells here); the contour lines are computed from the same data. Buildings, roads, trails, peaks and the smaller points of interest: <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors, served by <a href="https://openfreemap.org" target="_blank" rel="noopener">OpenFreeMap</a>. Most buildings carry no height in OpenStreetMap and are drawn at a standard height, so they show where things are, not how tall they are. Aerial photo: Esri World Imagery. The house is placed at the center of its tax parcel; guide places use the guide's own coordinates, which are approximate.
+    </div>
+  </aside>
+
+  <div class="readout" id="readout">Move over the map for elevation</div>
+  <div class="loading" id="loading">Loading terrain…</div>
+
+  <script src="https://unpkg.com/maplibre-gl@5.24.1/dist/maplibre-gl.js"></script>
+  <script src="https://unpkg.com/maplibre-contour@0.2.0/dist/index.min.js"></script>
+  <script src="./data.js"></script>
+  <script src="./map3d.js"></script>
+</body>
+</html>

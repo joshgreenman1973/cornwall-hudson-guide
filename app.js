@@ -374,6 +374,7 @@
     nav.appendChild(top);
     // Map leads as a distinct overview view (it spans everything).
     const mapA = el('a', 'page-pill', '🗺 Map'); mapA.href = 'map.html'; nav.appendChild(mapA);
+    const map3A = el('a', 'page-pill', '⛰ 3D map'); map3A.href = 'map3d.html'; nav.appendChild(map3A);
     let lastGroup = null;
     liveSections().forEach((cfg) => {
       if (cfg.group && lastGroup && cfg.group !== lastGroup) nav.appendChild(el('span', 'nav-sep'));
@@ -417,6 +418,7 @@
             <h4>Good to wander</h4>
             <ul>
               <li><a href="map.html">🗺 The map</a></li>
+              <li><a href="map3d.html">⛰ The 20 miles in 3D</a></li>
               <li><a href="wildlife.html">🦅 Wildlife & habitat</a></li>
               <li><a href="#outdoors">The outdoors</a></li>
               <li><a href="#on-the-water">On the water</a></li>
