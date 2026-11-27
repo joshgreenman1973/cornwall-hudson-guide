@@ -153,6 +153,16 @@
     .tape .heading b { display: block; font-size: 22px; color: var(--fg); font-variant-numeric: tabular-nums; }
     .tape .heading span { font-size: 12px; color: var(--fg2); }
     .standing .readout { display: block; bottom: auto; top: 104px; }
+    .sky { position: absolute; inset: 0; z-index: 3; pointer-events: none; overflow: hidden; display: none; }
+    .standing .sky { display: block; }
+    .sky span { position: absolute; left: 0; top: 0; width: 1px; height: 7px; margin-top: -7px; background: rgba(242,243,239,.55); }
+    .sky span.sn, .sky span.sl { height: 16px; margin-top: -16px; background: rgba(242,243,239,.8); }
+    .sky span i { position: absolute; bottom: 18px; left: 0; transform: translateX(-50%); font-style: normal; white-space: nowrap;
+      font-size: 12px; color: var(--fg2); text-shadow: 0 0 4px #111311, 0 0 8px #111311; font-variant-numeric: tabular-nums; }
+    .sky span.sl i { font-size: 17px; font-weight: 700; color: var(--fg); }
+    .sky span.sl.ic i { font-size: 13px; color: var(--fg2); }
+    .sky span.sl.north { background: var(--accent); }
+    .sky span.sl.north i { color: var(--accent); }
     .standing .maplibregl-ctrl-top-right, .standing .maplibregl-ctrl-scale, .standing .house { display: none; }
 
     .tip { position: fixed; z-index: 7; pointer-events: none; max-width: 280px; background: rgba(17,19,17,.95); border: 1px solid var(--line);
@@ -282,6 +292,7 @@
     </svg>
   </button>
   <div class="tape" id="tape" aria-hidden="true"><div class="marks" id="tapeMarks"></div><div class="caret"></div><div class="heading" id="heading"></div></div>
+  <div class="sky" id="sky" aria-hidden="true"></div>
   <div class="tip" id="tip" hidden></div>
   <div class="readout" id="readout">Move over the map for elevation</div>
   <div class="loading" id="loading">Loading terrain…</div>
@@ -289,6 +300,6 @@
   <script src="https://unpkg.com/maplibre-gl@5.24.1/dist/maplibre-gl.js"></script>
   <script src="https://unpkg.com/maplibre-contour@0.2.0/dist/index.min.js"></script>
   <script src="./data.js"></script>
-  <script src="./map3d.js?v=19"></script>
+  <script src="./map3d.js?v=22"></script>
 </body>
 </html>

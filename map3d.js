@@ -341,6 +341,7 @@
       var z = elevAt(ll);
       readout.innerHTML = (z == null ? '' : '<b>' + fmtFt(z) + ' ft</b> &nbsp;·&nbsp; ') + esc(where(ll.lat, ll.lng));
       // structure tooltip
+      if (poiAt(pt)) { tip.hidden = true; map.getCanvas().style.cursor = 'pointer'; return; }
       var b = buildingAt(pt, ll);
       if (b) {
         tip.innerHTML = buildingHTML(b);
@@ -350,7 +351,7 @@
         if (y + h > window.innerHeight - 8) y = pt.y - h - 16;
         tip.style.left = x + 'px'; tip.style.top = y + 'px';
         map.getCanvas().style.cursor = 'pointer';
-      } else if (!tip.hidden) {
+      } else {
         tip.hidden = true; map.getCanvas().style.cursor = '';
       }
     });
@@ -445,7 +446,9 @@
   }
 
   // ---------- popups ----------
-  var popup = new maplibregl.Popup({ maxWidth: '300px', offset: 10 });
+  // The popup closes itself on a map click, which would also swallow the next popup opened by that
+  // same click, so the click handler below closes it instead.
+  var popup = new maplibregl.Popup({ maxWidth: '300px', offset: 10, closeOnClick: false });
   function standBtn(lng, lat) {
     return '<button class="stand" type="button" data-lng="' + lng + '" data-lat="' + lat + '">Stand here and look around</button>';
   }
@@ -462,23 +465,64 @@
       (p.blurb ? '<p>' + esc(p.blurb) + '</p>' : '') +
       '<div class="links">' + links + '</div>' + standBtn(p.lon, p.lat) + '</div>').addTo(map);
   }
-  var clickable = ['places', 'peak-dot', 'peak-label', 'osm-poi'];
+  // Everything with a name on the map can be clicked: guide places, peaks, OpenStreetMap points of
+  // interest, towns and hamlets, and named water. Dots and their labels both count, and the click
+  // reaches a few pixels around the cursor so small dots are easy to hit.
+  var CLICKABLE = ['places-label', 'places', 'peak-label', 'peak-dot', 'osm-poi-label', 'osm-poi',
+    'place-town', 'place-small', 'water-name', 'waterway-name'];
+  var PLACE_KIND = { city: 'City', town: 'Town', village: 'Village', hamlet: 'Hamlet', suburb: 'Neighborhood', neighbourhood: 'Neighborhood' };
+  function poiAt(pt) {
+    var layers = CLICKABLE.filter(function (id) { return map.getLayer(id) && map.getLayoutProperty(id, 'visibility') !== 'none'; });
+    var r = 7, hits = map.queryRenderedFeatures([[pt.x - r, pt.y - r], [pt.x + r, pt.y + r]], { layers: layers });
+    var best = null, bestKey = 1e9;
+    hits.forEach(function (f) {
+      if (!f.properties.name && f.layer.id !== 'places' && f.layer.id !== 'places-label') return;
+      var d = 0;
+      if (f.geometry.type === 'Point') { var q = map.project(f.geometry.coordinates); d = Math.hypot(q.x - pt.x, q.y - pt.y); }
+      var key = CLICKABLE.indexOf(f.layer.id) * 100 + d;
+      if (key < bestKey) { bestKey = key; best = f; }
+    });
+    return best;
+  }
+  function elevLine(lng, lat) {
+    var z = elevAt({ lng: lng, lat: lat });
+    return z == null ? '' : ' · about ' + fmtFt(z) + ' ft up';
+  }
+  function dirLink(lng, lat) {
+    return '<div class="links"><a href="https://www.google.com/maps/dir/?api=1&destination=' + lat.toFixed(6) + ',' + lng.toFixed(6) +
+      '" target="_blank" rel="noopener">Directions ↗</a></div>';
+  }
+  function poiPopup(f, clickLL) {
+    var pr = f.properties, id = f.layer.id;
+    var ll = f.geometry.type === 'Point' ? f.geometry.coordinates : [clickLL.lng, clickLL.lat];
+    var lng = ll[0], lat = ll[1], kind, sub, extra = '';
+    if (id === 'places' || id === 'places-label') return placePopup(pr.i);
+    if (id === 'peak-dot' || id === 'peak-label') {
+      kind = 'Peak';
+      sub = (pr.ele_ft ? Number(pr.ele_ft).toLocaleString('en-US') + ' ft (OpenStreetMap) · ' : '') + esc(where(lat, lng));
+    } else if (id === 'osm-poi' || id === 'osm-poi-label') {
+      kind = String(pr.subclass || pr['class'] || 'Place').replace(/_/g, ' ');
+      kind = kind.charAt(0).toUpperCase() + kind.slice(1);
+      sub = esc(where(lat, lng)) + elevLine(lng, lat) + '<br>From OpenStreetMap; not checked for the guide';
+      extra = dirLink(lng, lat);
+    } else if (id === 'place-town' || id === 'place-small') {
+      kind = PLACE_KIND[pr['class']] || 'Place';
+      sub = esc(where(lat, lng)) + elevLine(lng, lat);
+      extra = dirLink(lng, lat);
+    } else {
+      kind = id === 'water-name' ? 'Water' : 'Stream';
+      sub = 'Label at ' + esc(where(lat, lng));
+    }
+    popup.setLngLat([lng, lat]).setHTML('<div class="pp"><span class="cat">' + esc(kind) + '</span><b>' + esc(pr.name) + '</b><div class="sub">' +
+      sub + '</div>' + extra + standBtn(lng, lat) + '</div>').addTo(map);
+    tip.hidden = true;
+  }
   map.on('click', function (e) {
     if (suppressClick) { suppressClick = false; return; }
     if (picking) { standAt(e.lngLat.lng, e.lngLat.lat); return; }
-    var hits = map.queryRenderedFeatures(e.point, { layers: clickable.filter(function (id) { return map.getLayer(id) && map.getLayoutProperty(id, 'visibility') !== 'none'; }) });
-    if (hits.length) {
-      var f = hits[0], pr = f.properties, ll = f.geometry.coordinates;
-      if (f.layer.id === 'places') return placePopup(pr.i);
-      if (f.layer.id === 'peak-dot' || f.layer.id === 'peak-label') {
-        popup.setLngLat(ll).setHTML('<div class="pp"><span class="cat">Peak</span><b>' + esc(pr.name) + '</b><div class="sub">' +
-          (pr.ele_ft ? Number(pr.ele_ft).toLocaleString('en-US') + ' ft (OpenStreetMap) · ' : '') + esc(where(ll[1], ll[0])) + '</div>' + standBtn(ll[0], ll[1]) + '</div>').addTo(map);
-        return;
-      }
-      popup.setLngLat(ll).setHTML('<div class="pp"><span class="cat">' + esc(String(pr.subclass || pr.class || 'Place').replace(/_/g, ' ')) +
-        '</span><b>' + esc(pr.name || 'Unnamed') + '</b><div class="sub">' + esc(where(ll[1], ll[0])) + '<br>From OpenStreetMap; not checked for the guide</div></div>').addTo(map);
-      return;
-    }
+    popup.remove();
+    var f = poiAt(e.point);
+    if (f) return poiPopup(f, e.lngLat);
     var bld = buildingAt(e.point, e.lngLat);
     if (bld) {
       popup.setLngLat(e.lngLat).setHTML('<div class="pp bld">' + buildingHTML(bld) + standBtn(e.lngLat.lng, e.lngLat.lat) + '</div>').addTo(map);
@@ -488,10 +532,6 @@
     var z = elevAt(e.lngLat);
     popup.setLngLat(e.lngLat).setHTML('<div class="pp"><b>' + (z == null ? 'Elevation loading' : 'About ' + fmtFt(z) + ' ft') + '</b><div class="sub">' +
       esc(where(e.lngLat.lat, e.lngLat.lng)) + '<br>' + e.lngLat.lat.toFixed(4) + '° N, ' + Math.abs(e.lngLat.lng).toFixed(4) + '° W</div>' + standBtn(e.lngLat.lng, e.lngLat.lat) + '</div>').addTo(map);
-  });
-  clickable.forEach(function (id) {
-    map.on('mouseenter', id, function () { map.getCanvas().style.cursor = 'pointer'; });
-    map.on('mouseleave', id, function () { map.getCanvas().style.cursor = ''; });
   });
 
   // Aim the camera at the ground, not at sea level under the mountain.
@@ -592,6 +632,46 @@
     else el.className = 'tk mini';
     tapeMarks.appendChild(el); marks.push([a, el]);
   }
+  // Compass marks along the skyline in the standing view. For each bearing, the skyline's angle above or
+  // below level is found by marching out over the terrain tiles (up to 40 km) and keeping the steepest
+  // sight line; results are cached for the spot and eye height and refreshed as detailed tiles load.
+  var sky = document.getElementById('sky'), skyMarks = [], skyCache = {}, skyKey = '';
+  for (var sa = 0; sa < 360; sa += 5) {
+    if (sa % 10 && sa % 45) continue;
+    var se = document.createElement('span'), lab = '';
+    if (LETTERS[sa] != null) { se.className = 'sl' + (sa % 90 ? ' ic' : '') + (sa === 0 ? ' north' : ''); lab = LETTERS[sa]; }
+    else if (sa % 30 === 0) { se.className = 'sn'; lab = sa + '°'; }
+    else se.className = 'st';
+    se.innerHTML = lab ? '<i>' + lab + '</i>' : '';
+    sky.appendChild(se); skyMarks.push([sa, se]);
+  }
+  function skylineAngle(a) {
+    if (skyCache[a] != null) return skyCache[a];
+    var A = vp.ground + eyeFt / 3.28084, best = -Math.PI / 2, L = 20;
+    while (L < 40000) {
+      var q = metersAhead(vp.lat, vp.lng, a, L), z = map.queryTerrainElevation(q);
+      if (z != null) { var ang = Math.atan2(z - A, L); if (ang > best) best = ang; }
+      L *= 1.05;
+    }
+    return (skyCache[a] = best);
+  }
+  function syncSky(w, h) {
+    var key = vp.lng + ',' + vp.lat + ',' + vp.ground + ',' + eyeFt;
+    if (key !== skyKey) { skyKey = key; skyCache = {}; }
+    var t = Math.tan(vp.fov * toR / 2), e0 = (90 - vp.pitch) * toR, ce = Math.cos(e0), sn = Math.sin(e0);
+    skyMarks.forEach(function (m) {
+      var d = ((m[0] - vp.bearing + 540) % 360 - 180) * toR, el = m[1];
+      if (Math.abs(d) > 1.3) { el.style.display = 'none'; return; }
+      var al = skylineAngle(m[0]);
+      // direction in the viewer's frame (forward, right, up), then into the tilted camera
+      var F = Math.cos(al) * Math.cos(d), R = Math.cos(al) * Math.sin(d), U = Math.sin(al);
+      var zf = F * ce - U * sn, yc = F * sn + U * ce;
+      if (zf <= 0.05) { el.style.display = 'none'; return; }
+      var x = w / 2 + R / zf * (h / 2) / t, y = h / 2 - yc / zf * (h / 2) / t;
+      if (x < -40 || x > w + 40 || y < 0 || y > h) { el.style.display = 'none'; return; }
+      el.style.display = ''; el.style.transform = 'translate(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px)';
+    });
+  }
   function compassText(b) {
     b = ((b % 360) + 360) % 360;
     var deg = Math.round(b) % 360;
@@ -610,11 +690,13 @@
       var x = w / 2 + Math.tan(d) / Math.tan(halfH) * w / 2;
       el.style.display = ''; el.style.left = x + 'px';
     });
+    syncSky(w, h);
     var down = 90 - vp.pitch;
     heading.innerHTML = '<b>' + compassText(vp.bearing) + '</b><span>' +
       (down < 0.5 ? 'looking level' : 'looking ' + Math.round(down) + '° down') + ' · ' + Math.round(vp.fov) + '° lens</span>';
   }
   map.on('move', syncCompass);
+  map.on('idle', function () { if (vp) { skyCache = {}; syncCompass(); } });
   syncCompass();
   document.getElementById('rose').addEventListener('click', function () {
     stopSpin();
